@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "113613496032",
+    "project_id": "wincly-11c40",
+    "storage_bucket": "wincly-11c40.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113613496032:android:53f7f4373e34bed79d7a85",
+        "android_client_info": {
+          "package_name": "com.wincly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113613496032-dso7ocvni4jfs878fke4m2s8fkhmahm9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wincly",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "113613496032-mmto040pdamugpp2b0d91mkq10shov64.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4eY-CTOn4cFyHdEDojiNS5rqDc174-X0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113613496032-mmto040pdamugpp2b0d91mkq10shov64.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

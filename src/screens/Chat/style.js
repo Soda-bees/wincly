@@ -1,0 +1,187 @@
+import { Dimensions, StyleSheet } from 'react-native';
+import { colors, fontFamily, fontSize, sizes } from '../../services';
+
+export const styles = StyleSheet.create({
+  container: { height: sizes.screenHeight, backgroundColor: colors.white },
+  header: {
+    width: sizes.screenWidth,
+    height: sizes.screenWidth * 0.2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: sizes.screenHeight * 0.04,
+  },
+  DrawerBtn: {
+    width: sizes.screenHeight * 0.05,
+    height: sizes.screenHeight * 0.035,
+    marginLeft: sizes.screenWidth * 0.05,
+  },
+  DrawerBtnIOS: {
+    width: sizes.screenHeight * 0.05,
+    height: sizes.screenHeight * 0.035,
+    marginLeft: sizes.screenWidth * 0.05,
+  },
+  headerText: {
+    color: colors.black,
+    fontSize: fontSize.h4,
+    fontWeight: 'bold',
+    marginLeft: sizes.screenWidth * 0.1,
+  },
+  input: {
+    backgroundColor: colors.white,
+    width: sizes.screenWidth * 0.9,
+    borderRadius: sizes.screenWidth * 0.5,
+    alignSelf: 'center',
+    color: colors.black,
+    fontSize: fontSize.medium,
+    paddingLeft: sizes.screenWidth * 0.05,
+    borderWidth: 1,
+    borderColor: colors.disabledBg,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2.84,
+    elevation: 2,
+  },
+  inputIOS: {
+    backgroundColor: colors.white,
+    width: sizes.screenWidth * 0.8,
+    borderRadius: sizes.screenWidth * 0.5,
+    alignSelf: 'center',
+    color: colors.black,
+    paddingLeft: sizes.screenWidth * 0.05,
+    fontSize: fontSize.medium,
+    borderWidth: 1,
+    borderColor: colors.disabledBg,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2.84,
+    elevation: 2,
+    padding: sizes.screenHeight * 0.02,
+  },
+  top: {
+    marginTop: sizes.screenHeight * 0.02,
+  },
+  mapView: {
+    backgroundColor: colors.white,
+    width: sizes.screenWidth * 0.93,
+    height: sizes.screenHeight * 0.13,
+    borderRadius: sizes.screenWidth * 0.03,
+    marginTop: sizes.screenHeight * 0.02,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: sizes.screenWidth * 0.03,
+    paddingVertical: sizes.screenHeight * 0.02,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2.84,
+    elevation: 3,
+  },
+  mapInnerView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  mapImageView: {
+    width: sizes.screenWidth * 0.2,
+    height: sizes.screenHeight * 0.1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: sizes.screenWidth * 0.19,
+  },
+  mapImageViewIOS: {
+    width: sizes.screenWidth * 0.21,
+    height: sizes.screenHeight * 0.1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: sizes.screenWidth * 0.19,
+  },
+  mapImage: {
+    height: sizes.screenHeight * 0.08,
+    width: sizes.screenHeight * 0.08,
+    borderRadius: sizes.screenWidth * 0.12,
+    borderColor: colors.appTextColor1,
+    borderWidth: 2
+  },
+  mapImageIOS: {
+    width: sizes.screenHeight * 0.09,
+    height: sizes.screenHeight * 0.09,
+  },
+  text1: {
+    marginLeft: sizes.screenWidth * 0.01,
+    color: colors.black,
+    fontWeight: '600',
+    fontSize: fontSize.h6,
+  },
+  text2: {
+    marginLeft: sizes.screenWidth * 0.01,
+    color: colors.black,
+    fontWeight: '300',
+    width: sizes.screenWidth * 0.55,
+  },
+  paddingBottom: {
+    marginBottom: sizes.screenHeight * 0.08,
+  },
+  paddingBottomIOS: {
+    marginBottom: sizes.screenHeight * 0.12,
+  },
+  time: {
+    color: colors.appTextColor1,
+    bottom: sizes.screenHeight * 0.021,
+    right: sizes.screenWidth * 0.03,
+  },
+  btm: {
+    marginBottom: sizes.screenHeight * 0.03,
+  },
+  seenView: {
+    backgroundColor: colors.appTextColor1,
+    width: sizes.screenHeight * 0.03,
+    height: sizes.screenHeight * 0.03,
+    borderRadius: sizes.screenHeight * 0.05,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // marginBottom:15
+  },
+  noChatText: {
+    color: colors.disabledBg2,
+    fontSize: fontSize.large,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    width: sizes.screenWidth * 0.75,
+    marginBottom:sizes.screenHeight * 0.07
+  },
+  noChatView: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  noChatViewIOS: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: sizes.screenHeight * 0.3,
+  },
+  loaderView: {
+    flex: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loaderViewIOS: {
+    marginTop: sizes.screenHeight * 0.3,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  seenViewText: {
+    color: colors.black,
+    fontSize: fontSize.smallM,
+    fontWeight: '600'
+  }
+});

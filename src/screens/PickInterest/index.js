@@ -1,0 +1,184 @@
+import React, {useEffect, useState} from 'react';
+import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {styles} from './style';
+import BackButton from '../../components/BackButton';
+import Button from '../../components/Button';
+import {useSelector, useDispatch} from 'react-redux';
+import {ActivityIndicator, Checkbox} from 'react-native-paper';
+import axios from 'axios';
+import backendURL from '../../services/config/backendURL';
+import {handleAddUserDetails} from '../../store/userDetailsSlice';
+import Modal from 'react-native-modal';
+import images from '../../services/utilities/images';
+
+export default function PickInterest({route, navigation}) {
+  const dispatch = useDispatch();
+
+  const isSignedIn = useSelector(state => state.isSignedInSlice.isSignIn);
+  const {userDetalis} = useSelector(state => state.userDetailsSlice);
+
+  const [interest, setInterest] = useState([
+    'Travelling',
+    'Workout',
+    'Horse Riding',
+    'Yoga',
+    'Karaoke',
+    'Clubbing',
+    'Painting',
+    'Art',
+    'Gym',
+    'Digital Painting',
+    'Drink',
+    'Dancing',
+    'Singing',
+    'Cafe hopping',
+    'Maths',
+  ]);
+  const [selectedInterest, setSelectedInterest] = useState('');
+  const [loader, setLoader] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (isSignedIn) {
+      setSelectedInterest(userDetalis.interest);
+    } else {
+      setSelectedInterest([]);
+    }
+  }, []);
+
+  const handleConfirm = async () => {
+    setLoader(true);
+    if (isSignedIn) {
+      try {
+        const {data} = await axios.post(
+          backendURL + 'api/wincly/updateProfile',
+          {
+            _id: userDetalis._id,
+            interest: selectedInterest,
+          },
+        );
+        if (data.message == 'Update succesfully!') {
+          const user = data.data;
+          dispatch(handleAddUserDetails(user));
+          setTimeout(() => {
+            setModalVisible(!isModalVisible);
+            setLoader(false);
+          }, 700);
+        }
+      } catch (error) {
+        console.log(error);
+        setTimeout(() => {
+          setLoader(false);
+        }, 700);
+      }
+    } else {
+      const {userData} = route.params;
+      userData.interest = selectedInterest;
+      navigation.navigate('AboutYourself', {userData});
+      setLoader(false);
+    }
+  };
+  return (
+    <SafeAreaView>
+      <View style={styles.container}>
+        <View>
+          <BackButton />
+        </View>
+        <View>
+          <Text style={styles.head}>Pick Your Interests</Text>
+        </View>
+        <View style={styles.interestView}>
+          {interest.map((item, index) => {
+            return (
+              <View key={index} style={styles.interestOption}>
+                <TouchableOpacity
+                  onPress={() => {
+                    // console.log(selectedInterest);
+                    if (selectedInterest.includes(item)) {
+                      const array = selectedInterest.filter(function (letter) {
+                        return letter !== item;
+                      });
+                      setSelectedInterest(array);
+                    } else {
+                      setSelectedInterest([...selectedInterest, item]);
+                    }
+                  }}>
+                  {Platform.OS == 'ios' ? (
+                    <View
+                      style={
+                        selectedInterest.indexOf(item) !== -1
+                          ? styles.btnTextFilled
+                          : styles.btnText
+                      }>
+                      <Text
+                        style={
+                          selectedInterest.indexOf(item) !== -1
+                            ? styles.btnTextFilledIOS
+                            : styles.btnTextIOS
+                        }>
+                        {item}
+                      </Text>
+                    </View>
+                  ) : (
+                    <Text
+                      style={
+                        selectedInterest.indexOf(item) !== -1
+                          ? styles.btnTextFilled
+                          : styles.btnText
+                      }>
+                      {item}
+                    </Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            );
+          })}
+        </View>
+        <View style={styles.btnTop}>
+          {loader ? (
+            <View style={styles.loader}>
+              <ActivityIndicator size="small" color="#000" />
+            </View>
+          ) : (
+            <Button
+              title={isSignedIn ? 'Update' : 'Continue'}
+              onPress={handleConfirm}
+            />
+          )}
+        </View>
+        <Modal isVisible={isModalVisible}>
+          <View style={styles.modalView}>
+            <Image source={images.checkmark} style={styles.checkmark} />
+
+            <Text style={styles.modelText}>
+              {' '}
+              <Text style={styles.blueText2}> Interest Updated! </Text>your
+              interest has been updated succesfully.
+            </Text>
+          </View>
+          <View style={styles.submitTopModal}>
+            <TouchableOpacity
+              style={styles.signInBtnModal}
+              onPress={() => {
+                setModalVisible(false);
+                navigation.navigate('Home');
+              }}>
+              <View style={styles.signInBtnModal}>
+                <View style={styles.signUpContent}>
+                  <Text
+                    style={
+                      Platform.OS == 'ios'
+                        ? styles.btnTextIOS2
+                        : styles.btnText2
+                    }>
+                    Done
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      </View>
+    </SafeAreaView>
+  );
+}

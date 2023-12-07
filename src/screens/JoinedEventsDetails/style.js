@@ -1,0 +1,298 @@
+import { Dimensions, StyleSheet } from 'react-native';
+import { colors, fontFamily, fontSize, sizes } from '../../services';
+
+export const styles = StyleSheet.create({
+  container: { height: sizes.screenHeight, backgroundColor: colors.white },
+  innerContainer: {
+    // backgroundColor:"red",
+    width: sizes.screenWidth * 0.9,
+    alignSelf: 'center',
+  },
+  eventCardImgView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  eventCardProfileImg: {
+    height: sizes.screenHeight * 0.07,
+    width: sizes.screenHeight * 0.07,
+    borderRadius: sizes.screenHeight * 0.5,
+    borderWidth: sizes.screenWidth * 0.007,
+    borderColor: colors.appTextColor1,
+  },
+  eventCardUsernameText: {
+    color: colors.black,
+    marginLeft: sizes.screenWidth * 0.02,
+    fontWeight: '600',
+    fontSize: fontSize.large,
+  },
+  interestText: {
+    color: colors.black,
+    marginLeft: sizes.screenWidth * 0.02,
+    fontWeight: '400',
+    fontSize: fontSize.h5,
+    marginTop: sizes.screenHeight * 0.02,
+    borderBottomColor: '#000000',
+    borderBottomWidth: 1,
+    paddingBottom: sizes.screenHeight * 0.02,
+  },
+  eventCardTimeText: {
+    color: colors.disabledBg2,
+    marginLeft: sizes.screenWidth * 0.02,
+    fontSize: fontSize.small,
+  },
+  locationView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  locationImg: {
+    width: sizes.screenWidth * 0.05,
+    height: sizes.screenHeight * 0.025,
+  },
+  locationText: {
+    color: colors.black,
+    marginLeft: sizes.screenWidth * 0.01,
+    fontWeight: '500',
+    fontSize: fontSize.small,
+  },
+  noOfPersonText: {
+    color: colors.black,
+    backgroundColor: colors.appTextColor1,
+    paddingHorizontal: sizes.screenWidth * 0.05,
+    paddingVertical: sizes.screenHeight * 0.01,
+    borderRadius: sizes.screenWidth * 0.06,
+    fontWeight: '500',
+    fontSize: fontSize.small,
+  },
+  locationPersonView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: sizes.screenHeight * 0.01,
+  },
+  line: {
+    width: sizes.screenWidth * 0.97,
+    height: sizes.screenHeight * 0.002,
+    backgroundColor: colors.disabledBg2,
+    alignSelf: 'center',
+    marginTop: sizes.screenHeight * 0.02,
+    marginBottom: sizes.screenHeight * 0.02,
+  },
+  eventDisText: {
+    color: colors.black,
+    fontWeight: '400',
+    fontSize: fontSize.medium,
+    lineHeight: sizes.screenHeight * 0.03,
+  },
+  eventImg: {
+    height: sizes.screenHeight * 0.4,
+    borderRadius: sizes.screenWidth * 0.03,
+    marginTop: sizes.screenHeight * 0.02,
+  },
+
+  startDateView: {
+    // width: sizes.screenWidth * 0.9,
+    height: sizes.screenHeight * 0.07,
+    // alignSelf: 'center',
+    marginTop: sizes.screenHeight * 0.02,
+    borderColor: colors.disabledBg,
+    borderWidth: 1,
+    borderRadius: sizes.screenHeight * 0.02,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // backgroundColor:"red",
+    paddingHorizontal: sizes.screenWidth * 0.03,
+  },
+  insideStartDateView1: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  dateImg: {
+    height: sizes.screenHeight * 0.04,
+    width: sizes.screenHeight * 0.04,
+    tintColor: colors.disabledBg2,
+  },
+  dropItem2: {
+    fontSize: fontSize.regular,
+    color: colors.disabledBg2,
+    fontWeight: 'bold',
+    // marginLeft: sizes.screenWidth * 0.03,
+    textAlign: 'center',
+  },
+  insideStartDateView: {
+    // backgroundColor:"pink",
+    flexDirection: 'column',
+    marginLeft: sizes.screenWidth * 0.02,
+  },
+  text1: {
+    color: colors.disabledBg2,
+    fontSize: fontSize.small,
+    fontWeight: '500',
+  },
+  dropItem: {
+    fontSize: fontSize.large,
+    color: colors.disabledBg2,
+    fontWeight: 'bold',
+    // marginLeft: sizes.screenWidth * 0.03,
+    textAlign: 'center',
+  },
+  timeView: {
+    width: sizes.screenWidth * 0.9,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignSelf: 'center',
+  },
+  startTimeView: {
+    width: sizes.screenWidth * 0.43,
+    height: sizes.screenHeight * 0.07,
+    // alignSelf:"center",
+    marginTop: sizes.screenHeight * 0.02,
+    borderColor: colors.grayBg,
+    borderWidth: 1,
+    borderRadius: sizes.screenHeight * 0.02,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    // backgroundColor:"red",
+    paddingHorizontal: sizes.screenWidth * 0.03,
+  },
+  itemView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: sizes.screenHeight * 0.01,
+  },
+  interestMapText: {
+    color: colors.disabledBg2,
+    marginLeft: 10,
+    // backgroundColor: 'red',
+    borderColor: colors.disabledBg2,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    paddingHorizontal: sizes.screenWidth * 0.07,
+    paddingVertical: sizes.screenHeight * 0.007,
+    borderRadius: sizes.screenWidth * 0.06,
+    fontSize: fontSize.h6,
+    marginTop: sizes.screenHeight * 0.01,
+  },
+  btnViewIOS: {
+    marginBottom: sizes.screenHeight * 0.09,
+  },
+  btnView: {
+    marginBottom: sizes.screenHeight * 0.02,
+    marginTop: sizes.screenHeight * 0.02,
+  },
+  loader: {
+    alignSelf: 'center',
+    backgroundColor: colors.appTextColor1,
+    padding: sizes.screenHeight * 0.02,
+    width: sizes.screenWidth * 0.5,
+    borderRadius: sizes.screenWidth * 0.03,
+  },
+  eventCardTitle: {
+    color: colors.black,
+    marginTop: sizes.screenHeight * 0.01,
+    fontSize: fontSize.medium,
+    fontWeight: '500',
+  },
+  modalView: {
+    backgroundColor: colors.white,
+    height: sizes.screenHeight * 0.33,
+    width: sizes.screenWidth * 0.7,
+    alignItems: 'center',
+    alignSelf: 'center',
+    borderRadius: sizes.screenWidth * 0.06,
+    justifyContent: 'center',
+  },
+  checkmark: {
+    height: sizes.screenHeight * 0.04,
+    width: sizes.screenHeight * 0.04,
+    bottom: sizes.screenHeight * 0.05,
+  },
+  modelText: {
+    fontSize: fontSize.medium,
+    textAlign: 'center',
+    color: colors.black,
+    width: sizes.screenWidth * 0.6,
+    fontWeight: '500',
+    bottom: sizes.screenHeight * 0.03,
+  },
+  blueText: {
+    color: colors.appTextColor1,
+    fontWeight: '800',
+  },
+  submitTopModal: {
+    bottom: sizes.screenHeight * 0.1,
+  },
+  signInBtnModal: {
+    height: sizes.screenHeight * 0.06,
+    width: sizes.screenWidth * 0.4,
+    alignSelf: 'center',
+    backgroundColor: colors.appTextColor1,
+    borderRadius: sizes.screenWidth * 0.02,
+  },
+  signUpContent: {
+    paddingRight: sizes.screenWidth * 0.05,
+    paddingLeft: sizes.screenWidth * 0.05,
+  },
+  btnTextIOS: {
+    textAlign: 'center',
+    marginTop: sizes.screenHeight * 0.018,
+    color: colors.black,
+    fontWeight: '700',
+    fontSize: fontSize.medium,
+  },
+  btnText: {
+    textAlign: 'center',
+    marginTop: sizes.screenHeight * 0.015,
+    color: colors.black,
+    fontWeight: '700',
+    fontSize: fontSize.medium,
+  },
+  eventParticipantsView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: sizes.screenHeight * 0.02,
+    borderBottomColor: '#000000',
+    borderBottomWidth: 1,
+    justifyContent: 'space-between'
+  },
+  eventParticipantsProfile: {
+    height: sizes.screenHeight * 0.1,
+    width: sizes.screenHeight * 0.1,
+    borderRadius: sizes.screenHeight * 0.5,
+    borderWidth: sizes.screenWidth * 0.007,
+    borderColor: colors.appTextColor1,
+  },
+  eventParticipantsInnerView: {
+    // backgroundColor: 'pink',
+    marginLeft: sizes.screenWidth * 0.04
+
+  },
+  eventParticipantsUsername: {
+    fontSize: fontSize.h5,
+    color: colors.black,
+    fontWeight: '600',
+    marginBottom: sizes.screenHeight * 0.01
+  },
+  eventParticipantsMessageBtn: {
+    backgroundColor: colors.appTextColor1,
+    textAlign: 'center',
+    paddingHorizontal: sizes.screenWidth * 0.09,
+    paddingVertical: sizes.screenHeight * 0.01,
+    borderRadius: sizes.screenWidth * 0.05,
+    color: colors.black,
+    marginTop: sizes.screenHeight * 0.01
+
+  },
+  chatIcon: {
+    height: sizes.screenHeight * 0.04,
+    width: sizes.screenWidth * 0.065,
+  },
+  flexRow: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  }
+});
