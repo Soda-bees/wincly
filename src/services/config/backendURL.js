@@ -2,5 +2,5 @@
 
 // const backendURL = 'https://wincly-backend-production.up.railway.app/';
 
-const backendURL = "wincly-backend-updated-production.up.railway.app/"
+const backendURL = "https://wincly-backend-updated-production.up.railway.app/"
 export default backendURL;
