@@ -59,7 +59,18 @@ export async function notificationListners() {
             if (remoteMessage?.data) {
                 navigateName = remoteMessage?.data?.redirectTo
                 console.log("message received", remoteMessage?.data?.chatRoomId, navigateName);
-                showNotification(remoteMessage?.notification?.title, remoteMessage?.notification?.body);
+                // showNotification(remoteMessage?.notification?.title, remoteMessage?.notification?.body);
+            }
+        }
+        if(remoteMessage?.data?.type === 'LikeMatch'){
+            if (remoteMessage?.data) {
+                navigateName = remoteMessage?.data?.redirectTo
+                Alert.alert(remoteMessage?.notification?.title, remoteMessage?.notification?.body, [
+                    { text: 'Cancel' },
+                    { text: 'Okay', 
+                    onPress: () => navigationService.navigate(navigateName, { chatId: remoteMessage?.data?.chatRoomId })
+                 },
+                ]);
             }
         }
     });
@@ -77,6 +88,12 @@ export async function notificationListners() {
             }
         }
         if (remoteMessage?.data?.type === "Message") {
+            if (remoteMessage?.data) {
+                navigateName = remoteMessage?.data?.redirectTo
+                navigationService.navigate(navigateName, { chatId: remoteMessage?.data?.chatRoomId })
+            }
+        }
+        if (remoteMessage?.data?.type === "LikeMatch") {
             if (remoteMessage?.data) {
                 navigateName = remoteMessage?.data?.redirectTo
                 navigationService.navigate(navigateName, { chatId: remoteMessage?.data?.chatRoomId })
@@ -102,6 +119,14 @@ export async function notificationListners() {
                     }
                 }
                 if (remoteMessage?.data?.type === "Message") {
+                    if (remoteMessage?.data) {
+                        navigateName = remoteMessage?.data?.redirectTo
+                        setTimeout(() => {
+                            navigationService.navigate(navigateName, { chatId: remoteMessage?.data?.chatRoomId })
+                        }, 2000)
+                    }
+                }
+                if (remoteMessage?.data?.type === "LikeMatch") {
                     if (remoteMessage?.data) {
                         navigateName = remoteMessage?.data?.redirectTo
                         setTimeout(() => {

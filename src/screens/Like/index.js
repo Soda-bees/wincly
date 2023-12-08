@@ -158,11 +158,12 @@ export default function Like({ navigation }) {
           likeId: updatedUserDetails._id,
           userId: userDetalis._id
         })
-        console.log(data);
+        console.log(data);        
         if (data.message) {
           const obj = {
             userId: item._id,
-            likeId: updatedUserDetails._id
+            likeId: updatedUserDetails._id,
+            userData:updatedUserDetails
           }
           socket.emit('sendLikeData', obj)
           console.log("done");
@@ -177,6 +178,14 @@ export default function Like({ navigation }) {
             console.log(response.data.chatId);
             if (response.data.success) {
               setChatRoomId(response.data.chatId)
+              const chatroomId = response.data.chatId
+              const obj2 = {
+                userId: item._id,
+                likeId: updatedUserDetails._id,
+                userData:updatedUserDetails,
+                chatroomId
+              }
+              socket.emit('sendLikeMatch', obj2)
             }
           } catch (error) {
             console.log("-=-=", error.message);
