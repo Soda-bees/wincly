@@ -113,12 +113,12 @@ export default function OTPEmail({route, navigation}) {
             <Text style={styles.forgetText}>0:0{seconds}</Text>
           )}
         </View>
-        <View style={[styles.row, styles.bottom]}>
+        {/* <View style={[styles.row, styles.bottom]}>
           <Text style={styles.forgetText}>Didn’t receive the OTP? </Text>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={styles.resendText}>Resend</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <View style={[styles.row, styles.footerbottom]}>
           {loader ? (
