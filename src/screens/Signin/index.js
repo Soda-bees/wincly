@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Image,
   ImageBackground,
@@ -9,28 +9,28 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { styles } from './style';
+import {styles} from './style';
 import images from '../../services/utilities/images';
-import { colors, sizes } from '../../services';
+import {colors, sizes} from '../../services';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { ActivityIndicator, Checkbox } from 'react-native-paper';
+import {ActivityIndicator, Checkbox} from 'react-native-paper';
 import Button from '../../components/Button';
-import { useSelector, useDispatch } from 'react-redux';
-import { handleTrue } from '../../store/isSignedInSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {handleTrue} from '../../store/isSignedInSlice';
 import auth from '@react-native-firebase/auth';
-import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import AnimatedLoader from '../AnimatedLoader';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import { handleAddUserDetails } from '../../store/userDetailsSlice';
+import {handleAddUserDetails} from '../../store/userDetailsSlice';
 import Feather from 'react-native-vector-icons/Feather';
 import socket from '../../services/config/io';
 import formatToJSON from '../../services/utilities/JsonLog';
 
-export default function Signin({ navigation, route }) {
+export default function Signin({navigation, route}) {
   const dispatch = useDispatch();
-  const deviceToken = route.params
+  const deviceToken = route.params;
 
   const [loader, setLoader] = useState(false);
   const [email, setEmail] = useState('');
@@ -48,23 +48,30 @@ export default function Signin({ navigation, route }) {
     });
   }, []);
   const handleSendDataForServer = data => {
-    const userData = { username: data.data[0].username, _id: data.data[0]._id, userStatus: "Online" };
+    const userData = {
+      username: data.data[0].username,
+      _id: data.data[0]._id,
+      userStatus: 'Online',
+    };
     socket.emit('set user', userData);
     socket.connect();
     // console.log(`login emit done ${userData}`);
   };
 
-  const handleUpdateDevicToken = async (user) => {
+  const handleUpdateDevicToken = async user => {
     try {
-      const { data } = await axios.post(backendURL + "api/wincly/updateDeviceToken", {
-        _id: user._id,
-        deviceToken
-      })
+      const {data} = await axios.post(
+        backendURL + 'api/wincly/updateDeviceToken',
+        {
+          _id: user._id,
+          deviceToken,
+        },
+      );
       console.log(data.message);
     } catch (error) {
-      console.log("error in device token update");
+      console.log('error in device token update');
     }
-  }
+  };
 
   const handleConfirm = async () => {
     setLoader(true);
@@ -79,7 +86,7 @@ export default function Signin({ navigation, route }) {
       setError('');
       const updatedEmail = email.toLowerCase();
       try {
-        const { data } = await axios.post(backendURL + 'api/wincly/login', {
+        const {data} = await axios.post(backendURL + 'api/wincly/login', {
           email: updatedEmail,
           password,
         });
@@ -94,9 +101,9 @@ export default function Signin({ navigation, route }) {
           // console.log('userLogin===>', user);
           dispatch(handleTrue());
           dispatch(handleAddUserDetails(user));
-          handleUpdateDevicToken(user)
+          handleUpdateDevicToken(user);
           socket.connect();
-          console.log("username===>", data.data[0]._id);
+          console.log('username===>', data.data[0]._id);
           handleSendDataForServer(data);
           // navigation.navigate('MyDrawer' , {
           //   _id:data.data[0]._id
@@ -143,8 +150,8 @@ export default function Signin({ navigation, route }) {
   };
   const handleGoogle = async () => {
     if (Platform.OS == 'android') {
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      const { idToken } = await GoogleSignin.signIn();
+      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+      const {idToken} = await GoogleSignin.signIn();
 
       return auth()
         .signInWithCredential(googleCredential)
@@ -157,7 +164,7 @@ export default function Signin({ navigation, route }) {
 
     // IOS
     else {
-      const { idToken } = await GoogleSignin.signIn();
+      const {idToken} = await GoogleSignin.signIn();
       console.log(idToken, '------->obj');
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
@@ -173,14 +180,16 @@ export default function Signin({ navigation, route }) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <View>
-          <View style={styles.logoView}>
+        <View>   
+          <Image source={images.signInbg} style={styles.bgImage} />
+
+          {/* <View style={styles.logoView}>
             <Image
               resizeMode="center"
               style={styles.logoImg}
               source={images.signinLogo}
             />
-          </View>
+          </View> */}
 
           <View
             style={
@@ -290,7 +299,7 @@ export default function Signin({ navigation, route }) {
             Platform.OS == 'ios' ? styles.btnTopIOS : styles.btnTop,
             styles.row,
           ]}>
-          <TouchableOpacity 
+          <TouchableOpacity
           // onPress={handleFacebook}
           >
             <View style={[styles.darkBtn, styles.row2]}>
@@ -298,10 +307,9 @@ export default function Signin({ navigation, route }) {
               <Text style={styles.darkBtnText}>Facebook</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity 
+          <TouchableOpacity
           // onPress={handleGoogle}
           >
-
             <View style={[styles.greenBtn, styles.row2]}>
               <Image source={images.google} style={styles.google} />
               <Text style={styles.greenBtnText}>Google</Text>

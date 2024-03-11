@@ -169,13 +169,14 @@ export default function Signup({ navigation, route }) {
     <SafeAreaView>
       <View style={styles.container}>
         <View>
-          <View style={styles.logoView}>
+        <Image source={images.signUpbg} style={styles.bgImage} />
+          {/* <View style={styles.logoView}>
             <Image
               resizeMode="center"
               style={styles.logoImg}
               source={images.signinLogo}
             />
-          </View>
+          </View> */}
 
           <View
             style={

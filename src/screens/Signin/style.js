@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   signinView: {
     width: sizes.screenWidth * 0.85,
-    paddingBottom:sizes.screenHeight * 0.02,
+    paddingBottom: sizes.screenHeight * 0.02,
     backgroundColor: 'white',
     alignSelf: 'center',
     borderRadius: 10,
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
   },
   signinViewIOS: {
     width: sizes.screenWidth * 0.85,
-    paddingBottom:sizes.screenHeight * 0.02,
+    paddingBottom: sizes.screenHeight * 0.02,
     backgroundColor: 'white',
     alignSelf: 'center',
     borderRadius: 10,
@@ -82,7 +82,7 @@ export const styles = StyleSheet.create({
   inputView: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom:sizes.screenHeight * 0.02,
+    marginBottom: sizes.screenHeight * 0.02,
     paddingHorizontal: sizes.screenWidth * 0.03,
     justifyContent: 'space-between',
     backgroundColor: colors.white,
@@ -124,11 +124,10 @@ export const styles = StyleSheet.create({
     elevation: 2,
     padding: sizes.screenHeight * 0.02,
   },
-  input2IOS:{
+  input2IOS: {
     padding: sizes.screenHeight * 0.02,
     paddingLeft: sizes.screenWidth * 0.06,
     width: sizes.screenWidth * 0.6,
-
   },
   forgotPassView: {
     flexDirection: 'row',
@@ -224,7 +223,7 @@ export const styles = StyleSheet.create({
   errorText: {
     color: colors.error,
     fontSize: fontSize.smallM,
-    marginBottom:sizes.screenHeight * 0.01
+    marginBottom: sizes.screenHeight * 0.01,
   },
   loader: {
     alignSelf: 'center',
@@ -232,5 +231,11 @@ export const styles = StyleSheet.create({
     padding: sizes.screenHeight * 0.02,
     width: sizes.screenWidth * 0.5,
     borderRadius: sizes.screenWidth * 0.03,
+  },
+  bgImage: {
+    height: sizes.screenHeight * 0.26,
+    resizeMode:'cover',
+    width: sizes.screenWidth,
+    marginBottom:sizes.screenHeight * 0.06
   },
 });

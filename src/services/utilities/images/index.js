@@ -61,6 +61,9 @@ import WalletDrawer from "../../../assets/WalletDrawer.png"
 import walletBGImg from "../../../assets/walletBGImg.png"
 import walletCoins from "../../../assets/walletCoins.png"
 import drawerNotification from "../../../assets/drawerNotification.png"
+import signInbg from "../../../assets/signInbg.png"
+import signUpbg from "../../../assets/signUpbg.png"
+
 
 const images = {
   landingBg,
@@ -125,7 +128,9 @@ const images = {
   WalletDrawer,
   walletBGImg,
   walletCoins,
-  drawerNotification
+  drawerNotification,
+  signInbg,
+  signUpbg
 };
 
 export default images;

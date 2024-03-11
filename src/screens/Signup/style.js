@@ -237,4 +237,10 @@ export const styles = StyleSheet.create({
   showPassTouchable: {
     padding: sizes.screenWidth * 0.01,
   },
+  bgImage: {
+    height: sizes.screenHeight * 0.18,
+    resizeMode:'cover',
+    width: sizes.screenWidth,
+    marginBottom:sizes.screenHeight * 0.02
+  },
 });
