@@ -70,7 +70,7 @@ export default function ForgotPassword({navigation}) {
         }}>
         <View>
           <View style={styles.container}>
-          <Image source={images.signUpbg} style={styles.bgImage} />
+          <Image source={images.forgotPassbg} style={styles.bgImage} />
             <View style={styles.content}>
               <Text style={styles.loginHead}>Forgot Password</Text>
               <View style={styles.textView}>

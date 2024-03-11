@@ -63,6 +63,7 @@ import walletCoins from "../../../assets/walletCoins.png"
 import drawerNotification from "../../../assets/drawerNotification.png"
 import signInbg from "../../../assets/signInbg.png"
 import signUpbg from "../../../assets/signUpbg.png"
+import forgotPassbg from "../../../assets/forgotPassbg.png"
 
 
 const images = {
@@ -130,7 +131,8 @@ const images = {
   walletCoins,
   drawerNotification,
   signInbg,
-  signUpbg
+  signUpbg,
+  forgotPassbg
 };
 
 export default images;
