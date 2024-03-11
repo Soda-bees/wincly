@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {styles} from './style';
-import {SafeAreaView, View, Text, TouchableOpacity, Alert} from 'react-native';
+import {SafeAreaView, View, Text, TouchableOpacity, Alert, Image} from 'react-native';
 import {
   CodeField,
   Cursor,
@@ -9,6 +9,7 @@ import {
 } from 'react-native-confirmation-code-field';
 import Button from '../../components/Button';
 import {ActivityIndicator} from 'react-native-paper';
+import images from '../../services/utilities/images';
 
 export default function OTPEmail({route, navigation}) {
   const {email, otp} = route.params;
@@ -72,6 +73,7 @@ export default function OTPEmail({route, navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
+      <Image source={images.forgotPassbg} style={styles.bgImage} />
         <View style={styles.content}>
           <Text style={styles.otpHead}>Verification Code</Text>
           <View style={styles.textView}>
