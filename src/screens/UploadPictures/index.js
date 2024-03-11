@@ -187,6 +187,7 @@ export default function UploadPictures({route, navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
+      <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>
           <BackButton skip={true} path="PersonalInfo" userData={userData2} />
         </View>

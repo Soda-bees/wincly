@@ -65,4 +65,5 @@ export const styles = StyleSheet.create({
     marginTop:sizes.screenHeight * 0.02
     // marginTop:sizes.screenHeight * 0.04
   },
+
 });

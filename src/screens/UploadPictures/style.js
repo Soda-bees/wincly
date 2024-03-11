@@ -65,4 +65,11 @@ export const styles = StyleSheet.create({
     width: sizes.screenWidth * 0.5,
     borderRadius: sizes.screenWidth * 0.03,
   },
+  bgImage: {
+    height: sizes.screenHeight * 0.09,
+    resizeMode: 'cover',
+    width: sizes.screenWidth,
+    marginBottom: sizes.screenHeight * -0.04,
+  },
+  
 });

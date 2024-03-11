@@ -13,6 +13,7 @@ import Button from '../../components/Button';
 import {colors} from '../../services';
 import DatePicker from 'react-native-date-picker';
 import {format} from 'date-fns';
+import images from '../../services/utilities/images';
 
 export default function PersonalInfo({route , navigation}) {
 
@@ -56,6 +57,7 @@ export default function PersonalInfo({route , navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
+      
         <View>
           <BackButton skip={true} path="KindFriend" userData={userData2}/>
         </View>

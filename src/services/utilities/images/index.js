@@ -64,6 +64,7 @@ import drawerNotification from "../../../assets/drawerNotification.png"
 import signInbg from "../../../assets/signInbg.png"
 import signUpbg from "../../../assets/signUpbg.png"
 import forgotPassbg from "../../../assets/forgotPassbg.png"
+import profileInfobg from "../../../assets/profileInfobg.png"
 
 
 const images = {
@@ -132,7 +133,8 @@ const images = {
   drawerNotification,
   signInbg,
   signUpbg,
-  forgotPassbg
+  forgotPassbg,
+  profileInfobg
 };
 
 export default images;
