@@ -49,6 +49,7 @@ import MyReview from '../../screens/Reviews';
 import Wallet from '../../screens/Wallet';
 import navigationService from './navigationService';
 import Notification from '../../screens/Notification';
+import Introduction from '../../screens/Introduction';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -395,6 +396,7 @@ const MyDrawer = () => {
 const AuthStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Introduction" component={Introduction} />
       <Stack.Screen name="LandingPage" component={LandingPage} />
       <Stack.Screen name="MyDrawer" component={MyDrawer} />
       <Stack.Screen name="Signin" component={Signin} />
