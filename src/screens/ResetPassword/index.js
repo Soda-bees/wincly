@@ -66,6 +66,7 @@ export default function ResetPassword({navigation, route}) {
         }}>
         <View>
           <View style={styles.container}>
+          <Image source={images.forgotPassbg} style={styles.bgImage} />
             <View style={styles.content}>
               <Text style={styles.loginHead}>Reset Password</Text>
               <View style={styles.textView}>
