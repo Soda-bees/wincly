@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Platform,
   ScrollView,
+  Image,
 } from 'react-native';
 import {styles} from './style';
 import {colors, sizes} from '../../services';
@@ -15,6 +16,7 @@ import AnimatedLoader from '../AnimatedLoader';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
 import {ActivityIndicator, Checkbox} from 'react-native-paper';
+import images from '../../services/utilities/images';
 
 export default function PhoneVerification({route, navigation}) {
   const {userData} = route.params;
@@ -62,6 +64,7 @@ export default function PhoneVerification({route, navigation}) {
         }}>
         <View>
           <View style={styles.container}>
+          <Image source={images.forgotPassbg} style={styles.bgImage} />
             <View style={styles.content}>
               <Text style={styles.loginHead}>Verify your number</Text>
               <View style={styles.textView}>

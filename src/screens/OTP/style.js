@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {height: sizes.screenHeight, backgroundColor: colors.white},
   content: {
     alignItems: 'center',
-    marginTop: sizes.screenHeight * 0.2,
+    marginTop: sizes.screenHeight * 0.02,
   },
   otpHead: {
     fontSize: fontSize.h4,
@@ -109,5 +109,11 @@ export const styles = StyleSheet.create({
     padding: sizes.screenHeight * 0.02,
     width: sizes.screenWidth * 0.5,
     borderRadius: sizes.screenWidth * 0.03,
+  },
+  bgImage: {
+    height: sizes.screenHeight * 0.18,
+    resizeMode:'cover',
+    width: sizes.screenWidth,
+    marginBottom:sizes.screenHeight * 0.02
   },
 });

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Platform,
+  Image,
 } from 'react-native';
 import {
   CodeField,
@@ -16,6 +17,7 @@ import {
 } from 'react-native-confirmation-code-field';
 import Button from '../../components/Button';
 import {ActivityIndicator, Checkbox} from 'react-native-paper';
+import images from '../../services/utilities/images';
 
 export default function OTP({route, navigation}) {
   // const {otp} = route.params;
@@ -77,6 +79,7 @@ export default function OTP({route, navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
+      <Image source={images.forgotPassbg} style={styles.bgImage} />
         <View style={styles.content}>
           <Text style={styles.otpHead}>Verification Code</Text>
           <View style={styles.textView}>
