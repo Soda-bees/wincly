@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Platform,
   ScrollView,
-  TextInput,
+  TextInput,Image
 } from 'react-native';
 import {styles} from './style';
 import {colors, sizes} from '../../services';
@@ -14,6 +14,8 @@ import Button from '../../components/Button';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
 import {ActivityIndicator} from 'react-native-paper';
+import images from '../../services/utilities/images';
+
 
 export default function ForgotPassword({navigation}) {
   const [email, setEmail] = useState('');
@@ -68,6 +70,7 @@ export default function ForgotPassword({navigation}) {
         }}>
         <View>
           <View style={styles.container}>
+          <Image source={images.signUpbg} style={styles.bgImage} />
             <View style={styles.content}>
               <Text style={styles.loginHead}>Forgot Password</Text>
               <View style={styles.textView}>
