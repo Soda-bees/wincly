@@ -114,7 +114,7 @@ export default function ProfileInfo({route, navigation}) {
     <SafeAreaView>
       <View style={styles.container}>
       <Image source={images.profileInfobg} style={styles.bgImage} />
-        <View style={styles.testContainer}>
+        <View>
           <BackButton skip={true} path="UploadPictures" userData={userData2} />
         </View>
         <View style={styles.top}>

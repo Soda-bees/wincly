@@ -57,7 +57,7 @@ export default function PersonalInfo({route , navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-      
+      <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>
           <BackButton skip={true} path="KindFriend" userData={userData2}/>
         </View>
