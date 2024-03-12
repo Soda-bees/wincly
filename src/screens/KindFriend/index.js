@@ -9,30 +9,15 @@ export default function KindFriend({route, navigation}) {
   console.log('kindFrndUserData===>', userData);
 
   const [showDropDown, setShowDropDown] = useState(false);
-  const [selectedItem, setSelectedItem] = useState('Social Friend');
+  // const [selectedItem, setSelectedItem] = useState('Social Friend');
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [select,setSelect] = useState(false);
+  const [selectIndex,setSelectIndex] = useState(null)
+  const handlePressSelect = (index) => {
+    setSelect(!select)
+    setSelectIndex(index)
+  }
 
-  // const [selectKindFriend, setKindSelect] = useState([
-  //   {
-  //     type: 'Social Friend',
-  //     image: images.shareIcon,
-  //   },
-  //   {
-  //     type: 'Helping Friend',
-  //     image: images.helpingFriendIcon,
-  //   },
-  //   {
-  //     type: 'Recreation Friend',
-  //     image: images.recreationFriendIcon,
-  //   },
-  //   {
-  //     type: 'Dating',
-  //     image: images.datingIcon,
-  //   },
-  //   {
-  //     type: 'I dont know yet',
-  //     image: images.questionIcon,
-  //   },
-  // ]);
 
 
   const handleConfirm = () => {
@@ -43,11 +28,11 @@ export default function KindFriend({route, navigation}) {
 
     if (selectedItem == 'Social Friend') {
       navigation.navigate('SocialFriendList', {userData});
-    } else if (selectedItem == 'Sports/Recreation Friend') {
+    } else if (selectedItem == 'Recreation Friend') {
       navigation.navigate('SportsFriends', {userData});
     } else if (selectedItem == 'Helping Friend') {
       navigation.navigate('HelpingFriend', {userData});
-    } else if (selectedItem == 'I dont know yet') {
+    } else if (selectedItem == 'I dont know yet' || selectedItem === 'Dating') {
       navigation.navigate('PickInterest', {userData});
     }
   };
@@ -61,25 +46,49 @@ export default function KindFriend({route, navigation}) {
         <View>
           <Text style={styles.head}>What Kind of Friend?</Text>
         </View>
-        {/* <View style={styles.margin}>
-          {selectKindFriend.map((friendKind, index) => {
-            return (
-              <TouchableOpacity key={index}>
-                <View style={[styles.dropDown, styles.row]}>
-                  <Text style={styles.dropItem}>{friendKind.type}</Text>
-                  <Image source={friendKind.image} style={styles.dropIcon} />
-                </View>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-        <View style={styles.btnTop}>
-          <Button title={'Continue'} 
-          onPress={handleConfirm} 
-          />
-        </View> */}
 
-        <TouchableOpacity
+        <View style={styles.margin}>
+          <TouchableOpacity
+          style={[styles.row , selectIndex==0 ? styles.friendContainerOne : styles.friendContainerTwo]}
+            onPress={() => {setSelectedItem('Social Friend'); handlePressSelect(0)}}>
+            <Text style={styles.dropItem}>Social Friend</Text>
+            <Image source={images.shareIcon} style={styles.icon} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.row , selectIndex==1 ? styles.friendContainerOne : styles.friendContainerTwo]}
+            onPress={() => {setSelectedItem('Helping Friend'); handlePressSelect(1)}}>
+            <Text style={styles.dropItem}>Helping Friend</Text>
+            <Image source={images.helpingFriendIcon} style={styles.icon} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.row , selectIndex==2 ? styles.friendContainerOne : styles.friendContainerTwo]}
+            onPress={() => {setSelectedItem('Recreation Friend'); handlePressSelect(2)}}>
+            <Text style={styles.dropItem}>Recreation Friend</Text>
+            <Image source={images.recreationFriendIcon} style={styles.icon} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.row , selectIndex==3 ? styles.friendContainerOne : styles.friendContainerTwo]}
+            onPress={() => {setSelectedItem('Dating'); handlePressSelect(3)}}>
+            <Text style={styles.dropItem}>Dating</Text>
+            <Image source={images.datingIcon} style={styles.icon} />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.row , selectIndex==4 ? styles.friendContainerOne : styles.friendContainerTwo]}
+            onPress={() => {setSelectedItem('I dont know yet'); handlePressSelect(4)}}>
+            <Text style={styles.dropItem}>I dont know yet</Text>
+            <Image source={images.questionIcon} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.btnTop}>
+          <Button title={'Continue'} onPress={handleConfirm} />
+        </View>
+
+        {/* <TouchableOpacity
           style={styles.margin}
           onPress={() => setShowDropDown(!showDropDown)}
           >
@@ -91,7 +100,8 @@ export default function KindFriend({route, navigation}) {
 
         {showDropDown && (
           <View style={styles.dropList}>
-            <TouchableOpacity
+            
+          <TouchableOpacity
               style={[
                 selectedItem == 'Sports/Recreation Friend' && styles.greenBg,
                 styles.dropBtn,
@@ -109,6 +119,7 @@ export default function KindFriend({route, navigation}) {
                 Sports/Recreation Friend
               </Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               style={[
                 selectedItem == 'Helping Friend' && styles.greenBg,
@@ -164,11 +175,11 @@ export default function KindFriend({route, navigation}) {
               </Text>
             </TouchableOpacity>
           </View>
-        )}
-        
-        <View style={showDropDown ? styles.btnTop : styles.btnTop2}>
+        )} */}
+
+        {/* <View style={showDropDown ? styles.btnTop : styles.btnTop2}>
           <Button title={'Continue'} onPress={handleConfirm} />
-        </View>
+        </View> */}
       </View>
     </SafeAreaView>
   );

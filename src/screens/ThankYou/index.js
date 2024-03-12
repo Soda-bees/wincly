@@ -5,7 +5,10 @@ import {styles} from './style';
 import images from '../../services/utilities/images';
 import Button from '../../components/Button';
 
-export default function ThankYou() {
+export default function ThankYou({navigation}) {
+  const handleJoin = ()=>{
+    navigation.navigate("FindYourFriends")
+}
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -18,7 +21,9 @@ export default function ThankYou() {
             This give us an idea of what kind of friends you are looking for!
           </Text>
           <View style={styles.btnTop}>
-          <Button title="Continue"/>
+          <Button title="Continue"
+          onPress={handleJoin}
+          />
         </View>
         </View>
       </View>

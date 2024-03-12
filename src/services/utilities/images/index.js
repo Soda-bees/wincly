@@ -72,6 +72,8 @@ import recreationFriendIcon from "../../../assets/recreationFriendIcon.png"
 import shareIcon from "../../../assets/shareIcon.png"
 import forYourFriends from "../../../assets/forYourFriends.png"
 import thankYou from "../../../assets/thankYou.png"
+import BtmTabWinclies from "../../../assets/BtmTabWinclies.png"
+
 
 const images = {
   landingBg,
@@ -147,7 +149,8 @@ const images = {
   recreationFriendIcon,
   questionIcon,
   thankYou,
-  forYourFriends
+  forYourFriends,
+  BtmTabWinclies
 };
 
 export default images;

@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {styles} from './style';
 import images from '../../services/utilities/images';
 import Button from '../../components/Button';
-export default function FindYourFriends() {
+export default function FindYourFriends({navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>

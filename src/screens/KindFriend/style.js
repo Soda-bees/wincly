@@ -15,8 +15,24 @@ export const styles = StyleSheet.create({
   btnTop2: {
     marginTop: sizes.screenHeight * 0.44,
   },
-  dropDown: {
+  friendContainerOne: {
     backgroundColor: colors.appTextColor1,
+    padding: sizes.screenHeight * 0.02,
+    width: sizes.screenWidth * 0.8,
+    alignSelf: 'center',
+    borderRadius: sizes.screenWidth * 0.5,
+    marginBottom:sizes.screenHeight *0.02
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.25,
+    // shadowRadius: 3.84,
+    // elevation: 5,
+  },
+  friendContainerTwo: {
+    backgroundColor: colors.white,
     padding: sizes.screenHeight * 0.02,
     width: sizes.screenWidth * 0.8,
     alignSelf: 'center',
@@ -37,15 +53,18 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems:'center'
+    alignItems:'center',
   },
   dropItem: {
     fontSize: fontSize.h6,
     color: colors.black,
     fontWeight: 'bold',
     marginLeft: sizes.screenWidth * 0.03,
+    textAlign:'center'
+
+
   },
-  dropIcon: {
+  icon: {
     // height: sizes.screenHeight * 0.015,
     // width: sizes.screenHeight * 0.015,
     right: sizes.screenWidth * 0.05,

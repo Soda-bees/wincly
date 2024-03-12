@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import React, {useEffect, useState} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import LandingPage from '../../screens/LandingPage';
 import Signin from '../../screens/Signin';
 import Signup from '../../screens/Signup';
 import Like from '../../screens/Like';
 import images from '../utilities/images';
-import { Image, Platform, Keyboard } from 'react-native';
-import { sizes } from '../utilities/sizes';
-import { colors } from '../utilities/colors';
+import {Image, Platform, Keyboard} from 'react-native';
+import {sizes} from '../utilities/sizes';
+import {colors} from '../utilities/colors';
 import Chat from '../../screens/Chat';
 import Profile from '../../screens/Profile';
 import Setting from '../../screens/Setting';
@@ -18,7 +18,7 @@ import PickInterest from '../../screens/PickInterest';
 import SelectLocation from '../../screens/SelectLocation';
 import EditProfile from '../../screens/EditProfile';
 import CustumDrawer from '../../components/CustomDrawer';
-import { fontSize } from '../utilities/fonts';
+import {fontSize} from '../utilities/fonts';
 import ForgotPassword from '../../screens/ForgotPassword';
 import OTP from '../../screens/OTP';
 import ResetPassword from '../../screens/ResetPassword';
@@ -36,7 +36,7 @@ import AboutYourself from '../../screens/AboutYourself';
 import ConfirmProfile from '../../screens/ConfirmProfile';
 import ChangePassword from '../../screens/ChangePassword';
 import ChatRoom from '../../screens/ChatRoom';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import Home from '../../screens/Home';
 import UploadPost from '../../screens/UploadPost';
 import EventDetails from '../../screens/EventDetails';
@@ -59,8 +59,9 @@ const Drawer = createDrawerNavigator();
 
 export default function MainNavigator() {
   return (
-    <NavigationContainer ref={(ref) => navigationService.setTopLevelNavigator(ref)}>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <NavigationContainer
+      ref={ref => navigationService.setTopLevelNavigator(ref)}>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="MyStack" component={MyStack} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -71,7 +72,7 @@ const MyStack = () => {
   const isSignin = useSelector(state => state.isSignedInSlice.isSignIn);
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       {isSignin ? (
         <Stack.Screen name="AppStackNavigator" component={AppStackNavigator} />
       ) : (
@@ -85,24 +86,24 @@ const MyStack = () => {
 };
 
 const MyTabs = () => {
-  const [keyboardOpen, setKeyboardOpen] = useState(false)
+  const [keyboardOpen, setKeyboardOpen] = useState(false);
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
         console.log('Keyboard is open');
-        setKeyboardOpen(true)
-      }
+        setKeyboardOpen(true);
+      },
     );
 
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
       () => {
         console.log('Keyboard is closed');
-        setKeyboardOpen(false)
-      }
+        setKeyboardOpen(false);
+      },
     );
-  }, [])
+  }, []);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -111,7 +112,7 @@ const MyTabs = () => {
         tabBarStyle: {
           backgroundColor: colors.appTextColor1,
           height: sizes.screenHeight * 0.085,
-          position: 'absolute'
+          position: 'absolute',
         },
       }}>
       <Tab.Screen
@@ -119,7 +120,7 @@ const MyTabs = () => {
         component={Home}
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) =>
+          tabBarIcon: ({focused}) =>
             focused ? (
               <Image
                 source={images.BtmTabHomeFocus}
@@ -147,7 +148,7 @@ const MyTabs = () => {
         component={Like}
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) =>
+          tabBarIcon: ({focused}) =>
             focused ? (
               <Image
                 source={images.BtmTabLikeFocus}
@@ -170,17 +171,18 @@ const MyTabs = () => {
         }}
       />
 
+
       <Tab.Screen
         name="Chat"
         component={Chat}
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) =>
+          tabBarIcon: ({focused}) =>
             focused ? (
               <Image
                 source={images.BtmTabChatFocus}
                 style={{
-                  display: keyboardOpen ? "none" : 'flex',
+                  display: keyboardOpen ? 'none' : 'flex',
                   height: sizes.screenHeight * 0.08,
                   width: sizes.screenHeight * 0.14,
                   position: 'absolute',
@@ -204,7 +206,7 @@ const MyTabs = () => {
         component={Profile}
         options={{
           tabBarShowLabel: false,
-          tabBarIcon: ({ focused }) =>
+          tabBarIcon: ({focused}) =>
             focused ? (
               <Image
                 source={images.BtmTabUserFocus}
@@ -247,14 +249,14 @@ const MyDrawer = () => {
         name="MyTabs"
         component={MyTabs}
         options={{
-          drawerItemStyle: { height: 0 },
+          drawerItemStyle: {height: 0},
         }}
       />
       <Drawer.Screen
         name="Edit Profile"
         component={EditProfile}
         options={{
-          drawerIcon: ({ color }) => (
+          drawerIcon: ({color}) => (
             <Image
               source={images.editProfileDrawer}
               style={{
@@ -269,7 +271,7 @@ const MyDrawer = () => {
         name="Location"
         component={SelectLocation}
         options={{
-          drawerIcon: ({ color }) => (
+          drawerIcon: ({color}) => (
             <Image
               source={images.locationDrawer}
               style={{
@@ -284,7 +286,7 @@ const MyDrawer = () => {
         name="Interests"
         component={PickInterest}
         options={{
-          drawerIcon: ({ color }) => (
+          drawerIcon: ({color}) => (
             <Image
               source={images.interestDrawer}
               style={{
@@ -299,7 +301,7 @@ const MyDrawer = () => {
         name="My Events"
         component={MyEvents}
         options={{
-          drawerIcon: ({ color }) => (
+          drawerIcon: ({color}) => (
             <Image
               source={images.myEventsDrawer}
               style={{
@@ -307,7 +309,6 @@ const MyDrawer = () => {
                 width: sizes.screenHeight * 0.035,
               }}
             />
-
           ),
         }}
       />
@@ -315,7 +316,7 @@ const MyDrawer = () => {
         name="Joined Events"
         component={JoinedEvents}
         options={{
-          drawerIcon: ({ color }) => (
+          drawerIcon: ({color}) => (
             <Image
               source={images.myEventsDrawer}
               style={{
@@ -323,7 +324,6 @@ const MyDrawer = () => {
                 width: sizes.screenHeight * 0.035,
               }}
             />
-
           ),
         }}
       />
@@ -331,7 +331,7 @@ const MyDrawer = () => {
         name="Wallet"
         component={Wallet}
         options={{
-          drawerIcon: ({ color }) => (
+          drawerIcon: ({color}) => (
             <Image
               source={images.WalletDrawer}
               style={{
@@ -339,7 +339,6 @@ const MyDrawer = () => {
                 width: sizes.screenHeight * 0.035,
               }}
             />
-
           ),
         }}
       />
@@ -347,7 +346,7 @@ const MyDrawer = () => {
         name="Review"
         component={MyReview}
         options={{
-          drawerIcon: ({ color }) => (
+          drawerIcon: ({color}) => (
             <Image
               source={images.reviewDrawer}
               style={{
@@ -355,7 +354,6 @@ const MyDrawer = () => {
                 width: sizes.screenHeight * 0.035,
               }}
             />
-
           ),
         }}
       />
@@ -363,13 +361,13 @@ const MyDrawer = () => {
         name="Notifications"
         component={Notification}
         options={{
-          drawerIcon: ({ color }) => (
+          drawerIcon: ({color}) => (
             <Image
               source={images.drawerNotification}
               style={{
                 height: sizes.screenHeight * 0.035,
                 width: sizes.screenHeight * 0.03,
-                marginLeft: sizes.screenWidth * 0.006
+                marginLeft: sizes.screenWidth * 0.006,
               }}
             />
           ),
@@ -379,7 +377,7 @@ const MyDrawer = () => {
         name="Settings"
         component={Setting}
         options={{
-          drawerIcon: ({ color }) => (
+          drawerIcon: ({color}) => (
             <Image
               source={images.settingDrawer}
               style={{
@@ -390,14 +388,13 @@ const MyDrawer = () => {
           ),
         }}
       />
-
     </Drawer.Navigator>
   );
 };
 
 const AuthStackNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Introduction" component={Introduction} />
       <Stack.Screen name="LandingPage" component={LandingPage} />
       <Stack.Screen name="MyDrawer" component={MyDrawer} />
@@ -427,14 +424,14 @@ const AuthStackNavigator = () => {
       <Stack.Screen name="MyEventDetails" component={MyEventDetails} />
       <Stack.Screen name="JoinEventsDetails" component={JoinEventsDetails} />
       <Stack.Screen name="Review" component={Review} />
-      {/* <Stack.Screen name="FindYourFriends" component={FindYourFriends} />
-      <Stack.Screen name="ThankYou" component={ThankYou} /> */}
+      <Stack.Screen name="FindYourFriends" component={FindYourFriends} />
+      <Stack.Screen name="ThankYou" component={ThankYou} />
     </Stack.Navigator>
   );
 };
 const AppStackNavigator = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="MyDrawer" component={MyDrawer} />
       <Stack.Screen name="LandingPage" component={LandingPage} />
       <Stack.Screen name="Signin" component={Signin} />

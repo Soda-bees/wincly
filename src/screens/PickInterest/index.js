@@ -38,6 +38,7 @@ export default function PickInterest({route, navigation}) {
   const [loader, setLoader] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
 
+ 
   useEffect(() => {
     if (isSignedIn) {
       setSelectedInterest(userDetalis.interest);
@@ -46,6 +47,9 @@ export default function PickInterest({route, navigation}) {
     }
   }, []);
 
+  const handleJoin = ()=>{
+    navigation.navigate("ThankYou")
+}
   const handleConfirm = async () => {
     setLoader(true);
     if (isSignedIn) {
@@ -143,7 +147,8 @@ export default function PickInterest({route, navigation}) {
           ) : (
             <Button
               title={isSignedIn ? 'Update' : 'Continue'}
-              onPress={handleConfirm}
+              // onPress={handleConfirm}
+              onPress={handleJoin}
             />
           )}
         </View>
