@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Platform, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Platform, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from './style';
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
+import images from '../../services/utilities/images';
 
 export default function SocialFriendList({route, navigation}) {
   const {userData} = route.params;
@@ -36,6 +37,7 @@ export default function SocialFriendList({route, navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
+      <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>
           <BackButton />
         </View>

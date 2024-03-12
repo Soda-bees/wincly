@@ -11,6 +11,7 @@ import {styles} from './style';
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
 import {colors} from '../../services';
+import images from '../../services/utilities/images';
 
 export default function AboutYourself({route, navigation}) {
   const {userData} = route.params;
@@ -31,6 +32,7 @@ export default function AboutYourself({route, navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
+      <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>
           <BackButton />
         </View>

@@ -170,4 +170,10 @@ export const styles = StyleSheet.create({
     color: colors.disabledBg2,
     borderColor: colors.black,
   },
+  bgImage: {
+    height: sizes.screenHeight * 0.09,
+    resizeMode: 'cover',
+    width: sizes.screenWidth,
+    marginBottom: sizes.screenHeight * -0.04,
+  },
 });

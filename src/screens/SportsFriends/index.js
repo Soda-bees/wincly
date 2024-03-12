@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  Image,
   Platform,
   SafeAreaView,
   Text,
@@ -9,6 +10,7 @@ import {
 import {styles} from './style';
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
+import images from '../../services/utilities/images';
 
 export default function SportsFriends({route, navigation}) {
   const {userData} = route.params;
@@ -38,6 +40,7 @@ export default function SportsFriends({route, navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
+      <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>
           <BackButton />
         </View>

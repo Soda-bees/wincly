@@ -45,4 +45,10 @@ export const styles = StyleSheet.create({
     fontSize: fontSize.smallM,
     marginTop: sizes.screenHeight * 0.01,
   },
+  bgImage: {
+    height: sizes.screenHeight * 0.09,
+    resizeMode: 'cover',
+    width: sizes.screenWidth,
+    marginBottom: sizes.screenHeight * -0.04,
+  },
 });

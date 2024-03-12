@@ -81,6 +81,7 @@ export default function PickInterest({route, navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
+      <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>
           <BackButton />
         </View>

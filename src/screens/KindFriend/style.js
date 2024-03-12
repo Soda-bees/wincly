@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   btnTop: {
-    marginTop: sizes.screenHeight * 0.2,
+    marginTop: sizes.screenHeight * 0.1,
   },
   btnTop2: {
     marginTop: sizes.screenHeight * 0.44,
@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     width: sizes.screenWidth * 0.8,
     alignSelf: 'center',
     borderRadius: sizes.screenWidth * 0.5,
+    marginBottom:sizes.screenHeight *0.02
     // shadowColor: '#000',
     // shadowOffset: {
     //   width: 0,
@@ -36,6 +37,7 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems:'center'
   },
   dropItem: {
     fontSize: fontSize.h6,
@@ -44,10 +46,10 @@ export const styles = StyleSheet.create({
     marginLeft: sizes.screenWidth * 0.03,
   },
   dropIcon: {
-    height: sizes.screenHeight * 0.015,
-    width: sizes.screenHeight * 0.015,
+    // height: sizes.screenHeight * 0.015,
+    // width: sizes.screenHeight * 0.015,
     right: sizes.screenWidth * 0.05,
-    top: sizes.screenHeight * 0.007,
+    // top: sizes.screenHeight * 0.007,
   },
   dropList: {
     backgroundColor: colors.white,
@@ -92,5 +94,11 @@ export const styles = StyleSheet.create({
   },
   greenBg: {
     backgroundColor: colors.appTextColor1,
+  },
+  bgImage: {
+    height: sizes.screenHeight * 0.09,
+    resizeMode: 'cover',
+    width: sizes.screenWidth,
+    marginBottom: sizes.screenHeight * -0.04,
   },
 });

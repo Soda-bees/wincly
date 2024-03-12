@@ -224,7 +224,7 @@ export const styles = StyleSheet.create({
     marginTop: sizes.screenHeight * 0.015,
   },
   btnTop: {
-    marginTop: sizes.screenHeight * 0.09,
+    marginTop: sizes.screenHeight * 0.06,
   },
   right: {
     // marginLeft:sizes.screenWidth*0.03
@@ -250,4 +250,10 @@ export const styles = StyleSheet.create({
     borderColor: colors.black,
   },
   interestOption: {marginTop: sizes.screenHeight * 0.025},
+  bgImage: {
+    height: sizes.screenHeight * 0.09,
+    resizeMode: 'cover',
+    width: sizes.screenWidth,
+    marginBottom: sizes.screenHeight * -0.04,
+  },
 });

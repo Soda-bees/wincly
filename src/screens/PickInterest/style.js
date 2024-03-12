@@ -344,4 +344,10 @@ export const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: fontSize.medium,
   },
+  bgImage: {
+    height: sizes.screenHeight * 0.09,
+    resizeMode: 'cover',
+    width: sizes.screenWidth,
+    marginBottom: sizes.screenHeight * -0.04,
+  },
 });

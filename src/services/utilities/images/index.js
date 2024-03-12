@@ -65,7 +65,11 @@ import signInbg from "../../../assets/signInbg.png"
 import signUpbg from "../../../assets/signUpbg.png"
 import forgotPassbg from "../../../assets/forgotPassbg.png"
 import profileInfobg from "../../../assets/profileInfobg.png"
-
+import datingIcon from "../../../assets/datingIcon.png"
+import helpingFriendIcon from "../../../assets/helpingFriendIcon.png"
+import questionIcon from "../../../assets/questionIcon.png"
+import recreationFriendIcon from "../../../assets/recreationFriendIcon.png"
+import shareIcon from "../../../assets/shareIcon.png"
 
 const images = {
   landingBg,
@@ -134,7 +138,12 @@ const images = {
   signInbg,
   signUpbg,
   forgotPassbg,
-  profileInfobg
+  profileInfobg,
+  helpingFriendIcon,
+  shareIcon,
+  datingIcon,
+  recreationFriendIcon,
+  questionIcon
 };
 
 export default images;
