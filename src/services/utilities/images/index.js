@@ -70,6 +70,8 @@ import helpingFriendIcon from "../../../assets/helpingFriendIcon.png"
 import questionIcon from "../../../assets/questionIcon.png"
 import recreationFriendIcon from "../../../assets/recreationFriendIcon.png"
 import shareIcon from "../../../assets/shareIcon.png"
+import forYourFriends from "../../../assets/forYourFriends.png"
+import thankYou from "../../../assets/thankYou.png"
 
 const images = {
   landingBg,
@@ -143,7 +145,9 @@ const images = {
   shareIcon,
   datingIcon,
   recreationFriendIcon,
-  questionIcon
+  questionIcon,
+  thankYou,
+  forYourFriends
 };
 
 export default images;

@@ -50,6 +50,8 @@ import Wallet from '../../screens/Wallet';
 import navigationService from './navigationService';
 import Notification from '../../screens/Notification';
 import Introduction from '../../screens/Introduction';
+import ThankYou from '../../screens/ThankYou';
+import FindYourFriends from '../../screens/ForYourFriends';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -425,6 +427,8 @@ const AuthStackNavigator = () => {
       <Stack.Screen name="MyEventDetails" component={MyEventDetails} />
       <Stack.Screen name="JoinEventsDetails" component={JoinEventsDetails} />
       <Stack.Screen name="Review" component={Review} />
+      {/* <Stack.Screen name="FindYourFriends" component={FindYourFriends} />
+      <Stack.Screen name="ThankYou" component={ThankYou} /> */}
     </Stack.Navigator>
   );
 };
