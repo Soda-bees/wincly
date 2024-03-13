@@ -47,9 +47,7 @@ export default function PickInterest({route, navigation}) {
     }
   }, []);
 
-  const handleJoin = ()=>{
-    navigation.navigate("ThankYou")
-}
+
   const handleConfirm = async () => {
     setLoader(true);
     if (isSignedIn) {
@@ -78,7 +76,8 @@ export default function PickInterest({route, navigation}) {
     } else {
       const {userData} = route.params;
       userData.interest = selectedInterest;
-      navigation.navigate('AboutYourself', {userData});
+      // navigation.navigate('AboutYourself', {userData});
+      navigation.navigate('ThankYou', {userData});
       setLoader(false);
     }
   };
@@ -147,8 +146,8 @@ export default function PickInterest({route, navigation}) {
           ) : (
             <Button
               title={isSignedIn ? 'Update' : 'Continue'}
-              // onPress={handleConfirm}
-              onPress={handleJoin}
+              onPress={handleConfirm}
+              // onPress={handleJoin}
             />
           )}
         </View>

@@ -4,7 +4,15 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {styles} from './style';
 import images from '../../services/utilities/images';
 import Button from '../../components/Button';
-export default function FindYourFriends({navigation}) {
+export default function FindYourFriends({route,navigation}) {
+  const {userData} = route.params;
+  console.log(userData,'=============>>');
+
+  const handleContinue =()=>{
+    const {userData} = route.params;
+    navigation.navigate('AboutYourself', {userData});
+
+  }
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -16,7 +24,9 @@ export default function FindYourFriends({navigation}) {
             friends.
           </Text>
           <View style={styles.btnTop}>
-            <Button title="Continue" />
+            <Button title="Continue" 
+              onPress={handleContinue}
+              />
           </View>
         </View>
       </View>

@@ -32,8 +32,8 @@ export default function ConfirmProfile({route, navigation}) {
       setAge('');
     } else {
       const currentYear = new Date().getFullYear();
-      console.log(userData.DOB);
-      const DOByear = userData.DOB.substr(12);
+      console.log(userData?.DOB);
+      const DOByear = userData?.DOB?.substr(12);
       const finalAge = currentYear - DOByear;
       setAge(finalAge);
     }
@@ -115,7 +115,7 @@ export default function ConfirmProfile({route, navigation}) {
 
           <View style={styles.interestView}>
             {userData &&
-              userData.interest.map((item, index) => {
+              userData?.interest?.map((item, index) => {
                 return (
                   <Text
                     style={
