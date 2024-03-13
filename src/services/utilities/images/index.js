@@ -73,6 +73,12 @@ import shareIcon from "../../../assets/shareIcon.png"
 import forYourFriends from "../../../assets/forYourFriends.png"
 import thankYou from "../../../assets/thankYou.png"
 import BtmTabWinclies from "../../../assets/BtmTabWinclies.png"
+import myWincliesbg from "../../../assets/myWincliesbg.png"
+import dollarCoins from "../../../assets/dollarCoins.png"
+import myWincliesIcon from "../../../assets/myWincliesIcon.png"
+import cart from "../../../assets/cart.png"
+import shopWinclybg from "../../../assets/shopWinclybg.png"
+import shopWinclySquare from "../../../assets/shopWinclySquare.png"
 
 
 const images = {
@@ -150,7 +156,13 @@ const images = {
   questionIcon,
   thankYou,
   forYourFriends,
-  BtmTabWinclies
+  BtmTabWinclies,
+  myWincliesbg,
+  shopWinclybg,
+  dollarCoins,
+  cart,
+  myWincliesIcon,
+  shopWinclySquare
 };
 
 export default images;

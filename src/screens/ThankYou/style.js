@@ -24,11 +24,12 @@ export const styles = StyleSheet.create({
   head2: {
     marginTop:sizes.screenHeight* 0.03,
     textAlign: 'center',
-    fontSize: fontSize.h4,
+    fontSize: fontSize.h5,
     color: colors.black,
-    fontWeight: '500',
-    width: sizes.screenWidth * 0.67,
+    fontWeight: '600',
+    width: sizes.screenWidth * 0.56,
     alignSelf: 'center',
+    lineHeight:sizes.screenHeight* 0.038
   },
   btnTop:{
     marginTop:sizes.screenHeight * 0.2

@@ -1,19 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
-import { styles } from './style';
+import React, {useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {styles} from './style';
 import BackButton from '../../components/BackButton';
 import images from '../../services/utilities/images';
-import { colors } from '../../services';
-import { useSelector } from 'react-redux';
+import {colors} from '../../services';
+import {useSelector} from 'react-redux';
 import formatToJSON from '../../services/utilities/JsonLog';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
 
-export default function Wallet({ navigation }) {
-  const { userDetalis } = useSelector(state => state.userDetailsSlice);
+export default function Wallet({navigation}) {
+  const {userDetalis} = useSelector(state => state.userDetailsSlice);
 
   const [loader, setLoader] = useState(false);
-  const [myWallet, setMyWallet] = useState()
+  const [myWallet, setMyWallet] = useState();
   const [updatedUserData, setUpdatedUserData] = useState('');
 
   useEffect(() => {
@@ -24,14 +31,14 @@ export default function Wallet({ navigation }) {
 
   const handleGetUserDetails = async () => {
     try {
-      const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
+      const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
         _id: userDetalis._id,
       });
       if (data.message === 'User Data') {
         let userData = data.data;
         setUpdatedUserData(userData);
-        setMyWallet(data.data.myWallet)
-        console.log(data.data.myWallet, "wallet");
+        setMyWallet(data.data.myWallet);
+        console.log(data.data.myWallet, 'wallet');
       } else {
         console.log(data.message);
       }
@@ -47,7 +54,7 @@ export default function Wallet({ navigation }) {
       <View style={styles.headerView}>
         <BackButton title={'Wallet'} />
         <Image
-          source={{ uri: updatedUserData?.profileImg }}
+          source={{uri: updatedUserData?.profileImg}}
           style={styles.profileImg}
         />
       </View>
@@ -59,16 +66,45 @@ export default function Wallet({ navigation }) {
         <View style={styles.insideContainer}>
           <View style={styles.amountview}>
             <Text style={styles.amountViewText}>My Winclies</Text>
-            <View style={styles.coinView}>
+            {/* <View style={styles.coinView}>
               <Image source={images.walletCoins} style={styles.walletCoins} />
               <Text style={styles.amountText}>
                 {myWallet}
               </Text>
-            </View>
+            </View> */}
           </View>
-          <View style={styles.walletBGImgView}>
+          <View style={styles.containerTwo}>
+            <ImageBackground
+              style={styles.myWincliesImg}
+              source={images.myWincliesbg}>
+              <View style={styles.imgRowOne}>
+                <Text style={styles.myWincliesTxt}>My Winclies</Text>
+                <Image source={images.myWincliesIcon} />
+              </View>
+              <View style={styles.imgRowTwo}>
+                <Image source={images.dollarCoins} />
+                <Text style={styles.myWincliesAmount}>1000</Text>
+              </View>
+            </ImageBackground>
+            <TouchableOpacity>
+              <ImageBackground
+                style={styles.shopWIncliesImg}
+                source={images.shopWinclybg}>
+                <View style={styles.imgRowOne}>
+                  <Text style={styles.myWincliesTxt}>SHOP WINCLY</Text>
+                  <Image source={images.cart} />
+                </View>
+                <View style={styles.shopWinclyRowTwo}>
+                  <Image source={images.shopWinclySquare} />
+                  <Image source={images.shopWinclySquare} />
+                  <Image source={images.shopWinclySquare} />
+                </View>
+              </ImageBackground>
+            </TouchableOpacity>
+          </View>
+          {/* <View style={styles.walletBGImgView}>
             <Image source={images.walletBGImg} style={styles.walletBGImg} />
-          </View>
+          </View> */}
         </View>
       )}
     </View>

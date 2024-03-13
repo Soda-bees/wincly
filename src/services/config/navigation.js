@@ -170,6 +170,33 @@ const MyTabs = () => {
             ),
         }}
       />
+        <Tab.Screen
+        name="Likes"
+        component={Like}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({focused}) =>
+            focused ? (
+              <Image
+                source={images.BtmTabWinclies}
+                style={{
+                  height: sizes.screenHeight * 0.08,
+                  width: sizes.screenHeight * 0.08,
+                  position: 'absolute',
+                  bottom: Platform.OS == 'ios' ? '' : sizes.screenHeight * 0.02,
+                }}
+              />
+            ) : (
+              <Image
+                source={images.BtmTabWinclies}
+                style={{
+                  height: sizes.screenWidth * 0.07,
+                  width: sizes.screenWidth * 0.075,
+                }}
+              />
+            ),
+        }}
+      />
 
 
       <Tab.Screen
