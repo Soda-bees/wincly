@@ -48,6 +48,7 @@ export default function Home({ navigation, route }) {
   const [eventAcceptedData, setEventAcceptedData] = useState([]);
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
+  const [isMatch, setIsMatch] = useState(false);
 
   useEffect(() => {
     setLoader(true);
@@ -173,6 +174,22 @@ export default function Home({ navigation, route }) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
+      <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Image source={images.DrawerBtn} style={styles.headerImgIOS} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              
+                navigation.navigate('Interests')
+              
+            }}>
+            <Image
+              source={isMatch ? images.chatIcon : images.filterImg}
+              style={isMatch ? styles.chatBtn : styles.headerImgIOS}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={[styles.row, styles.between]}>
           <View style={[styles.padding, styles.row]}>
             <Image
@@ -191,6 +208,7 @@ export default function Home({ navigation, route }) {
             </View>
           </TouchableOpacity>
         </View>
+        
         <TouchableOpacity
           style={styles.createPostBtn}
           onPress={() => {

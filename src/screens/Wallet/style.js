@@ -96,7 +96,7 @@ export const styles = StyleSheet.create({
     marginTop:sizes.screenHeight*0.04,
     resizeMode: 'center',
     paddingHorizontal: sizes.screenWidth * 0.05,
-    height: sizes.screenHeight * 0.23,
+    height: sizes.screenHeight * 0.235,
     width: sizes.screenWidth * 0.9,
     justifyContent:'space-around',
     

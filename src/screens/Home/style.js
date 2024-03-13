@@ -25,8 +25,11 @@ export const styles = StyleSheet.create({
   },
   between: {
     justifyContent: 'space-between',
-    paddingRight: sizes.screenHeight * 0.015,
-    paddingLeft: sizes.screenHeight * 0.015,
+    paddingHorizontal: sizes.screenWidth * 0.01,
+    // paddingRight: sizes.screenHeight * 0.015,
+    // paddingLeft: sizes.screenHeight * 0.015,
+    width:sizes.screenWidth*0.96,
+    paddingBottom:sizes.screenHeight*0.02
   },
   share: {
     height: sizes.screenHeight * 0.03,
@@ -165,7 +168,8 @@ export const styles = StyleSheet.create({
   },
   createPostBtn: {
     backgroundColor: colors.white,
-    width: sizes.screenWidth * 0.85,
+    width:sizes.screenWidth*0.88,
+    // width: sizes.screenWidth * 0.85,
     height: sizes.screenHeight * 0.055,
     borderRadius: sizes.screenWidth * 0.5,
     alignSelf: 'center',
@@ -484,5 +488,28 @@ export const styles = StyleSheet.create({
     bottom:0,
     position:'absolute',
     zIndex:1
-  }
+  },
+  header: {
+    height: sizes.screenHeight * 0.1,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    paddingHorizontal: sizes.screenWidth * 0.05,
+    paddingBottom:sizes.screenHeight* 0.015
+  },
+  headerImg: {
+    width: sizes.screenHeight * 0.05,
+    height: sizes.screenHeight * 0.05,
+  },
+  headerImgIOS: {
+    width: sizes.screenHeight * 0.05,
+    height: sizes.screenHeight * 0.035,
+  },
+  chatBtn: {
+    width: sizes.screenHeight * 0.055,
+    height: sizes.screenHeight * 0.045,
+    // position: 'absolute',
+    // right: sizes.screenWidth * 0.33,
+    // top: sizes.screenHeight * 0.33,
+  },
 });

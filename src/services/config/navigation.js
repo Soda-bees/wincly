@@ -178,20 +178,20 @@ const MyTabs = () => {
           tabBarIcon: ({focused}) =>
             focused ? (
               <Image
-                source={images.BtmTabWinclies}
+                source={images.BtmTabWincliesAfter}
                 style={{
                   height: sizes.screenHeight * 0.08,
-                  width: sizes.screenHeight * 0.08,
+                  width: sizes.screenHeight * 0.14,
                   position: 'absolute',
                   bottom: Platform.OS == 'ios' ? '' : sizes.screenHeight * 0.02,
                 }}
               />
             ) : (
               <Image
-                source={images.BtmTabWinclies}
+                source={images.BtmTabWincliesBefore}
                 style={{
-                  height: sizes.screenWidth * 0.07,
-                  width: sizes.screenWidth * 0.075,
+                  height: sizes.screenWidth * 0.085,
+                  width: sizes.screenWidth * 0.086,
                 }}
               />
             ),
