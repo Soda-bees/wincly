@@ -37,15 +37,19 @@ export const styles = StyleSheet.create({
     width: sizes.screenWidth * 0.8,
     alignSelf: 'center',
     borderRadius: sizes.screenWidth * 0.5,
-    marginBottom:sizes.screenHeight *0.02
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.25,
-    // shadowRadius: 3.84,
-    // elevation: 5,
+    marginBottom:sizes.screenHeight *0.02,
+    borderRadius: sizes.screenWidth * 0.5,
+    color: colors.black,
+    borderWidth: 1,
+    borderColor: colors.disabledBg,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 2.84,
+    elevation: 2,
   },
   margin: {
     marginTop: sizes.screenHeight * 0.03,
@@ -60,9 +64,7 @@ export const styles = StyleSheet.create({
     color: colors.black,
     fontWeight: 'bold',
     marginLeft: sizes.screenWidth * 0.03,
-    textAlign:'center'
-
-
+    textAlign:'center',
   },
   icon: {
     // height: sizes.screenHeight * 0.015,

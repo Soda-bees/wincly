@@ -58,7 +58,7 @@ export default function KindFriend({route, navigation}) {
           <TouchableOpacity
             style={[styles.row , selectIndex==1 ? styles.friendContainerOne : styles.friendContainerTwo]}
             onPress={() => {setSelectedItem('Helping Friend'); handlePressSelect(1)}}>
-            <Text style={styles.dropItem}>Helping Friend</Text>
+              <Text style={styles.dropItem}>Helping Friend</Text>
             <Image source={images.helpingFriendIcon} style={styles.icon} />
           </TouchableOpacity>
 
