@@ -13,6 +13,7 @@ export const colors = {
     label: '#9E9E9E',
     appColor1: '#1D3932',
     appTextColor1: '#AEF014',
+    appTextColor1Opacity: 'rgba(174, 240, 20, 0.6)',
     appTextColor2: 'rgba(26,26,26, 1)',
     appTextColor3: 'rgba(49,49,49, 1)',
     appTextColor4: '#A1A1A1',

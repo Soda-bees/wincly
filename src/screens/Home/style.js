@@ -28,15 +28,15 @@ export const styles = StyleSheet.create({
     paddingHorizontal: sizes.screenWidth * 0.01,
     // paddingRight: sizes.screenHeight * 0.015,
     // paddingLeft: sizes.screenHeight * 0.015,
-    width:sizes.screenWidth*0.96,
-    paddingBottom:sizes.screenHeight*0.02
+    width: sizes.screenWidth * 0.96,
+    paddingBottom: sizes.screenHeight * 0.02,
   },
   share: {
     height: sizes.screenHeight * 0.03,
     width: sizes.screenWidth * 0.045,
   },
-  shareIOS:{
- height: sizes.screenHeight * 0.02,
+  shareIOS: {
+    height: sizes.screenHeight * 0.02,
     width: sizes.screenWidth * 0.032,
   },
   underline: {
@@ -168,7 +168,7 @@ export const styles = StyleSheet.create({
   },
   createPostBtn: {
     backgroundColor: colors.white,
-    width:sizes.screenWidth*0.88,
+    width: sizes.screenWidth * 0.88,
     // width: sizes.screenWidth * 0.85,
     height: sizes.screenHeight * 0.055,
     borderRadius: sizes.screenWidth * 0.5,
@@ -209,7 +209,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     width: sizes.screenWidth * 0.75,
-    marginBottom:sizes.screenHeight * 0.06
+    marginBottom: sizes.screenHeight * 0.06,
   },
   noPostView: {flex: 1, alignItems: 'center', justifyContent: 'center'},
   modalView: {
@@ -222,7 +222,7 @@ export const styles = StyleSheet.create({
     // justifyContent: 'center',
     paddingTop: sizes.screenHeight * 0.07,
   },
- acceptedModalView: {
+  acceptedModalView: {
     backgroundColor: colors.white,
     height: sizes.screenHeight * 0.4,
     width: sizes.screenWidth * 0.85,
@@ -246,7 +246,7 @@ export const styles = StyleSheet.create({
     height: sizes.screenHeight * 0.052,
     width: sizes.screenHeight * 0.055,
     bottom: sizes.screenHeight * 0.05,
-    tintColor:"red"
+    tintColor: 'red',
   },
   modelText: {
     fontSize: fontSize.medium,
@@ -258,7 +258,7 @@ export const styles = StyleSheet.create({
     bottom: sizes.screenHeight * 0.03,
     // backgroundColor:"red"
   },
-    DeclineModelText: {
+  DeclineModelText: {
     fontSize: fontSize.medium,
     textAlign: 'center',
     color: colors.black,
@@ -361,8 +361,8 @@ export const styles = StyleSheet.create({
     // fontWeight: '500',
     // bottom: sizes.screenHeight * 0.03,
     // backgroundColor:"red"
-    marginTop:sizes.screenHeight * 0.01,
-    marginBottom:sizes.screenHeight * 0.01
+    marginTop: sizes.screenHeight * 0.01,
+    marginBottom: sizes.screenHeight * 0.01,
   },
   modalprofileImg: {
     height: sizes.screenHeight * 0.07,
@@ -404,17 +404,17 @@ export const styles = StyleSheet.create({
     width: sizes.screenHeight * 0.04,
     bottom: sizes.screenHeight * 0.05,
   },
-  eventAcceptModal:{
-    backgroundColor:colors.white,
-    paddingHorizontal:sizes.screenHeight * 0.02,
-    paddingBottom:sizes.screenHeight * 0.02,
-    borderRadius:sizes.screenWidth * 0.02
+  eventAcceptModal: {
+    backgroundColor: colors.white,
+    paddingHorizontal: sizes.screenHeight * 0.02,
+    paddingBottom: sizes.screenHeight * 0.02,
+    borderRadius: sizes.screenWidth * 0.02,
   },
-  acceptedModalMapView:{
-    backgroundColor:colors.white,
-    marginTop:sizes.screenHeight * 0.02,
-    padding:sizes.screenWidth * 0.02,
-    borderRadius:sizes.screenWidth * 0.02,
+  acceptedModalMapView: {
+    backgroundColor: colors.white,
+    marginTop: sizes.screenHeight * 0.02,
+    padding: sizes.screenWidth * 0.02,
+    borderRadius: sizes.screenWidth * 0.02,
 
     shadowColor: '#000',
     shadowOffset: {
@@ -424,70 +424,69 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 2.84,
     elevation: 3,
-
   },
   acceptedModalText: {
     fontSize: fontSize.medium,
     textAlign: 'center',
     color: colors.black,
-    alignSelf:"center",
+    alignSelf: 'center',
     fontWeight: '500',
   },
-  acceptedModalBtnView:{
-    width:sizes.screenWidth * 0.8,
-    height:sizes.screenHeight * 0.07,
-    flexDirection:"row",
-    alignItems:"center",
-    justifyContent:'space-evenly'
+  acceptedModalBtnView: {
+    width: sizes.screenWidth * 0.8,
+    height: sizes.screenHeight * 0.07,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
-  acceptModalAcceptBtn:{
-    backgroundColor:"#AEF014",
-      width:sizes.screenWidth * 0.35,
-      height:sizes.screenHeight* 0.05,
-      borderRadius:sizes.screenWidth * 0.05,
-      flexDirection:"row",
-      alignItems:"center",
-      justifyContent:"center"
+  acceptModalAcceptBtn: {
+    backgroundColor: '#AEF014',
+    width: sizes.screenWidth * 0.35,
+    height: sizes.screenHeight * 0.05,
+    borderRadius: sizes.screenWidth * 0.05,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  acceptModalRejectBtn:{
-    backgroundColor:"#FF3131",
-      width:sizes.screenWidth * 0.35,
-      height:sizes.screenHeight* 0.05,
-      borderRadius:sizes.screenWidth * 0.05,
-      flexDirection:"row",
-      alignItems:"center",
-      justifyContent:"center"
+  acceptModalRejectBtn: {
+    backgroundColor: '#FF3131',
+    width: sizes.screenWidth * 0.35,
+    height: sizes.screenHeight * 0.05,
+    borderRadius: sizes.screenWidth * 0.05,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  acceptModalBtnImg:{
-    height:sizes.screenHeight * 0.03,
-    width:sizes.screenHeight * 0.043,
-    marginRight:sizes.screenWidth *0.01
+  acceptModalBtnImg: {
+    height: sizes.screenHeight * 0.03,
+    width: sizes.screenHeight * 0.043,
+    marginRight: sizes.screenWidth * 0.01,
   },
-  acceptModalBtnText:{
-    color:"black",
+  acceptModalBtnText: {
+    color: 'black',
     color: colors.black,
     fontWeight: '700',
     fontSize: fontSize.medium,
   },
-  acceptModalBtnText2:{
-    color:colors.white,
+  acceptModalBtnText2: {
+    color: colors.white,
     fontWeight: '700',
     fontSize: fontSize.medium,
   },
-  
-  acceptModalTitleHeading:{
-    fontSize:fontSize.medium,
-    fontWeight:'500',
-    color:colors.black,
-    marginTop:sizes.screenHeight * 0.01
+
+  acceptModalTitleHeading: {
+    fontSize: fontSize.medium,
+    fontWeight: '500',
+    color: colors.black,
+    marginTop: sizes.screenHeight * 0.01,
   },
-  forBtnTbs:{
-    width:sizes.screenWidth , 
-    height:sizes.screenHeight * 0.1,
-    backgroundColor:colors.white,
-    bottom:0,
-    position:'absolute',
-    zIndex:1
+  forBtnTbs: {
+    width: sizes.screenWidth,
+    height: sizes.screenHeight * 0.1,
+    backgroundColor: colors.white,
+    bottom: 0,
+    position: 'absolute',
+    zIndex: 1,
   },
   header: {
     height: sizes.screenHeight * 0.1,
@@ -495,7 +494,7 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'space-between',
     paddingHorizontal: sizes.screenWidth * 0.05,
-    paddingBottom:sizes.screenHeight* 0.015
+    paddingBottom: sizes.screenHeight * 0.015,
   },
   headerImg: {
     width: sizes.screenHeight * 0.05,
@@ -511,5 +510,115 @@ export const styles = StyleSheet.create({
     // position: 'absolute',
     // right: sizes.screenWidth * 0.33,
     // top: sizes.screenHeight * 0.33,
+  },
+  modalContainer: {
+    width: sizes.screenWidth * 0.95,
+    backgroundColor: colors.white,
+    alignSelf: 'center',
+    shadowColor: '#000',
+    borderRadius: sizes.screenWidth * 0.04,
+    paddingVertical: sizes.screenHeight * 0.02,
+    paddingHorizontal: sizes.screenWidth * 0.04,
+    // backgroundColor:colors.white,
+    // height:sizes.screenHeight* 0.4,
+    // width:sizes.screenWidth* 0.82,
+    // borderRadius:sizes.screenWidth *0.04,
+    // alignSelf:'center'
+  },
+  modalBtn: {
+    backgroundColor: colors.appTextColor1,
+    height: sizes.screenWidth * 0.09,
+    width: sizes.screenWidth * 0.5,
+    borderRadius: sizes.screenWidth * 0.05,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: sizes.screenWidth * 0.01,
+    marginTop: sizes.screenWidth * 0.07,
+  },
+  modalBtnText: {
+    color: colors.black,
+    fontWeight: '600',
+    fontSize: fontSize.medium,
+  },
+  modalCross: {
+    alignSelf: 'flex-end',
+  },
+  modalHeading: {
+    color: colors.black,
+    fontSize: fontSize.h6,
+    fontWeight: '600',
+    textAlign: 'center',
+    width: sizes.screenWidth * 0.65,
+    alignSelf: 'center',
+  },
+  modalLine: {
+    marginTop: sizes.screenHeight * 0.01,
+    width: sizes.screenWidth * 0.5,
+    borderBottomWidth: 1,
+    borderColor: colors.appTextColor1Opacity,
+    alignSelf: 'center',
+  },
+  modalHeading2: {
+    marginTop: sizes.screenHeight * 0.03,
+    color: colors.black,
+    fontSize: fontSize.medium,
+    fontWeight: '600',
+    textAlign: 'center',
+    width: sizes.screenWidth * 0.6,
+    alignSelf: 'center',
+  },
+  eventView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: sizes.screenWidth * 0.68,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  eventOption: {marginTop: sizes.screenHeight * 0.025,
+  },
+  btnTextFilled: {
+    fontSize: fontSize.medium,
+    fontWeight:'500',
+    textAlign: 'center',
+    color: colors.black,
+    borderColor: colors.black,
+    // width: sizes.screenWidth * 0.35,
+    paddingVertical: sizes.screenWidth * 0.01,
+    paddingHorizontal: sizes.screenWidth * 0.04,
+    borderWidth: 1,
+    borderRadius: sizes.screenWidth * 0.06,
+    marginHorizontal:sizes.screenWidth* 0.01,
+    // marginRight: sizes.screenHeight * 0.007,
+    // marginLeft: sizes.screenHeight * 0.007,
+    backgroundColor: colors.appTextColor1,
+  },
+  btnTextFilledIOS: {
+    fontSize: fontSize.medium,
+    textAlign: 'center',
+    color: colors.black,
+    borderColor: colors.black,
+    
+    // width: sizes.screenWidth * 0.35,
+  },
+  btnTextIOS: {
+    fontSize: fontSize.medium,
+    textAlign: 'center',
+    color: colors.disabledBg2,
+    borderColor: colors.black,
+  },
+  eventBtnText: {
+    fontSize: fontSize.medium,
+    textAlign: 'center',
+    fontWeight:'500',
+    color: colors.disabledBg2,
+    borderColor: colors.black,
+    paddingVertical: sizes.screenWidth * 0.01,
+    paddingHorizontal: sizes.screenWidth * 0.04,
+    borderWidth: 1,
+    borderRadius: sizes.screenWidth * 0.06,
+    marginHorizontal:sizes.screenWidth* 0.01,
+    // marginRight: sizes.screenHeight * 0.007,
+    // marginLeft: sizes.screenHeight * 0.007,
   },
 });

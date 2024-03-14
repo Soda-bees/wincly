@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -8,17 +8,17 @@ import {
   TextInput,
   ScrollView,
   Platform,
-  AppState
+  AppState,
 } from 'react-native';
-import { styles } from './style';
-import { useSelector, useDispatch } from 'react-redux';
+import {styles} from './style';
+import {useSelector, useDispatch} from 'react-redux';
 import images from '../../services/utilities/images';
-import { colors } from '../../services';
+import {colors} from '../../services';
 import socket from '../../services/config/io';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import { ActivityIndicator } from 'react-native';
-import { format, isAfter, parse } from 'date-fns';
+import {ActivityIndicator} from 'react-native';
+import {format, isAfter, parse} from 'date-fns';
 import Modal from 'react-native-modal';
 import {
   handleAddData,
@@ -26,12 +26,11 @@ import {
 } from '../../store/eventsJoiningRequest';
 import formatToJSON from '../../services/utilities/JsonLog';
 
-export default function Home({ navigation, route }) {
-
+export default function Home({navigation, route}) {
   const dispatch = useDispatch();
-  const { userDetalis } = useSelector(state => state.userDetailsSlice);
+  const {userDetalis} = useSelector(state => state.userDetailsSlice);
   const test = useSelector(state => state.userDetailsSlice);
-  const { isSignIn } = useSelector(state => state.isSignedInSlice);
+  const {isSignIn} = useSelector(state => state.isSignedInSlice);
   const [userData, setUserData] = useState({
     username: userDetalis?.username,
     _id: userDetalis?._id,
@@ -50,10 +49,22 @@ export default function Home({ navigation, route }) {
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const [isMatch, setIsMatch] = useState(false);
 
+  const [event, setEvent] = useState([
+    'Food',
+    'Coffee',
+    'Drinks',
+    'Sports',
+    'Adventure',
+    'Assistance',
+    'Job',
+    'Other',
+  ]);
+  const [selectedEvent, setSelectedEvent] = useState([]);
+
   useEffect(() => {
     setLoader(true);
     if (test) {
-      const _id = test.userDetalis?._id
+      const _id = test.userDetalis?._id;
       handleGetUserDetails(_id);
     }
   }, [test]);
@@ -61,54 +72,53 @@ export default function Home({ navigation, route }) {
   useEffect(() => {
     navigation.addListener('focus', () => {
       if (userDetalis) {
-        const _id = test.userDetalis?._id
+        const _id = test.userDetalis?._id;
         handleGetUserDetails(_id);
       }
     });
   }, [navigation]);
 
-  const handleGetUserDetails = async (_id) => {
+  const handleGetUserDetails = async _id => {
     if (test.userDetalis._id) {
       try {
-        const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
-          _id: _id
-        })
+        const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
+          _id: _id,
+        });
         if (data.message === 'User Data') {
           setUpdatedUserDetails(data.data);
-          handleGetAllEvents(data.data.interest)
+          handleGetAllEvents(data.data.interest);
         }
-
       } catch (error) {
         console.log('errr-==-===-=-'.error.message);
         setLoader(false);
       }
     }
-
   };
 
-  const handleGetAllEvents = async (interest) => {
+  const handleGetAllEvents = async interest => {
     try {
-      const { data } = await axios.get(backendURL + 'api/wincly/allEvent');
+      const {data} = await axios.get(backendURL + 'api/wincly/allEvent');
 
       const eventData = data.data;
       if (interest) {
         let filterevent = eventData.filter(
           event => event.eventOrganizerData._id !== userDetalis._id,
         );
-        let filterForInterest = filterevent.filter(
-          t =>
-            t.eventOrganizerData.interest.filter(n => interest?.includes(n))
-              .length > 0,
-        )
-          .filter((event) => !isEventTimePassed(event))
+        let filterForInterest = filterevent
           .filter(
-            (event) =>
+            t =>
+              t.eventOrganizerData.interest.filter(n => interest?.includes(n))
+                .length > 0,
+          )
+          .filter(event => !isEventTimePassed(event))
+          .filter(
+            event =>
               !(
                 event.eventParticipants &&
                 event.eventParticipants.length === event.noOfPerson
-              )
+              ),
           );
-        setAllEvent(filterForInterest)
+        setAllEvent(filterForInterest);
       }
       setLoader(false);
     } catch (error) {
@@ -117,8 +127,8 @@ export default function Home({ navigation, route }) {
     }
   };
 
-  const isEventTimePassed = (event) => {
-    const { endDate, endTime } = event;
+  const isEventTimePassed = event => {
+    const {endDate, endTime} = event;
 
     if (!endDate || !endTime) {
       console.error('Missing endDate or endTime in event:', event);
@@ -126,12 +136,28 @@ export default function Home({ navigation, route }) {
     }
 
     const [month, day, year] = endDate.split('-').map(Number);
-    const [hours, minutes, period] = endTime.match(/(\d+):(\d+)\s*(\w+)/).slice(1);
+    const [hours, minutes, period] = endTime
+      .match(/(\d+):(\d+)\s*(\w+)/)
+      .slice(1);
 
-    const eventDate = parse(`${year}-${month}-${day}`, 'yyyy-MM-dd', new Date());
-    const eventTime = parse(`${hours}:${minutes} ${period}`, 'h:mm a', new Date());
+    const eventDate = parse(
+      `${year}-${month}-${day}`,
+      'yyyy-MM-dd',
+      new Date(),
+    );
+    const eventTime = parse(
+      `${hours}:${minutes} ${period}`,
+      'h:mm a',
+      new Date(),
+    );
 
-    const eventDateTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), eventTime.getHours(), eventTime.getMinutes());
+    const eventDateTime = new Date(
+      eventDate.getFullYear(),
+      eventDate.getMonth(),
+      eventDate.getDate(),
+      eventTime.getHours(),
+      eventTime.getMinutes(),
+    );
 
     const currentDateTime = new Date();
     return isAfter(currentDateTime, eventDateTime);
@@ -143,7 +169,7 @@ export default function Home({ navigation, route }) {
     }
   }, [userData]);
 
-  const calculateTimeAgo = (postTime) => {
+  const calculateTimeAgo = postTime => {
     const inputFormat = 'MM-dd-yyyy hh:mm a';
     const parsedDate = parse(postTime, inputFormat, new Date());
     const outputFormat = 'yyyy-MM-dd HH:mm';
@@ -163,26 +189,24 @@ export default function Home({ navigation, route }) {
     } else {
       return 'Just now';
     }
-  }
-  const formatInterest = (item) => {
+  };
+  const formatInterest = item => {
     const interest = item.eventOrganizerData.interest || [];
     const interest1 = '#' + interest.slice(0, 3).join(' #');
     const interest2 = interest.join(' #');
     return interest.length > 0 ? interest1 : interest2;
-  }
+  };
 
   return (
     <SafeAreaView>
       <View style={styles.container}>
-      <View style={styles.header}>
+        <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Image source={images.DrawerBtn} style={styles.headerImgIOS} />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              
-                navigation.navigate('Interests')
-              
+              navigation.navigate('Interests');
             }}>
             <Image
               source={isMatch ? images.chatIcon : images.filterImg}
@@ -193,7 +217,7 @@ export default function Home({ navigation, route }) {
         <View style={[styles.row, styles.between]}>
           <View style={[styles.padding, styles.row]}>
             <Image
-              source={{ uri: userDetalis?.profileImg }}
+              source={{uri: userDetalis?.profileImg}}
               style={styles.profile}
             />
             <Text style={styles.username}>{userDetalis?.username}</Text>
@@ -208,17 +232,87 @@ export default function Home({ navigation, route }) {
             </View>
           </TouchableOpacity>
         </View>
-        
+
+        <Modal
+          isVisible={isModalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed');
+            setModalVisible(!isModalVisible);
+          }}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                setModalVisible(!isModalVisible);
+              }}>
+              <Image style={styles.modalCross} source={images.cancelModal} />
+            </TouchableOpacity>
+            <Text style={styles.modalHeading}>Create Your Own Event</Text>
+            <View style={styles.modalLine} />
+            <Text style={styles.modalHeading2}>
+              What tags best describe your event?
+            </Text>
+            <View style={styles.eventView}>
+              {event.map((eventItem, index) => {
+                return (
+                  <View key={index} style={styles.eventOption}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        setSelectedEvent(eventItem);
+                      }}>
+                      {Platform.OS == 'ios' ? (
+                        <View
+                          style={
+                            selectedEvent === eventItem
+                              ? styles.btnTextFilled
+                              : styles.eventBtnText
+                          }>
+                          <Text
+                            style={
+                              selectedEvent === eventItem
+                                ? styles.btnTextFilledIOS
+                                : styles.btnTextIOS
+                            }>
+                            {eventItem}
+                          </Text>
+                        </View>
+                      ) : (
+                        <Text
+                          style={
+                            selectedEvent === eventItem
+                              ? styles.btnTextFilled
+                              : styles.eventBtnText
+                          }>
+                          {eventItem}
+                        </Text>
+                      )}
+                    </TouchableOpacity>
+                  </View>
+                );
+              })}
+            </View>
+
+            <TouchableOpacity
+              style={styles.modalBtn}
+              onPress={() => {
+                navigation.navigate('UploadPost');
+              }}>
+              <Text style={styles.modalBtnText}>Confirm</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+
         <TouchableOpacity
           style={styles.createPostBtn}
           onPress={() => {
-            navigation.navigate('UploadPost');
+            setModalVisible(true);
+            // navigation.navigate('UploadPost');
           }}>
           <Text style={styles.createPostText}>Create your own event</Text>
           <View style={[styles.padding]}>
             <Image source={images.photos} style={styles.photos} />
           </View>
         </TouchableOpacity>
+
         <View style={styles.forBtnTbs}></View>
 
         {loader ? (
@@ -228,11 +322,11 @@ export default function Home({ navigation, route }) {
             }>
             <ActivityIndicator size={'large'} color={colors.appTextColor1} />
           </View>
-        ) :
-          allEvent.length > 0 ? (
-            <ScrollView>
-              {allEvent.map((item, index) => {
-                const timeAgo = calculateTimeAgo(item.postTime)
+        ) : allEvent.length > 0 ? (
+          <ScrollView>
+            {allEvent
+              .map((item, index) => {
+                const timeAgo = calculateTimeAgo(item.postTime);
                 const formattedInterest = formatInterest(item);
                 return (
                   <TouchableOpacity
@@ -246,7 +340,7 @@ export default function Home({ navigation, route }) {
                     }}>
                     <View style={styles.eventCardImgView}>
                       <Image
-                        source={{ uri: item.eventOrganizerData.profileImg }}
+                        source={{uri: item.eventOrganizerData.profileImg}}
                         style={styles.eventCardProfileImg}
                       />
                       <View>
@@ -264,19 +358,20 @@ export default function Home({ navigation, route }) {
                       {item.eventDis}
                     </Text>
                     <Image
-                      source={{ uri: item.imageUri }}
+                      source={{uri: item.imageUri}}
                       style={styles.eventCardImg}
                     />
                   </TouchableOpacity>
                 );
-              }).reverse()}
-              <View style={styles.marginBtm}></View>
-            </ScrollView>
-          ) : (
-            <View style={styles.noPostView}>
-              <Text style={styles.noPostText}>No events found</Text>
-            </View>
-          )}
+              })
+              .reverse()}
+            <View style={styles.marginBtm}></View>
+          </ScrollView>
+        ) : (
+          <View style={styles.noPostView}>
+            <Text style={styles.noPostText}>No events found</Text>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );

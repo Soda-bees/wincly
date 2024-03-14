@@ -80,7 +80,7 @@ import cart from "../../../assets/cart.png"
 import shopWinclybg from "../../../assets/shopWinclybg.png"
 import shopWinclySquare from "../../../assets/shopWinclySquare.png"
 import BtmTabWincliesAfter from "../../../assets/BtmTabWincliesAfter.png"
-
+import cancelModal from "../../../assets/cancelModal.png"
 
 const images = {
   landingBg,
@@ -164,7 +164,8 @@ const images = {
   cart,
   myWincliesIcon,
   shopWinclySquare,
-  BtmTabWincliesAfter
+  BtmTabWincliesAfter,
+  cancelModal
 };
 
 export default images;
