@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -10,22 +10,29 @@ import {
   View,
 } from 'react-native';
 import BackButton from '../../components/BackButton';
-import { styles } from './style';
-import { useSelector } from 'react-redux';
+import {styles} from './style';
+import {useSelector} from 'react-redux';
 import images from '../../services/utilities/images';
-import { colors } from '../../services';
+import {colors} from '../../services';
 import DatePicker from 'react-native-date-picker';
-import { format, set, parse, differenceInHours, differenceInSeconds, add } from 'date-fns';
-import { ActivityIndicator } from 'react-native-paper';
+import {
+  format,
+  set,
+  parse,
+  differenceInHours,
+  differenceInSeconds,
+  add,
+} from 'date-fns';
+import {ActivityIndicator} from 'react-native-paper';
 import Button from '../../components/Button';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import backendURL from '../../services/config/backendURL';
 import axios from 'axios';
 import Modal from 'react-native-modal';
 import Timer from '../../components/Timer';
 
-export default function UploadPost({ navigation }) {
-  const { userDetalis } = useSelector(state => state.userDetailsSlice);
+export default function UploadPost({route, navigation}) {
+  const {userDetalis} = useSelector(state => state.userDetailsSlice);
   const [imageUri, setImageUri] = useState();
   const [startDateOpen, setStartDateOpen] = useState(false);
   const [endDateOpen, setEndDateOpen] = useState(false);
@@ -44,30 +51,33 @@ export default function UploadPost({ navigation }) {
   const [noOfPerson, setNoOfPerson] = useState();
   const [updatedUserDetails, setUpdatedUserDetails] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
-  const [title, setTitle] = useState('')
-  const [postTime, setPostTime] = useState()
-  const [isNoOfPerson, setIsNoOfPerson] = useState(false)
-  const [isPost, setIsPost] = useState(false)
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(50)
-  const [hours, setHours] = useState(0)
+  const [title, setTitle] = useState('');
+  const [postTime, setPostTime] = useState();
+  const [isNoOfPerson, setIsNoOfPerson] = useState(false);
+  const [isPost, setIsPost] = useState(false);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(50);
+  const [hours, setHours] = useState(0);
+
+  console.log(route.params);
+  console.log(route?.params?.tag);
 
   useEffect(() => {
     navigation.addListener('focus', () => {
       setLoader(true);
       getCurrentDateAndTime();
       getSingleUserData();
-      getLastEvent()
+      getLastEvent();
     });
   }, [navigation]);
 
   const getLastEvent = async () => {
     // console.log('getAllEventsWork' , userDetalis._id);
-    const _id = userDetalis._id
+    const _id = userDetalis._id;
     try {
-      const { data } = await axios.post(backendURL + "api/wincly/getEvent", {
-        _id
-      })
+      const {data} = await axios.post(backendURL + 'api/wincly/getEvent', {
+        _id,
+      });
       console.log(data);
       if (data.success) {
         console.log(data.postTime);
@@ -76,7 +86,7 @@ export default function UploadPost({ navigation }) {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   function DateComparison(item) {
     const targetDateString = item;
@@ -90,11 +100,11 @@ export default function UploadPost({ navigation }) {
 
     if (hoursDifference >= 24) {
       // console.log('The target time is more than 24 hours in the past.');
-      setIsPost(false)
+      setIsPost(false);
     } else {
       // console.log('The target time is within the last 24 hours.');
-      setIsPost(true)
-      getRemainingTime(targetDateString)
+      setIsPost(true);
+      getRemainingTime(targetDateString);
     }
   }
 
@@ -106,7 +116,10 @@ export default function UploadPost({ navigation }) {
     const currentDate = new Date();
 
     // Calculate the time difference in seconds
-    const timeDifferenceInSeconds = differenceInSeconds(currentDate, targetDate);
+    const timeDifferenceInSeconds = differenceInSeconds(
+      currentDate,
+      targetDate,
+    );
 
     // Calculate the remaining time in hours, minutes, and seconds
     const remainingHours = Math.floor(timeDifferenceInSeconds / 3600);
@@ -123,9 +136,9 @@ export default function UploadPost({ navigation }) {
     console.log('minutesDifference-=-=-==--=', minutesDifference);
     console.log('secondsDifference-=-=-==--=', secondsDifference);
 
-    setHours(hoursDifference)
-    setMinutes(minutesDifference)
-    setSeconds(secondsDifference)
+    setHours(hoursDifference);
+    setMinutes(minutesDifference);
+    setSeconds(secondsDifference);
 
     return {
       hours: hoursDifference,
@@ -137,7 +150,7 @@ export default function UploadPost({ navigation }) {
   const getSingleUserData = async () => {
     try {
       console.log('works------------->>>>>>>>');
-      const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
+      const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
         _id: userDetalis._id,
       });
       // console.log(data.data, "----------->userDetails");
@@ -165,15 +178,17 @@ export default function UploadPost({ navigation }) {
     const currentHour = currentTime.getHours();
     const currentMinute = currentTime.getMinutes();
 
-    const period = currentHour >= 12 ? "PM" : "AM";
-    const formattedHour = currentHour % 12 || 12
-    const formattedTime = `${String(formattedHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')} ${period}`;
+    const period = currentHour >= 12 ? 'PM' : 'AM';
+    const formattedHour = currentHour % 12 || 12;
+    const formattedTime = `${String(formattedHour).padStart(2, '0')}:${String(
+      currentMinute,
+    ).padStart(2, '0')} ${period}`;
 
     setStartDate(todayDate);
     setEndDate(todayDate);
     setStartTime(time);
     setEndTime(time);
-    setPostTime(`${todayDate} ${formattedTime}`)
+    setPostTime(`${todayDate} ${formattedTime}`);
     setLoader(false);
   };
   const handleSetStartDate = selectedDate => {
@@ -208,7 +223,7 @@ export default function UploadPost({ navigation }) {
   };
 
   const imageGalleryLaunch = () => {
-    setLoader(true)
+    setLoader(true);
     let options = {
       storageOptions: {
         skipBackup: true,
@@ -219,19 +234,19 @@ export default function UploadPost({ navigation }) {
       console.log('Response = ', res);
       if (res.didCancel) {
         console.log('User cancelled image picker');
-        setLoader(false)
+        setLoader(false);
       } else if (res.error) {
         console.log('ImagePicker Error: ', res.error);
-        setLoader(false)
+        setLoader(false);
       } else if (res.customButton) {
         console.log('User tapped custom button: ', res.customButton);
-        setLoader(false)
+        setLoader(false);
         alert(res.customButton);
       } else {
         const uri = res.assets[0].uri;
         const type = 'image/jpg';
         const name = userDetalis.username;
-        const source = { uri, type, name };
+        const source = {uri, type, name};
         // setLoader(true);
         const data = new FormData();
         data.append('file', source);
@@ -276,13 +291,16 @@ export default function UploadPost({ navigation }) {
 
     if (noOfPerson) {
       if (noOfPerson == 0) {
-        setIsNoOfPerson(true)
+        setIsNoOfPerson(true);
       } else {
-        setIsNoOfPerson(false)
+        setIsNoOfPerson(false);
         try {
-          const { data } = await axios.post(backendURL + 'api/wincly/uploadEvent', {
-            obj,
-          });
+          const {data} = await axios.post(
+            backendURL + 'api/wincly/uploadEvent',
+            {
+              obj,
+            },
+          );
           console.log(data);
           if (data.message === 'Event add successfully!') {
             setTimeout(() => {
@@ -297,14 +315,13 @@ export default function UploadPost({ navigation }) {
         }
       }
     } else {
-      setIsNoOfPerson(true)
+      setIsNoOfPerson(true);
     }
-
   };
 
   const handleModalConfirm = () => {
-    navigation.navigate('Home')
-  }
+    navigation.navigate('Home');
+  };
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -312,19 +329,19 @@ export default function UploadPost({ navigation }) {
 
         <View style={styles.profileView}>
           <Image
-            source={{ uri: userDetalis.profileImg }}
+            source={{uri: userDetalis.profileImg}}
             style={styles.profile}
           />
           <Text style={styles.username}>{userDetalis.username}</Text>
         </View>
         <ScrollView>
           <KeyboardAvoidingView
-            style={{ flex: 1 }}
-          // behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+            style={{flex: 1}}
+            // behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
           >
             <TouchableOpacity onPress={imageGalleryLaunch}>
               <Image
-                source={imageUri ? { uri: imageUri } : images.backgroundImg}
+                source={imageUri ? {uri: imageUri} : images.backgroundImg}
                 style={styles.uploadImg}
               />
             </TouchableOpacity>
@@ -335,20 +352,18 @@ export default function UploadPost({ navigation }) {
               value={title}
               onChangeText={text => setTitle(text)}
             />
-              <TextInput
-                multiline={true}
-                numberOfLines={4}
-                placeholder="Event description"
-                placeholderTextColor={colors.disabledBg2}
-                style={
-                  Platform.OS == 'ios'
-                    ? styles.ratingInput
-                    : styles.ratingInput
-                }
-                value={eventDis}
-                onChangeText={text => setEventDis(text)}
-              />
-                 <TextInput
+            <TextInput
+              multiline={true}
+              numberOfLines={4}
+              placeholder="Event description"
+              placeholderTextColor={colors.disabledBg2}
+              style={
+                Platform.OS == 'ios' ? styles.ratingInput : styles.ratingInput
+              }
+              value={eventDis}
+              onChangeText={text => setEventDis(text)}
+            />
+            <TextInput
               placeholder="No of persons"
               style={isNoOfPerson ? styles.personInput2 : styles.personInput}
               placeholderTextColor={colors.disabledBg2}
@@ -366,8 +381,7 @@ export default function UploadPost({ navigation }) {
                 <View style={styles.insideStartDateView}>
                   <Text style={styles.text1}>Start date</Text>
 
-                  <View
-                  >
+                  <View>
                     <Text style={styles.dropItem}>{startDate}</Text>
                   </View>
                 </View>
@@ -396,8 +410,7 @@ export default function UploadPost({ navigation }) {
                 <View style={styles.insideStartDateView}>
                   <Text style={styles.text1}>End date</Text>
 
-                  <View
-                  >
+                  <View>
                     <Text style={styles.dropItem}>{endDate}</Text>
                   </View>
                 </View>
@@ -427,8 +440,7 @@ export default function UploadPost({ navigation }) {
                   <View style={styles.insideStartDateView}>
                     <Text style={styles.text1}>Start time</Text>
 
-                    <View
-                    >
+                    <View>
                       <Text style={styles.dropItem2}>{startTime}</Text>
                     </View>
                   </View>
@@ -457,8 +469,7 @@ export default function UploadPost({ navigation }) {
                   <View style={styles.insideStartDateView}>
                     <Text style={styles.text1}>End time</Text>
 
-                    <View
-                    >
+                    <View>
                       <Text style={styles.dropItem2}>{endTime}</Text>
                     </View>
                   </View>
@@ -486,7 +497,14 @@ export default function UploadPost({ navigation }) {
               <ActivityIndicator size="small" color="#000" />
             </View>
           ) : (
-            <Button title={'Post'} onPress={handleConfirm} />
+            <Button
+              title={
+                route?.params?.tag == 'Other'
+                  ? 'Post'
+                  : `Offer ${route?.params?.tag}`
+              }
+              onPress={handleConfirm}
+            />
           )}
         </View>
       </View>
@@ -523,10 +541,14 @@ export default function UploadPost({ navigation }) {
 
       <Modal isVisible={isPost}>
         <View style={styles.noPostModal}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
             <Text
-              style={styles.noPostModalText}
-            >{`You can post again in `}</Text>
+              style={styles.noPostModalText}>{`You can post again in `}</Text>
             <Timer
               minutes={minutes}
               setMinutes={setMinutes}
@@ -535,14 +557,10 @@ export default function UploadPost({ navigation }) {
               hours={hours}
               setHours={setHours}
             />
-            <Text
-              style={styles.noPostModalText}
-            > hours.</Text>
+            <Text style={styles.noPostModalText}> hours.</Text>
           </View>
           <View style={styles.noPostModalBtnView}>
-            <Button title={'Okay'}
-              onPress={handleModalConfirm}
-            />
+            <Button title={'Okay'} onPress={handleModalConfirm} />
           </View>
         </View>
       </Modal>

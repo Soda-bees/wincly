@@ -59,7 +59,8 @@ export default function Home({navigation, route}) {
     'Job',
     'Other',
   ]);
-  const [selectedEvent, setSelectedEvent] = useState([]);
+
+  const [selectedEvent, setSelectedEvent] = useState('');
 
   useEffect(() => {
     setLoader(true);
@@ -250,7 +251,7 @@ export default function Home({navigation, route}) {
             <View style={styles.modalLine} />
             <Text style={styles.modalHeading2}>
               What tags best describe your event?
-            </Text>
+            </Text>     
             <View style={styles.eventView}>
               {event.map((eventItem, index) => {
                 return (
@@ -289,15 +290,17 @@ export default function Home({navigation, route}) {
                   </View>
                 );
               })}
+              <TouchableOpacity
+                  style={styles.modalBtn}
+                  onPress={() => {
+                    navigation.navigate('UploadPost',{tag : selectedEvent});
+                  }}>
+                  <Text style={styles.modalBtnText}>
+                  Confirm - {selectedEvent}
+                  </Text>
+                </TouchableOpacity>
             </View>
-
-            <TouchableOpacity
-              style={styles.modalBtn}
-              onPress={() => {
-                navigation.navigate('UploadPost');
-              }}>
-              <Text style={styles.modalBtnText}>Confirm</Text>
-            </TouchableOpacity>
+            
           </View>
         </Modal>
 
