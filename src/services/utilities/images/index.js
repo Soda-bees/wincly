@@ -52,35 +52,41 @@ import date from '../../../assets/date.png';
 import dropIcon2 from '../../../assets/dropIcon2.png';
 import time from '../../../assets/time.png';
 import location from '../../../assets/location.png';
-import accept from "../../../assets/accept.png"
-import decline from "../../../assets/decline.png"
-import myEventsDrawer from "../../../assets/myEventsDrawer.png"
-import reviewDrawer from "../../../assets/reviewDrawer.png"
-import reviewStar from "../../../assets/reviewStar.png"
-import WalletDrawer from "../../../assets/WalletDrawer.png"
-import walletBGImg from "../../../assets/walletBGImg.png"
-import walletCoins from "../../../assets/walletCoins.png"
-import drawerNotification from "../../../assets/drawerNotification.png"
-import signInbg from "../../../assets/signInbg.png"
-import signUpbg from "../../../assets/signUpbg.png"
-import forgotPassbg from "../../../assets/forgotPassbg.png"
-import profileInfobg from "../../../assets/profileInfobg.png"
-import datingIcon from "../../../assets/datingIcon.png"
-import helpingFriendIcon from "../../../assets/helpingFriendIcon.png"
-import questionIcon from "../../../assets/questionIcon.png"
-import recreationFriendIcon from "../../../assets/recreationFriendIcon.png"
-import shareIcon from "../../../assets/shareIcon.png"
-import forYourFriends from "../../../assets/forYourFriends.png"
-import thankYou from "../../../assets/thankYou.png"
-import BtmTabWincliesBefore from "../../../assets/BtmTabWincliesBefore.png"
-import myWincliesbg from "../../../assets/myWincliesbg.png"
-import dollarCoins from "../../../assets/dollarCoins.png"
-import myWincliesIcon from "../../../assets/myWincliesIcon.png"
-import cart from "../../../assets/cart.png"
-import shopWinclybg from "../../../assets/shopWinclybg.png"
-import shopWinclySquare from "../../../assets/shopWinclySquare.png"
-import BtmTabWincliesAfter from "../../../assets/BtmTabWincliesAfter.png"
-import cancelModal from "../../../assets/cancelModal.png"
+import accept from '../../../assets/accept.png';
+import decline from '../../../assets/decline.png';
+import myEventsDrawer from '../../../assets/myEventsDrawer.png';
+import reviewDrawer from '../../../assets/reviewDrawer.png';
+import reviewStar from '../../../assets/reviewStar.png';
+import WalletDrawer from '../../../assets/WalletDrawer.png';
+import walletBGImg from '../../../assets/walletBGImg.png';
+import walletCoins from '../../../assets/walletCoins.png';
+import drawerNotification from '../../../assets/drawerNotification.png';
+import signInbg from '../../../assets/signInbg.png';
+import signUpbg from '../../../assets/signUpbg.png';
+import forgotPassbg from '../../../assets/forgotPassbg.png';
+import profileInfobg from '../../../assets/profileInfobg.png';
+import datingIcon from '../../../assets/datingIcon.png';
+import helpingFriendIcon from '../../../assets/helpingFriendIcon.png';
+import questionIcon from '../../../assets/questionIcon.png';
+import recreationFriendIcon from '../../../assets/recreationFriendIcon.png';
+import shareIcon from '../../../assets/shareIcon.png';
+import forYourFriends from '../../../assets/forYourFriends.png';
+import thankYou from '../../../assets/thankYou.png';
+import BtmTabWincliesBefore from '../../../assets/BtmTabWincliesBefore.png';
+import myWincliesbg from '../../../assets/myWincliesbg.png';
+import dollarCoins from '../../../assets/dollarCoins.png';
+import myWincliesIcon from '../../../assets/myWincliesIcon.png';
+import cart from '../../../assets/cart.png';
+import shopWinclybg from '../../../assets/shopWinclybg.png';
+import shopWinclySquare from '../../../assets/shopWinclySquare.png';
+import BtmTabWincliesAfter from '../../../assets/BtmTabWincliesAfter.png';
+import cancelModal from '../../../assets/cancelModal.png';
+import congratsWincly from '../../../assets/congratsWincly.png';
+import verified from '../../../assets/verified.png';
+import successfulEvent from '../../../assets/successfulEvent.png';
+import friendProfile from '../../../assets/friendProfile.png';
+import tickGreen from '../../../assets/tickGreen.png';
+import profileSmall from '../../../assets/profileSmall.png';
 
 const images = {
   landingBg,
@@ -165,7 +171,13 @@ const images = {
   myWincliesIcon,
   shopWinclySquare,
   BtmTabWincliesAfter,
-  cancelModal
+  cancelModal,
+  congratsWincly,
+  verified,
+  successfulEvent,
+  friendProfile,
+  tickGreen,
+  profileSmall
 };
 
 export default images;

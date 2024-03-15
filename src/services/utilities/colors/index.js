@@ -36,6 +36,7 @@ export const colors = {
     greenIcon: '#3AAF69',
     grayBg:'#E9E9E9',
     grayBg2:'#E3E3E3',
+    purple:'#B2BAFF'
     
   };
   

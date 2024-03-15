@@ -52,6 +52,8 @@ import Notification from '../../screens/Notification';
 import Introduction from '../../screens/Introduction';
 import ThankYou from '../../screens/ThankYou';
 import FindYourFriends from '../../screens/ForYourFriends';
+import SuccessfulEvent from '../../screens/SuccessfulEvent';
+import RequestFriendReview from '../../screens/RequestFriendReview';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -170,9 +172,9 @@ const MyTabs = () => {
             ),
         }}
       />
-        <Tab.Screen
-        name="Likes"
-        component={Like}
+      <Tab.Screen
+        name="Wallet"
+        component={Wallet}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({focused}) =>
@@ -197,7 +199,6 @@ const MyTabs = () => {
             ),
         }}
       />
-
 
       <Tab.Screen
         name="Chat"
@@ -453,12 +454,16 @@ const AuthStackNavigator = () => {
       <Stack.Screen name="Review" component={Review} />
       <Stack.Screen name="FindYourFriends" component={FindYourFriends} />
       <Stack.Screen name="ThankYou" component={ThankYou} />
+      
+      
     </Stack.Navigator>
   );
 };
 const AppStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="SuccessfulEvent" component={SuccessfulEvent} />
+      <Stack.Screen name="RequestFriendReview" component={RequestFriendReview} />
       <Stack.Screen name="MyDrawer" component={MyDrawer} />
       <Stack.Screen name="LandingPage" component={LandingPage} />
       <Stack.Screen name="Signin" component={Signin} />
