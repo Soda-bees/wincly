@@ -164,6 +164,7 @@ export default function Home({navigation, route}) {
     return isAfter(currentDateTime, eventDateTime);
   };
 
+
   useEffect(() => {
     if (userDetalis) {
       socket.emit('set user', userData);
@@ -251,7 +252,7 @@ export default function Home({navigation, route}) {
             <View style={styles.modalLine} />
             <Text style={styles.modalHeading2}>
               What tags best describe your event?
-            </Text>     
+            </Text>
             <View style={styles.eventView}>
               {event.map((eventItem, index) => {
                 return (
@@ -291,16 +292,15 @@ export default function Home({navigation, route}) {
                 );
               })}
               <TouchableOpacity
-                  style={styles.modalBtn}
-                  onPress={() => {
-                    navigation.navigate('UploadPost',{tag : selectedEvent});
-                  }}>
-                  <Text style={styles.modalBtnText}>
+                style={styles.modalBtn}
+                onPress={() => {
+                  navigation.navigate('UploadPost', {tag: selectedEvent});
+                }}>
+                <Text style={styles.modalBtnText}>
                   Confirm - {selectedEvent}
-                  </Text>
-                </TouchableOpacity>
+                </Text>
+              </TouchableOpacity>
             </View>
-            
           </View>
         </Modal>
 
@@ -308,7 +308,6 @@ export default function Home({navigation, route}) {
           style={styles.createPostBtn}
           onPress={() => {
             setModalVisible(true);
-            // navigation.navigate('UploadPost');
           }}>
           <Text style={styles.createPostText}>Create your own event</Text>
           <View style={[styles.padding]}>
@@ -376,6 +375,7 @@ export default function Home({navigation, route}) {
           </View>
         )}
       </View>
+      
     </SafeAreaView>
   );
 }

@@ -8,8 +8,8 @@ import {Modal} from 'react-native-paper';
 
 export default function RequestFriendReview({route, navigation}) {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalTwoVisible, setModalTwoVisible] = useState(false);
   const {userDetalis} = useSelector(state => state.userDetailsSlice);
-
   const [friendImage, setFriendImage] = useState([
     images.friendProfile,
     images.friendProfile,
@@ -18,6 +18,10 @@ export default function RequestFriendReview({route, navigation}) {
     images.friendProfile,
     images.friendProfile,
   ]);
+
+  const handleReview = () => {
+    navigation.navigate('Review');
+  };
 
   return (
     <View style={styles.container}>
@@ -35,7 +39,7 @@ export default function RequestFriendReview({route, navigation}) {
           {friendImage.map((imgFriend, index) => {
             return (
               <View key={index} style={[styles.margin, styles.imageContainer]}>
-                <Image source={imgFriend} />
+                <Image style={styles.image} source={imgFriend} />
               </View>
             );
           })}
@@ -44,7 +48,8 @@ export default function RequestFriendReview({route, navigation}) {
       <Text style={styles.head4}>
         Upgrade your profile by getting verified reviews to increase your
         chances of getting
-        <Text style={styles.head4Combination}> new badges!</Text>
+        <Text> </Text>
+        <Text style={styles.head4Combination}>new badges!</Text>
       </Text>
 
       <View style={styles.btnTop}>
@@ -52,6 +57,7 @@ export default function RequestFriendReview({route, navigation}) {
           onPress={() => {
             console.log('modal open');
             setModalVisible(true);
+            // setModalVisible(true);
           }}
           title={'Ask for Review'}></Button>
       </View>
@@ -75,12 +81,52 @@ export default function RequestFriendReview({route, navigation}) {
             The request for the review has been sent to your friends! You will
             be notified once they complete the review.
           </Text>
-          <TouchableOpacity style={styles.modalButton}>
-            <View style={styles.modalButtonRow}>
-            <Text style={styles.modalBtnText}>Your Profile</Text>
-            <Image source={images.profileSmall}/>
+          <TouchableOpacity
+            onPress={() => {
+              console.log('modal 2 open');
+              setModalTwoVisible(true);
+            }}
+            style={styles.modalButton}>
+            <Text style={styles.modalBtnText}>Done</Text>
+            
+          </TouchableOpacity>
+        </View>
+      </Modal>
+
+      <Modal
+       visible={isModalTwoVisible}
+        onRequest={() => {
+          Alert.alert('Modal has been closed');
+          setModalTwoVisible(!isModalTwoVisible);
+        }}>
+        <View style={styles.modalContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              setModalTwoVisible(!isModalTwoVisible);
+            }}>
+            <Image style={styles.modalCross} source={images.cancelModal} />
+          </TouchableOpacity>
+          <View style={styles.modalUserDetails}>
+            <Image
+              source={{uri: userDetalis?.profileImg}}
+              style={styles.profile}
+            />
+            <Text style={styles.userNameModal}>{userDetalis?.username}</Text>
+            <View style={styles.locationView}>
+              <Image source={images.location} style={styles.locationImg} />
+              <Text style={styles.locationText}>{userDetalis?.location}</Text>
             </View>
-         
+          </View>
+          <Text style={styles.modalHead}>Submit a Review!</Text>
+          <Text style={styles.modalText}>
+            {userDetalis?.username} has requested to submit a review for the
+            event you participated in.
+          </Text>
+          <TouchableOpacity
+            style={styles.modalButton}
+            onPress={handleReview}
+          >
+            <Text style={styles.modalBtnText}>Submit a Review</Text>
           </TouchableOpacity>
         </View>
       </Modal>

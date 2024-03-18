@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profile: {
-    marginTop: sizes.screenHeight * 0.08,
+    // marginTop: sizes.screenHeight * 0.08,
     height: sizes.screenHeight * 0.07,
     width: sizes.screenHeight * 0.07,
     borderRadius: sizes.screenHeight * 0.5,
@@ -16,7 +16,6 @@ export const styles = StyleSheet.create({
     borderColor: colors.appTextColor1,
   },
   locationView: {
-    marginTop: sizes.screenHeight * 0.01,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -100,10 +99,11 @@ export const styles = StyleSheet.create({
     height: sizes.screenWidth * 0.15,
   },
   image: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+    height: sizes.screenHeight * 0.065,
+    width: sizes.screenHeight * 0.065,
+    borderRadius: sizes.screenHeight * 0.5,
+    borderWidth: sizes.screenWidth * 0.008,
+    borderColor: colors.appTextColor1,
   },
   modalContainer: {
     width: sizes.screenWidth * 0.7,
@@ -153,9 +153,27 @@ export const styles = StyleSheet.create({
     color: colors.black,
     fontWeight: 'bold',
   },
-  modalButtonRow:{
-    flexDirection:'row',
-    justifyContent:'space-evenly',
-    alignItems:'center'
+  modalButtonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  modalHead: {
+    marginTop:sizes.screenHeight* 0.02,
+    textAlign: 'center',
+    fontSize: fontSize.h4,
+    fontWeight: '700',
+    color: colors.black,
+  },
+  userNameModal:{
+    color: colors.black,
+    fontWeight: '500',
+    textAlign:'center'
+  },
+  modalUserDetails: {
+    alignItems: 'center',
+    marginTop:sizes.screenHeight* 0.04,
+    bottom:sizes.screenHeight* 0.02
   }
+ 
 });

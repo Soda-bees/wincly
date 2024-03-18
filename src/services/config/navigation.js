@@ -462,8 +462,6 @@ const AuthStackNavigator = () => {
 const AppStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="SuccessfulEvent" component={SuccessfulEvent} />
-      <Stack.Screen name="RequestFriendReview" component={RequestFriendReview} />
       <Stack.Screen name="MyDrawer" component={MyDrawer} />
       <Stack.Screen name="LandingPage" component={LandingPage} />
       <Stack.Screen name="Signin" component={Signin} />
@@ -492,6 +490,9 @@ const AppStackNavigator = () => {
       <Stack.Screen name="MyEventDetails" component={MyEventDetails} />
       <Stack.Screen name="JoinEventsDetails" component={JoinEventsDetails} />
       <Stack.Screen name="Review" component={Review} />
+      <Stack.Screen name="SuccessfulEvent" component={SuccessfulEvent} />
+      <Stack.Screen name="RequestFriendReview" component={RequestFriendReview} />
+
     </Stack.Navigator>
   );
 };

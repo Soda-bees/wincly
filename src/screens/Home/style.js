@@ -621,4 +621,72 @@ export const styles = StyleSheet.create({
     // marginRight: sizes.screenHeight * 0.007,
     // marginLeft: sizes.screenHeight * 0.007,
   },
+  modalCross: {
+    alignSelf: 'flex-end',
+  },
+  modalHead: {
+    marginTop:sizes.screenHeight* 0.02,
+    textAlign: 'center',
+    fontSize: fontSize.h4,
+    fontWeight: '700',
+    color: colors.black,
+  },
+  modalUserDetails: {
+    alignItems: 'center',
+    marginTop:sizes.screenHeight* 0.04,
+    bottom:sizes.screenHeight* 0.02
+  },
+  locationView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  locationImg: {
+    width: sizes.screenWidth * 0.05,
+    height: sizes.screenHeight * 0.025,
+  },
+  locationText: {
+    color: colors.black,
+    marginLeft: sizes.screenWidth * 0.01,
+    fontWeight: '500',
+    fontSize: fontSize.small,
+  },
+  modalText: {
+    marginTop: sizes.screenHeight * 0.02,
+    alignSelf: 'center',
+    color: colors.gray,
+    fontWeight: '500',
+    textAlign: 'center',
+    width: sizes.screenWidth * 0.6,
+    lineHeight: sizes.screenHeight * 0.025,
+    fontSize: fontSize.medium,
+  },
+  modalButton: {
+    marginTop: sizes.screenHeight * 0.04,
+    alignSelf: 'center',
+    backgroundColor: colors.appTextColor1,
+    padding: sizes.screenHeight * 0.02,
+    width: sizes.screenWidth * 0.45,
+    borderRadius: sizes.screenWidth * 0.03,
+  },
+  modalBtnText: {
+    textAlign: 'center',
+    fontSize: fontSize.h6,
+    color: colors.black,
+    fontWeight: 'bold',
+  },
+  modalContainer2: {
+    width: sizes.screenWidth * 0.7,
+    backgroundColor: colors.white,
+    alignSelf: 'center',
+    shadowColor: '#000',
+    borderRadius: sizes.screenWidth * 0.04,
+    paddingVertical: sizes.screenHeight * 0.02,
+    paddingHorizontal: sizes.screenWidth * 0.04,
+  },
+  userNameModal:{
+    color: colors.black,
+    fontWeight: '500',
+    textAlign:'center'
+  }
+ 
 });
