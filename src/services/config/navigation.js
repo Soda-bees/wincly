@@ -492,7 +492,6 @@ const AppStackNavigator = () => {
       <Stack.Screen name="Review" component={Review} />
       <Stack.Screen name="SuccessfulEvent" component={SuccessfulEvent} />
       <Stack.Screen name="RequestFriendReview" component={RequestFriendReview} />
-
     </Stack.Navigator>
   );
 };

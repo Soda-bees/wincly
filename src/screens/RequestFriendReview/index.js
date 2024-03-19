@@ -23,6 +23,11 @@ export default function RequestFriendReview({route, navigation}) {
     navigation.navigate('Review');
   };
 
+  const handleProfile = () => {
+    navigation.navigate('Home')
+    console.log("navigating")
+  }
+
   return (
     <View style={styles.container}>
       <Image source={{uri: userDetalis?.profileImg}} style={styles.profile} />
@@ -57,7 +62,6 @@ export default function RequestFriendReview({route, navigation}) {
           onPress={() => {
             console.log('modal open');
             setModalVisible(true);
-            // setModalVisible(true);
           }}
           title={'Ask for Review'}></Button>
       </View>
@@ -82,19 +86,19 @@ export default function RequestFriendReview({route, navigation}) {
             be notified once they complete the review.
           </Text>
           <TouchableOpacity
-            onPress={() => {
-              console.log('modal 2 open');
-              setModalTwoVisible(true);
-            }}
-            style={styles.modalButton}>
-            <Text style={styles.modalBtnText}>Done</Text>
+          onPress={handleProfile}
             
+            style={styles.modalButton}>
+            <View style={styles.modalButtonRow}>
+              <Text style={styles.modalBtnText}>Your Profile</Text>
+              <Image source={images.profileSmall} />
+            </View>
           </TouchableOpacity>
         </View>
       </Modal>
 
       <Modal
-       visible={isModalTwoVisible}
+        visible={isModalTwoVisible}
         onRequest={() => {
           Alert.alert('Modal has been closed');
           setModalTwoVisible(!isModalTwoVisible);
@@ -109,7 +113,7 @@ export default function RequestFriendReview({route, navigation}) {
           <View style={styles.modalUserDetails}>
             <Image
               source={{uri: userDetalis?.profileImg}}
-              style={styles.profile}
+              style={styles.profileModal}
             />
             <Text style={styles.userNameModal}>{userDetalis?.username}</Text>
             <View style={styles.locationView}>
@@ -122,10 +126,7 @@ export default function RequestFriendReview({route, navigation}) {
             {userDetalis?.username} has requested to submit a review for the
             event you participated in.
           </Text>
-          <TouchableOpacity
-            style={styles.modalButton}
-            onPress={handleReview}
-          >
+          <TouchableOpacity style={styles.modalButton} onPress={handleReview}>
             <Text style={styles.modalBtnText}>Submit a Review</Text>
           </TouchableOpacity>
         </View>

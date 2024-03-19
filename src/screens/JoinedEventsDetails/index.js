@@ -10,7 +10,7 @@ import {
 import formatToJSON from '../../services/utilities/JsonLog';
 import {styles} from './style';
 import BackButton from '../../components/BackButton';
-import {ActivityIndicator} from 'react-native-paper';
+import {ActivityIndicator, Modal} from 'react-native-paper';
 import images from '../../services/utilities/images';
 import Button from '../../components/Button';
 import {format, parse} from 'date-fns';
@@ -21,7 +21,8 @@ import backendURL from '../../services/config/backendURL';
 export default function JoinEventsDetails({route, navigation}) {
   const {item, timeAgo} = route.params;
   const userData = useSelector(state => state.userDetailsSlice.userDetalis);
-
+  const {userDetalis} = useSelector(state => state.userDetailsSlice);
+  const [isModalTwoVisible, setModalTwoVisible] = useState(false);
   const [loader, setLoader] = useState(false);
   const [isReview, setIsReview] = useState(false);
   useEffect(() => {
@@ -50,14 +51,11 @@ export default function JoinEventsDetails({route, navigation}) {
     //   const time = `${item.endDate} ${item.endTime}`
     //   console.log(time);
     //   DateComparison(item)
-    navigation.navigate(
-      'SuccessfulEvent',
-      // 'Review'
-      {
-        item: item.eventOrganizerData,
-        eventData: item,
-      },
-    );
+
+    navigation.navigate('Review', {
+      item: item.eventOrganizerData,
+      eventData: item,
+    });
   };
 
   const handleNavigateChat = async _id => {
@@ -80,10 +78,6 @@ export default function JoinEventsDetails({route, navigation}) {
     }
   };
 
-  const handleSuccessfulEvent = () => {
-    console.log('navigating');
-    navigation.navigate('SuccessfulEvent');
-  };
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -232,10 +226,53 @@ export default function JoinEventsDetails({route, navigation}) {
             </View>
           ) : (
             isReview && (
-              <Button title={'Post a review'} onPress={handleConfirm} />
+              <Button
+                title={'Post a review'}
+                onPress={() => {
+                  setModalTwoVisible(!isModalTwoVisible);
+                }}
+                // onPress={handleConfirm}
+              />
             )
           )}
         </View>
+
+        <Modal
+          visible={isModalTwoVisible}
+          onRequest={() => {
+            Alert.alert('Modal has been closed');
+            setModalTwoVisible(!isModalTwoVisible);
+          }}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                setModalTwoVisible(!isModalTwoVisible);
+              }}>
+              <Image style={styles.modalCross} source={images.cancelModal} />
+            </TouchableOpacity>
+            <View style={styles.modalUserDetails}>
+              <Image
+                source={{uri: userDetalis?.profileImg}}
+                style={styles.profileModal}
+              />
+              <Text style={styles.userNameModal}>{userDetalis?.username}</Text>
+              <View style={styles.locationView}>
+                <Image source={images.location} style={styles.locationImg} />
+                <Text style={styles.locationText}>{userDetalis?.location}</Text>
+              </View>
+            </View>
+            <Text style={styles.modalHead}>Submit a Review!</Text>
+            <Text style={styles.modalText}>
+              {userDetalis?.username} has requested to submit a review for the
+              event you participated in.
+            </Text>
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={handleConfirm}>
+              <Text style={styles.modalBtnText}>Submit a Review</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );

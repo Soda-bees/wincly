@@ -39,7 +39,9 @@ export default function MyEventDetails({ route , navigation }) {
       console.log(error);
     }
   }
-
+  const handleSuccessfulEvent = () => {
+    navigation.navigate("SuccessfulEvent")
+  }
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -155,6 +157,10 @@ export default function MyEventDetails({ route , navigation }) {
                   </View>
                 );
               })}
+            </View>
+            <View style={styles.buttonMargin}>
+              <Button title={'Share Experience'}
+              onPress={handleSuccessfulEvent}/>
             </View>
           </View>
         </ScrollView>

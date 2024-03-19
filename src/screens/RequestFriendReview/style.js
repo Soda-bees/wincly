@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profile: {
-    // marginTop: sizes.screenHeight * 0.08,
+    marginTop: sizes.screenHeight * 0.08,
     height: sizes.screenHeight * 0.07,
     width: sizes.screenHeight * 0.07,
     borderRadius: sizes.screenHeight * 0.5,
@@ -174,6 +174,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop:sizes.screenHeight* 0.04,
     bottom:sizes.screenHeight* 0.02
+  },
+  profileModal: {
+    height: sizes.screenHeight * 0.07,
+    width: sizes.screenHeight * 0.07,
+    borderRadius: sizes.screenHeight * 0.5,
+    borderWidth: sizes.screenWidth * 0.007,
+    borderColor: colors.appTextColor1,
   }
  
 });

@@ -22,7 +22,7 @@ import Modal from 'react-native-modal';
 import images from '../../services/utilities/images';
 
 export default function Review({route, navigation}) {
-  // const { item, eventData } = route.params;
+  const { item, eventData } = route.params;
   const {userDetalis} = useSelector(state => state.userDetailsSlice);
   const userData = useSelector(state => state.userDetailsSlice.userDetalis);
 

@@ -292,5 +292,9 @@ export const styles = StyleSheet.create({
   flexRow: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  buttonMargin:{
+    marginTop: sizes.screenHeight * 0.03,
+    marginBottom: sizes.screenHeight * 0.03,
   }
 });
