@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -15,15 +15,14 @@ import images from '../../services/utilities/images';
 import Button from '../../components/Button';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
+import messaging from '@react-native-firebase/messaging';
 
-export default function MyEventDetails({ route , navigation }) {
+export default function MyEventDetails({ route, navigation }) {
   const { item, timeAgo } = route.params;
-
   const [loader, setLoader] = useState(false);
 
+
   const handleNavigateChatroom = async (_id) => {
-    // console.log(_id);
-    // console.log(item.eventOrganizerData._id);
     const _id1 = _id;
     const _id2 = item.eventOrganizerData._id
     try {
@@ -40,7 +39,8 @@ export default function MyEventDetails({ route , navigation }) {
     }
   }
   const handleSuccessfulEvent = () => {
-    navigation.navigate("SuccessfulEvent")
+    // console.log(formatToJSON(item?.eventParticipants));
+    navigation.navigate("SuccessfulEvent", { item })
   }
   return (
     <SafeAreaView>
@@ -160,7 +160,7 @@ export default function MyEventDetails({ route , navigation }) {
             </View>
             <View style={styles.buttonMargin}>
               <Button title={'Share Experience'}
-              onPress={handleSuccessfulEvent}/>
+                onPress={handleSuccessfulEvent} />
             </View>
           </View>
         </ScrollView>

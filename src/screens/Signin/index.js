@@ -55,7 +55,6 @@ export default function Signin({navigation, route}) {
     };
     socket.emit('set user', userData);
     socket.connect();
-    // console.log(`login emit done ${userData}`);
   };
 
   const handleUpdateDevicToken = async user => {
@@ -67,7 +66,7 @@ export default function Signin({navigation, route}) {
           deviceToken,
         },
       );
-      console.log(data.message);
+      console.log("update device  --=-==-=--==->",data.message);
     } catch (error) {
       console.log('error in device token update');
     }

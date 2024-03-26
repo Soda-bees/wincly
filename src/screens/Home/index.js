@@ -48,6 +48,7 @@ export default function Home({navigation, route}) {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const [isMatch, setIsMatch] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState('');
 
   const [event, setEvent] = useState([
     'Food',
@@ -60,7 +61,6 @@ export default function Home({navigation, route}) {
     'Other',
   ]);
 
-  const [selectedEvent, setSelectedEvent] = useState('');
 
   useEffect(() => {
     setLoader(true);
@@ -294,8 +294,12 @@ export default function Home({navigation, route}) {
               <TouchableOpacity
                 style={styles.modalBtn}
                 onPress={() => {
-                  navigation.navigate('UploadPost', {tag: selectedEvent});
-                }}>
+                  selectedEvent && (
+                      navigation.navigate('UploadPost', { tag: selectedEvent }),
+                      setSelectedEvent(''),
+                      setModalVisible(false)
+                  );
+              }}>
                 <Text style={styles.modalBtnText}>
                   Confirm - {selectedEvent}
                 </Text>
@@ -307,7 +311,7 @@ export default function Home({navigation, route}) {
         <TouchableOpacity
           style={styles.createPostBtn}
           onPress={() => {
-            setModalVisible(true);
+            setModalVisible(!isModalVisible);
           }}>
           <Text style={styles.createPostText}>Create your own event</Text>
           <View style={[styles.padding]}>

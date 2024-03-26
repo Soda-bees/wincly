@@ -63,7 +63,8 @@ export default function ResetPassword({navigation, route}) {
       <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-        }}>
+        }}
+        >
         <View>
           <View style={styles.container}>
           <Image source={images.forgotPassbg} style={styles.bgImage} />
@@ -139,6 +140,7 @@ export default function ResetPassword({navigation, route}) {
                     />
                   </TouchableOpacity>
                 </View>
+                
               </View>
               <View style={styles.errorView}>
                 <Text style={styles.errorText}>{error}</Text>

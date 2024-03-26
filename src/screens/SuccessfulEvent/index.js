@@ -1,10 +1,14 @@
-import {View, Text, Image, ImageBackground, SafeAreaView} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {styles} from './style';
+import { View, Text, Image, ImageBackground, SafeAreaView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { styles } from './style';
 import images from '../../services/utilities/images';
 import Button from '../../components/Button';
 
-export default function SuccessfulEvent({navigation}) {
+export default function SuccessfulEvent({ navigation, route }) {
+
+  const { item } = route?.params
+  console.log(item?.imageUri);
+
   const [eventImage, setEventImage] = useState(null);
   const successfulEventImage = () => {
     setEventImage(images.successfulEvent);
@@ -14,8 +18,7 @@ export default function SuccessfulEvent({navigation}) {
   }, []);
 
   const handleJoin = () => {
-    navigation.navigate('RequestFriendReview');
-    console.log('navigating');
+    navigation.navigate('RequestFriendReview', { item });
   };
 
   return (
@@ -25,7 +28,7 @@ export default function SuccessfulEvent({navigation}) {
         <Image source={images.congratsWincly} />
         <Text style={styles.head2}>On successfully completing your event.</Text>
         <View style={styles.eventImageView}>
-          <ImageBackground style={styles.eventImage} source={eventImage}>
+          <ImageBackground style={styles.eventImage} source={{ uri: item?.imageUri }}>
             <Image source={images.verified} />
           </ImageBackground>
         </View>
