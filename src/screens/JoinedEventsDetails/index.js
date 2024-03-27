@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -8,25 +8,34 @@ import {
   View,
 } from 'react-native';
 import formatToJSON from '../../services/utilities/JsonLog';
-import {styles} from './style';
+import { styles } from './style';
 import BackButton from '../../components/BackButton';
-import {ActivityIndicator, Modal} from 'react-native-paper';
+import { ActivityIndicator, Modal } from 'react-native-paper';
 import images from '../../services/utilities/images';
 import Button from '../../components/Button';
-import {format, parse} from 'date-fns';
-import {useSelector} from 'react-redux';
+import { format, parse } from 'date-fns';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
 
-export default function JoinEventsDetails({route, navigation}) {
-  const {item, timeAgo} = route.params;
+export default function JoinEventsDetails({ route, navigation }) {
+  // const {item, timeAgo} = route.params;
+  const timeAgo = route?.params?.timeAgo
+  const item = route?.params?.item
+  const eventId = route?.params?.eventId
+
   const userData = useSelector(state => state.userDetailsSlice.userDetalis);
-  const {userDetalis} = useSelector(state => state.userDetailsSlice);
+  const { userDetalis } = useSelector(state => state.userDetailsSlice);
   const [isModalTwoVisible, setModalTwoVisible] = useState(false);
   const [loader, setLoader] = useState(false);
   const [isReview, setIsReview] = useState(false);
   useEffect(() => {
-    DateComparison(item);
+    if(eventId){
+      console.log("event id hai");
+    }else{
+      console.log('event id nh hai');
+    }
+    // DateComparison(item);
   }, []);
 
   function DateComparison(item) {
@@ -62,7 +71,7 @@ export default function JoinEventsDetails({route, navigation}) {
     const _id1 = _id;
     const _id2 = userData._id;
     try {
-      const {data} = await axios.post(
+      const { data } = await axios.post(
         backendURL + 'api/wincly/findExistingChatroom',
         {
           _id1,
@@ -71,7 +80,7 @@ export default function JoinEventsDetails({route, navigation}) {
       );
       console.log(data);
       if (data.success) {
-        navigation.navigate('ChatRoom', {chatId: data.chatId});
+        navigation.navigate('ChatRoom', { chatId: data.chatId });
       }
     } catch (error) {
       console.log(error);
@@ -86,31 +95,31 @@ export default function JoinEventsDetails({route, navigation}) {
           <View style={styles.innerContainer}>
             <View style={styles.eventCardImgView}>
               <Image
-                source={{uri: item.eventOrganizerData.profileImg}}
+                source={{ uri: item?.eventOrganizerData.profileImg }}
                 style={styles.eventCardProfileImg}
               />
               <View>
                 <Text style={styles.eventCardUsernameText}>
-                  {item.eventOrganizerData.username}
+                  {item?.eventOrganizerData.username}
                 </Text>
                 <Text style={styles.eventCardTimeText}>{timeAgo}</Text>
               </View>
             </View>
-            <Text style={styles.eventCardTitle}>{item.title}</Text>
+            <Text style={styles.eventCardTitle}>{item?.title}</Text>
             <View style={styles.locationPersonView}>
               <View style={styles.locationView}>
                 <Image source={images.location} style={styles.locationImg} />
                 <Text style={styles.locationText}>
-                  {item.eventOrganizerData.location}
+                  {item?.eventOrganizerData.location}
                 </Text>
               </View>
               <Text style={styles.noOfPersonText}>
-                {`No of person:${item.eventParticipants?.length}/${item.noOfPerson}`}
+                {`No of person:${item?.eventParticipants?.length}/${item?.noOfPerson}`}
               </Text>
             </View>
             <View style={styles.line}></View>
-            <Text style={styles.eventDisText}>{item.eventDis}</Text>
-            <Image source={{uri: item.imageUri}} style={styles.eventImg} />
+            <Text style={styles.eventDisText}>{item?.eventDis}</Text>
+            <Image source={{ uri: item?.imageUri }} style={styles.eventImg} />
 
             <View style={styles.startDateView}>
               <View style={styles.insideStartDateView1}>
@@ -118,7 +127,7 @@ export default function JoinEventsDetails({route, navigation}) {
                 <View style={styles.insideStartDateView}>
                   <Text style={styles.text1}>Start date</Text>
                   <View>
-                    <Text style={styles.dropItem}>{item.startDate}</Text>
+                    <Text style={styles.dropItem}>{item?.startDate}</Text>
                   </View>
                 </View>
               </View>
@@ -129,7 +138,7 @@ export default function JoinEventsDetails({route, navigation}) {
                 <View style={styles.insideStartDateView}>
                   <Text style={styles.text1}>End date</Text>
                   <View>
-                    <Text style={styles.dropItem}>{item.endDate}</Text>
+                    <Text style={styles.dropItem}>{item?.endDate}</Text>
                   </View>
                 </View>
               </View>
@@ -141,7 +150,7 @@ export default function JoinEventsDetails({route, navigation}) {
                   <View style={styles.insideStartDateView}>
                     <Text style={styles.text1}>Start time</Text>
                     <View>
-                      <Text style={styles.dropItem2}>{item.startTime}</Text>
+                      <Text style={styles.dropItem2}>{item?.startTime}</Text>
                     </View>
                   </View>
                 </View>
@@ -152,17 +161,17 @@ export default function JoinEventsDetails({route, navigation}) {
                   <View style={styles.insideStartDateView}>
                     <Text style={styles.text1}>End time</Text>
                     <View>
-                      <Text style={styles.dropItem2}>{item.endTime}</Text>
+                      <Text style={styles.dropItem2}>{item?.endTime}</Text>
                     </View>
                   </View>
                 </View>
               </View>
             </View>
             <Text style={styles.interestText}>
-              {`${item.eventOrganizerData.username} interest`}
+              {`${item?.eventOrganizerData.username} interest`}
             </Text>
             <View style={styles.itemView}>
-              {item.eventOrganizerData.interest.map((item, index) => {
+              {item?.eventOrganizerData.interest.map((item, index) => {
                 // console.log(item);
                 return (
                   <Text key={index} style={styles.interestMapText}>
@@ -173,12 +182,12 @@ export default function JoinEventsDetails({route, navigation}) {
             </View>
             <Text style={styles.interestText}>Events Participations</Text>
             <View>
-              {item.eventParticipants.map((item, index) => {
+              {item?.eventParticipants.map((item, index) => {
                 return (
                   <View key={index} style={styles.eventParticipantsView}>
                     <View style={styles.flexRow}>
                       <Image
-                        source={{uri: item.profileImg}}
+                        source={{ uri: item.profileImg }}
                         style={styles.eventParticipantsProfile}
                       />
                       <View style={styles.eventParticipantsInnerView}>
@@ -231,7 +240,7 @@ export default function JoinEventsDetails({route, navigation}) {
                 onPress={() => {
                   setModalTwoVisible(!isModalTwoVisible);
                 }}
-                // onPress={handleConfirm}
+              // onPress={handleConfirm}
               />
             )
           )}
@@ -252,7 +261,7 @@ export default function JoinEventsDetails({route, navigation}) {
             </TouchableOpacity>
             <View style={styles.modalUserDetails}>
               <Image
-                source={{uri: userDetalis?.profileImg}}
+                source={{ uri: userDetalis?.profileImg }}
                 style={styles.profileModal}
               />
               <Text style={styles.userNameModal}>{userDetalis?.username}</Text>

@@ -5,6 +5,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import images from '../../services/utilities/images';
 import Button from '../../components/Button';
 import Modal from 'react-native-modal';
+import axios from 'axios';
+import backendURL from '../../services/config/backendURL';
+import formatToJSON from '../../services/utilities/JsonLog';
 
 export default function RequestFriendReview({ route, navigation }) {
 
@@ -23,13 +26,25 @@ export default function RequestFriendReview({ route, navigation }) {
     navigation.navigate('Home')
   }
 
-  const handleSendInvitation = () => {
+  const handleSendInvitation = async () => {
+    setLoader(true)
     try {
       // setModalVisible(true);
-      
+      const _idArray = []
+      if (item && item.eventParticipants && Array.isArray(item.eventParticipants)) {
+        item.eventParticipants.forEach(participant => {
+          if (participant && participant._id) {
+            _idArray.push(participant._id);
+          }
+        });
+      }
+      console.log(_idArray);
+      const { data } = await axios.post(`${backendURL}api/wincly/sendReviewNotification`, { _idArray , item })
+      console.log(formatToJSON(data));
+      setLoader(false)
     } catch (error) {
       setLoader(false
-        )
+      )
       console.log(error);
     }
   }
