@@ -321,8 +321,8 @@ export const styles = StyleSheet.create({
   },
   modalUserDetails: {
     alignItems: 'center',
-    marginTop:sizes.screenHeight* 0.04,
-    bottom:sizes.screenHeight* 0.02
+    marginTop: sizes.screenHeight * 0.04,
+    bottom: sizes.screenHeight * 0.02
   },
   profileModal: {
     height: sizes.screenHeight * 0.07,
@@ -331,11 +331,11 @@ export const styles = StyleSheet.create({
     borderWidth: sizes.screenWidth * 0.007,
     borderColor: colors.appTextColor1,
   },
-  userNameModal:{
+  userNameModal: {
     color: colors.black,
     fontWeight: '500',
-    textAlign:'center',
-    marginBottom:sizes.screenHeight * 0.01
+    textAlign: 'center',
+    marginBottom: sizes.screenHeight * 0.01
   },
   locationView: {
     flexDirection: 'row',
@@ -352,7 +352,7 @@ export const styles = StyleSheet.create({
     fontSize: fontSize.small,
   },
   modalHead: {
-    marginTop:sizes.screenHeight* 0.02,
+    marginTop: sizes.screenHeight * 0.02,
     textAlign: 'center',
     fontSize: fontSize.h4,
     fontWeight: '700',

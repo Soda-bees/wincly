@@ -29,7 +29,6 @@ export default function RequestFriendReview({ route, navigation }) {
   const handleSendInvitation = async () => {
     setLoader(true)
     try {
-      // setModalVisible(true);
       const _idArray = []
       if (item && item.eventParticipants && Array.isArray(item.eventParticipants)) {
         item.eventParticipants.forEach(participant => {
@@ -38,10 +37,11 @@ export default function RequestFriendReview({ route, navigation }) {
           }
         });
       }
-      console.log(_idArray);
-      const { data } = await axios.post(`${backendURL}api/wincly/sendReviewNotification`, { _idArray , item })
-      console.log(formatToJSON(data));
-      setLoader(false)
+      const { data } = await axios.post(`${backendURL}api/wincly/sendReviewNotification`, { _idArray, item })
+      if (data?.success) {
+        setModalVisible(true);
+        setLoader(false)
+      }
     } catch (error) {
       setLoader(false
       )

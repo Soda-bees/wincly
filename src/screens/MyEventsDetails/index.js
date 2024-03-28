@@ -15,11 +15,16 @@ import images from '../../services/utilities/images';
 import Button from '../../components/Button';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import messaging from '@react-native-firebase/messaging';
+import { format, parse } from 'date-fns';
 
 export default function MyEventDetails({ route, navigation }) {
   const { item, timeAgo } = route.params;
   const [loader, setLoader] = useState(false);
+  const [isShareExperience, setIsShareExperience] = useState(false)
+
+  useEffect(() => {
+    DateComparison(item)
+  }, [])
 
 
   const handleNavigateChatroom = async (_id) => {
@@ -41,6 +46,24 @@ export default function MyEventDetails({ route, navigation }) {
   const handleSuccessfulEvent = () => {
     // console.log(formatToJSON(item?.eventParticipants));
     navigation.navigate("SuccessfulEvent", { item })
+  }
+
+  function DateComparison(item) {
+    const time = `${item.endDate} ${item.endTime}`;
+    const targetDateString = time;
+    const targetDate = parse(targetDateString, 'MM-dd-yyyy h:mm a', new Date());
+
+    // Get the current date and time
+    const currentDate = new Date();
+
+    // Compare the two dates
+    if (targetDate < currentDate) {
+      console.log('The target time is in the past.');
+      setIsShareExperience(true)
+    } else {
+      console.log('The target time is in the future.');
+      setIsShareExperience(false)
+    }
   }
   return (
     <SafeAreaView>
@@ -128,7 +151,7 @@ export default function MyEventDetails({ route, navigation }) {
               <Text style={styles.interestText}>Events Participants</Text>
             }
             <View>
-              {item.eventParticipants.map((item, index) => {
+              {item?.eventParticipants?.map((item, index) => {
                 return (
                   <View key={index} style={styles.eventParticipantsView}>
                     <View style={styles.flexRow}>
@@ -158,10 +181,13 @@ export default function MyEventDetails({ route, navigation }) {
                 );
               })}
             </View>
-            <View style={styles.buttonMargin}>
-              <Button title={'Share Experience'}
-                onPress={handleSuccessfulEvent} />
-            </View>
+            {
+              isShareExperience &&
+              <View style={styles.buttonMargin}>
+                <Button title={'Share Experience'}
+                  onPress={handleSuccessfulEvent} />
+              </View>
+            }
           </View>
         </ScrollView>
       </View>

@@ -31,6 +31,7 @@ export default function MyEvents({navigation}) {
     });
   }, [navigation]);
 
+
   const handleGetUserDetails = async () => {
     // setLoader(true);
     try {
@@ -138,7 +139,7 @@ export default function MyEvents({navigation}) {
                   />
                 </TouchableOpacity>
               );
-            })}
+            }).reverse()}
             <View style={styles.marginBtm}></View>
           </ScrollView>
         ) : (
