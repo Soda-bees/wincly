@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Image,
   ImageBackground,
@@ -9,23 +9,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { styles } from './style';
+import {styles} from './style';
 import images from '../../services/utilities/images';
-import { colors, sizes } from '../../services';
+import {colors, sizes} from '../../services';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Button from '../../components/Button';
 import auth from '@react-native-firebase/auth';
-import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import AnimatedLoader from '../AnimatedLoader';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import { ActivityIndicator, Checkbox } from 'react-native-paper';
+import {ActivityIndicator, Checkbox} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 
-export default function Signup({ navigation, route }) {
-
-  const deviceToken = route.params
+export default function Signup({navigation, route}) {
+  const deviceToken = route.params;
   // console.log('device token signup' , deviceToken);
 
   const [checked, setChecked] = useState(false);
@@ -64,12 +63,15 @@ export default function Signup({ navigation, route }) {
     } else if (password === confirmPassword) {
       setError('');
       let updatedEmail = email.toLowerCase();
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (emailRegex.test(email)) {
         try {
-          const { data } = await axios.post(backendURL + 'api/wincly/checkEmail', {
-            email: updatedEmail,
-          });
+          const {data} = await axios.post(
+            backendURL + 'api/wincly/checkEmail',
+            {
+              email: updatedEmail,
+            },
+          );
           // console.log('data===>', data);
           if (data.message === 'email already in use.') {
             setTimeout(() => {
@@ -87,7 +89,7 @@ export default function Signup({ navigation, route }) {
                   password,
                   like: [],
                   userStatus: 'Online',
-                  deviceToken
+                  deviceToken,
                 },
               });
               setLoader(false);
@@ -99,10 +101,9 @@ export default function Signup({ navigation, route }) {
         }
       } else {
         // console.log("Invalid email address");
-        setError('*Invalid email address')
+        setError('*Invalid email address');
         setLoader(false);
       }
-
     } else {
       setLoader(false);
       setError("*Passwords don't match");
@@ -110,66 +111,116 @@ export default function Signup({ navigation, route }) {
   };
 
   const handleFacebook = async () => {
-    const result = await LoginManager.logInWithPermissions([
-      'public_profile',
-      'email',
-    ]);
+    try {
+      const result = await LoginManager.logInWithPermissions([
+        'public_profile',
+        'email',
+      ]);
 
-    if (result.isCancelled) {
-      throw 'User cancelled the login process';
+      if (result.isCancelled) {
+        throw 'User cancelled the login process';
+      }
+
+      // Once signed in, get the users AccessToken
+      const data = await AccessToken.getCurrentAccessToken();
+
+      if (!data) {
+        throw 'Something went wrong obtaining access token';
+      }
+
+      // Create a Firebase credential with the AccessToken
+      const facebookCredential = auth.FacebookAuthProvider.credential(
+        data.accessToken,
+      );
+
+      // Sign-in the user with the credential
+      await auth().signInWithCredential(facebookCredential);
+
+      // Get the current user after signing in
+      let user = auth().currentUser;
+      console.log(user, '----->>');
+
+      // Return the signed-in user
+      return user;
+    } catch (error) {
+      console.error('Error signing in with Facebook:', error);
+      throw error; // Rethrow the error to handle it where the function is called
     }
-
-    // Once signed in, get the users AccessToken
-    const data = await AccessToken.getCurrentAccessToken();
-
-    if (!data) {
-      throw 'Something went wrong obtaining access token';
-    }
-
-    // Create a Firebase credential with the AccessToken
-    const facebookCredential = auth.FacebookAuthProvider.credential(
-      data.accessToken,
-    );
-
-    // Sign-in the user with the credential
-    let user = auth().currentUser;
-    console.log(user, '----->>');
-    return auth().signInWithCredential(facebookCredential);
   };
+
   const handleGoogle = async () => {
-    if (Platform.OS == 'android') {
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      const { idToken } = await GoogleSignin.signIn();
-
-      return auth()
-        .signInWithCredential(googleCredential)
-        .then(() => {
-          let user = auth().currentUser;
-          console.log(user.displayName, '----->>');
-          alert(`Welcome ${user.displayName}`);
+    try {
+      if (Platform.OS === 'android') {
+        await GoogleSignin.hasPlayServices({
+          showPlayServicesUpdateDialog: true,
         });
-    }
+        const {idToken} = await GoogleSignin.signIn();
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    // IOS
-    else {
-      const { idToken } = await GoogleSignin.signIn();
-      console.log(idToken, '------->obj');
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        await auth().signInWithCredential(googleCredential);
+      } else {
+        // IOS
+        const {idToken} = await GoogleSignin.signIn();
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-      const userSignIn = auth()
-        .signInWithCredential(googleCredential)
-        .then(() => {
-          let user = auth().currentUser;
-          console.log(user.displayName, '----->>');
-          alert(`Welcome ${user.displayName}`);
-        });
+        await auth().signInWithCredential(googleCredential);
+      }
+
+      let user = auth().currentUser;
+      console.log(user.displayName, '----->>');
+      console.log('User Detail', user);
+      alert(`Welcome ${user.displayName}`);
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
     }
   };
+
+  ////////// GOOGLE ACCOUNT LOG OUT //////////
+
+  // const revokeGoogleAccess = async () => {
+  //   try {
+  //     await GoogleSignin.revokeAccess();
+  //     console.log('Google access revoked successfully');
+  //     // Additional logic if needed after revoking access
+  //   } catch (error) {
+  //     console.error('Error revoking Google access:', error);
+  //     // Handle error
+  //   }
+  // };
+
+  ////////// GOOGLE ACCOUNT (DELETE) REMOVE FROM FIREBASE AND LOG OUT //////////
+
+  // const revokeGoogleAccess = async () => {
+  //   try {
+  //     // Check if the user is signed in with Google
+  //     const currentUser = auth().currentUser;
+  //     if (
+  //       !currentUser ||
+  //       !currentUser.providerData.some(
+  //         provider => provider.providerId === 'google.com',
+  //       )
+  //     ) {
+  //       throw new Error('No user is currently signed in with Google');
+  //     }
+
+  //     // Revoke Google access token
+  //     await GoogleSignin.revokeAccess();
+  //     console.log('Google access revoked successfully');
+
+  //     // Delete the Firebase user account
+  //     await currentUser.delete();
+  //     console.log('Firebase account deleted successfully');
+  //   } catch (error) {
+  //     console.error('Error revoking Google access:', error);
+  //     // Handle error
+  //   }
+  // };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <View>
-        <Image source={images.signUpbg} style={styles.bgImage} />
+          <Image source={images.signUpbg} style={styles.bgImage} />
           {/* <View style={styles.logoView}>
             <Image
               resizeMode="center"
@@ -303,17 +354,16 @@ export default function Signup({ navigation, route }) {
             Platform.OS == 'ios' ? styles.btnTopIOS : styles.btnTop,
             styles.row,
           ]}>
-          <TouchableOpacity 
-          // onPress={handleFacebook}
+          <TouchableOpacity
+            onPress={handleFacebook}
+            // onPress={revokeGoogleAccess}
           >
             <View style={[styles.darkBtn, styles.row2]}>
               <Image source={images.fb} style={styles.fb} />
               <Text style={styles.darkBtnText}>Facebook</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity 
-          // onPress={handleGoogle}
-          >
+          <TouchableOpacity onPress={handleGoogle}>
             <View style={[styles.greenBtn, styles.row2]}>
               <Image source={images.google} style={styles.google} />
               <Text style={[styles.googleRight]}>Google</Text>
