@@ -87,6 +87,16 @@ import successfulEvent from '../../../assets/successfulEvent.png';
 import friendProfile from '../../../assets/friendProfile.png';
 import tickGreen from '../../../assets/tickGreen.png';
 import profileSmall from '../../../assets/profileSmall.png';
+import introImgOne from '../../../assets/introImgOne.png';
+import introImgTwo from '../../../assets/introImgTwo.png';
+import introImgThree from '../../../assets/introImgThree.png';
+import swipeArrow from '../../../assets/swipeArrow.png';
+
+
+
+
+
+
 
 const images = {
   landingBg,
@@ -177,7 +187,11 @@ const images = {
   successfulEvent,
   friendProfile,
   tickGreen,
-  profileSmall
+  profileSmall,
+  introImgOne,
+  introImgTwo,
+  introImgThree,
+  swipeArrow
 };
 
 export default images;

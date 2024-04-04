@@ -44,6 +44,7 @@
     "react-native-sha256": "^1.4.9",
     "react-native-splash-screen": "^3.3.0",
     "react-native-star-rating": "^1.1.0",
+    "react-native-svg": "^15.1.0",
     "react-native-vector-icons": "^10.0.0",
     "react-native-video": "^5.2.1",
     "react-redux": "^8.1.2",
