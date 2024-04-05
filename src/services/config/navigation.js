@@ -54,6 +54,7 @@ import ThankYou from '../../screens/ThankYou';
 import FindYourFriends from '../../screens/ForYourFriends';
 import SuccessfulEvent from '../../screens/SuccessfulEvent';
 import RequestFriendReview from '../../screens/RequestFriendReview';
+import AppIntroduction from '../../screens/AppIntroduction';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -423,6 +424,7 @@ const MyDrawer = () => {
 const AuthStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="AppIntroduction" component={AppIntroduction} />
       <Stack.Screen name="Introduction" component={Introduction} />
       <Stack.Screen name="LandingPage" component={LandingPage} />
       <Stack.Screen name="MyDrawer" component={MyDrawer} />
