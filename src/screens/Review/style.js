@@ -29,8 +29,7 @@ export const styles = StyleSheet.create({
     marginBottom: sizes.screenHeight * 0.09,
   },
   btnView: {
-    marginBottom: sizes.screenHeight * 0.03,
-    marginTop: sizes.screenHeight * 0.02,
+    marginBottom: sizes.screenHeight * 0.015,
   },
   loader: {
     alignSelf: 'center',

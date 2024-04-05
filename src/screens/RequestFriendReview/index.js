@@ -1,23 +1,22 @@
-import {View, Text, Image, TouchableOpacity, ScrollView} from 'react-native';
-import React, {useState} from 'react';
-import {styles} from './style';
-import {useSelector, useDispatch} from 'react-redux';
+import { View, Text, Image, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import { styles } from './style';
+import { useSelector, useDispatch } from 'react-redux';
 import images from '../../services/utilities/images';
 import Button from '../../components/Button';
-import {Modal} from 'react-native-paper';
+import Modal from 'react-native-modal';
+import axios from 'axios';
+import backendURL from '../../services/config/backendURL';
+import formatToJSON from '../../services/utilities/JsonLog';
 
-export default function RequestFriendReview({route, navigation}) {
+export default function RequestFriendReview({ route, navigation }) {
+
+  const { item } = route?.params
+
   const [isModalVisible, setModalVisible] = useState(false);
   const [isModalTwoVisible, setModalTwoVisible] = useState(false);
-  const {userDetalis} = useSelector(state => state.userDetailsSlice);
-  const [friendImage, setFriendImage] = useState([
-    images.friendProfile,
-    images.friendProfile,
-    images.friendProfile,
-    images.friendProfile,
-    images.friendProfile,
-    images.friendProfile,
-  ]);
+  const { userDetalis } = useSelector(state => state.userDetailsSlice);
+  const [loader, setLoader] = useState(false)
 
   const handleReview = () => {
     navigation.navigate('Review');
@@ -25,12 +24,34 @@ export default function RequestFriendReview({route, navigation}) {
 
   const handleProfile = () => {
     navigation.navigate('Home')
-    console.log("navigating")
+  }
+
+  const handleSendInvitation = async () => {
+    setLoader(true)
+    try {
+      const _idArray = []
+      if (item && item.eventParticipants && Array.isArray(item.eventParticipants)) {
+        item.eventParticipants.forEach(participant => {
+          if (participant && participant._id) {
+            _idArray.push(participant._id);
+          }
+        });
+      }
+      const { data } = await axios.post(`${backendURL}api/wincly/sendReviewNotification`, { _idArray, item })
+      if (data?.success) {
+        setModalVisible(true);
+        setLoader(false)
+      }
+    } catch (error) {
+      setLoader(false
+      )
+      console.log(error);
+    }
   }
 
   return (
     <View style={styles.container}>
-      <Image source={{uri: userDetalis?.profileImg}} style={styles.profile} />
+      <Image source={{ uri: userDetalis?.profileImg }} style={styles.profile} />
       <Text style={styles.username}>{userDetalis?.username}</Text>
       <View style={styles.locationView}>
         <Image source={images.location} style={styles.locationImg} />
@@ -41,10 +62,10 @@ export default function RequestFriendReview({route, navigation}) {
       <Text style={styles.head3}>Request your friends to submit a review.</Text>
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.friendContainer}>
-          {friendImage.map((imgFriend, index) => {
+          {item?.eventParticipants?.map((item, index) => {
             return (
               <View key={index} style={[styles.margin, styles.imageContainer]}>
-                <Image style={styles.image} source={imgFriend} />
+                <Image style={styles.image} source={{ uri: item?.profileImg }} />
               </View>
             );
           })}
@@ -59,19 +80,16 @@ export default function RequestFriendReview({route, navigation}) {
 
       <View style={styles.btnTop}>
         <Button
-          onPress={() => {
-            console.log('modal open');
-            setModalVisible(true);
-          }}
-          title={'Ask for Review'}></Button>
+          onPress={handleSendInvitation}
+          title={'Ask for Review'}
+          loader={loader}
+        />
       </View>
 
       <Modal
-        visible={isModalVisible}
-        onRequest={() => {
-          Alert.alert('Modal has been closed');
-          setModalVisible(!isModalVisible);
-        }}>
+        isVisible={isModalVisible}
+        backdropOpacity={0.5}
+      >
         <View style={styles.modalContainer}>
           <TouchableOpacity
             onPress={() => {
@@ -86,8 +104,8 @@ export default function RequestFriendReview({route, navigation}) {
             be notified once they complete the review.
           </Text>
           <TouchableOpacity
-          onPress={handleProfile}
-            
+            onPress={handleProfile}
+
             style={styles.modalButton}>
             <View style={styles.modalButtonRow}>
               <Text style={styles.modalBtnText}>Your Profile</Text>
@@ -112,7 +130,7 @@ export default function RequestFriendReview({route, navigation}) {
           </TouchableOpacity>
           <View style={styles.modalUserDetails}>
             <Image
-              source={{uri: userDetalis?.profileImg}}
+              source={{ uri: userDetalis?.profileImg }}
               style={styles.profileModal}
             />
             <Text style={styles.userNameModal}>{userDetalis?.username}</Text>

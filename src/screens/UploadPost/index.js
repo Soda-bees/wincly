@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -10,10 +10,10 @@ import {
   View,
 } from 'react-native';
 import BackButton from '../../components/BackButton';
-import {styles} from './style';
-import {useSelector} from 'react-redux';
+import { styles } from './style';
+import { useSelector } from 'react-redux';
 import images from '../../services/utilities/images';
-import {colors} from '../../services';
+import { colors } from '../../services';
 import DatePicker from 'react-native-date-picker';
 import {
   format,
@@ -23,16 +23,16 @@ import {
   differenceInSeconds,
   add,
 } from 'date-fns';
-import {ActivityIndicator} from 'react-native-paper';
+import { ActivityIndicator } from 'react-native-paper';
 import Button from '../../components/Button';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import backendURL from '../../services/config/backendURL';
 import axios from 'axios';
 import Modal from 'react-native-modal';
 import Timer from '../../components/Timer';
 
-export default function UploadPost({route, navigation}) {
-  const {userDetalis} = useSelector(state => state.userDetailsSlice);
+export default function UploadPost({ route, navigation }) {
+  const { userDetalis } = useSelector(state => state.userDetailsSlice);
   const [imageUri, setImageUri] = useState();
   const [startDateOpen, setStartDateOpen] = useState(false);
   const [endDateOpen, setEndDateOpen] = useState(false);
@@ -59,8 +59,6 @@ export default function UploadPost({route, navigation}) {
   const [seconds, setSeconds] = useState(50);
   const [hours, setHours] = useState(0);
 
-  console.log(route.params);
-  console.log(route?.params?.tag);
 
   useEffect(() => {
     navigation.addListener('focus', () => {
@@ -72,10 +70,9 @@ export default function UploadPost({route, navigation}) {
   }, [navigation]);
 
   const getLastEvent = async () => {
-    // console.log('getAllEventsWork' , userDetalis._id);
     const _id = userDetalis._id;
     try {
-      const {data} = await axios.post(backendURL + 'api/wincly/getEvent', {
+      const { data } = await axios.post(backendURL + 'api/wincly/getEvent', {
         _id,
       });
       console.log(data);
@@ -149,11 +146,9 @@ export default function UploadPost({route, navigation}) {
 
   const getSingleUserData = async () => {
     try {
-      console.log('works------------->>>>>>>>');
-      const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
+      const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
         _id: userDetalis._id,
       });
-      // console.log(data.data, "----------->userDetails");
       setUpdatedUserDetails(data.data);
       setLoader(false);
     } catch (error) {
@@ -246,7 +241,7 @@ export default function UploadPost({route, navigation}) {
         const uri = res.assets[0].uri;
         const type = 'image/jpg';
         const name = userDetalis.username;
-        const source = {uri, type, name};
+        const source = { uri, type, name };
         // setLoader(true);
         const data = new FormData();
         data.append('file', source);
@@ -285,6 +280,7 @@ export default function UploadPost({route, navigation}) {
       noOfPerson,
       title,
       postTime,
+      tag: route?.params?.tag,
       eventOrganizerData: updatedUserDetails._id,
       eventParticipants: [],
     };
@@ -295,7 +291,7 @@ export default function UploadPost({route, navigation}) {
       } else {
         setIsNoOfPerson(false);
         try {
-          const {data} = await axios.post(
+          const { data } = await axios.post(
             backendURL + 'api/wincly/uploadEvent',
             {
               obj,
@@ -329,19 +325,19 @@ export default function UploadPost({route, navigation}) {
 
         <View style={styles.profileView}>
           <Image
-            source={{uri: userDetalis.profileImg}}
+            source={{ uri: userDetalis.profileImg }}
             style={styles.profile}
           />
           <Text style={styles.username}>{userDetalis.username}</Text>
         </View>
         <ScrollView>
           <KeyboardAvoidingView
-            style={{flex: 1}}
-            // behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+            style={{ flex: 1 }}
+          // behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
           >
             <TouchableOpacity onPress={imageGalleryLaunch}>
               <Image
-                source={imageUri ? {uri: imageUri} : images.backgroundImg}
+                source={imageUri ? { uri: imageUri } : images.backgroundImg}
                 style={styles.uploadImg}
               />
             </TouchableOpacity>

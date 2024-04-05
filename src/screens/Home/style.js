@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     color: colors.black,
     fontWeight: '500',
     left: sizes.screenWidth * 0.02,
+    textTransform:'capitalize'
   },
   between: {
     justifyContent: 'space-between',

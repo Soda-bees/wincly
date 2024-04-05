@@ -62,14 +62,27 @@ export async function notificationListners() {
                 // showNotification(remoteMessage?.notification?.title, remoteMessage?.notification?.body);
             }
         }
-        if(remoteMessage?.data?.type === 'LikeMatch'){
+        if (remoteMessage?.data?.type === 'LikeMatch') {
             if (remoteMessage?.data) {
                 navigateName = remoteMessage?.data?.redirectTo
                 Alert.alert(remoteMessage?.notification?.title, remoteMessage?.notification?.body, [
                     { text: 'Cancel' },
-                    { text: 'Okay', 
-                    onPress: () => navigationService.navigate(navigateName, { chatId: remoteMessage?.data?.chatRoomId })
-                 },
+                    {
+                        text: 'Okay',
+                        onPress: () => navigationService.navigate(navigateName, { chatId: remoteMessage?.data?.chatRoomId })
+                    },
+                ]);
+            }
+        }
+        if (remoteMessage?.data?.type === 'Review') {
+            if (remoteMessage?.data) {
+                navigateName = remoteMessage?.data?.redirectTo
+                Alert.alert(remoteMessage?.notification?.title, remoteMessage?.notification?.body, [
+                    { text: 'Cancel' },
+                    {
+                        text: 'Okay',
+                        onPress: () => navigationService.navigate(navigateName, { eventId: remoteMessage?.data?.eventId })
+                    },
                 ]);
             }
         }
@@ -96,7 +109,15 @@ export async function notificationListners() {
         if (remoteMessage?.data?.type === "LikeMatch") {
             if (remoteMessage?.data) {
                 navigateName = remoteMessage?.data?.redirectTo
-                navigationService.navigate(navigateName, { chatId: remoteMessage?.data?.chatRoomId })
+                navigationService.navigate(navigateName
+                    // , { chatId: remoteMessage?.data?.chatRoomId }
+                )
+            }
+        }
+        if (remoteMessage?.data?.type === "Review") {
+            if (remoteMessage?.data) {
+                navigateName = remoteMessage?.data?.redirectTo
+                navigationService.navigate(navigateName, { eventId: remoteMessage?.data?.eventId })
             }
         }
     });
@@ -132,6 +153,14 @@ export async function notificationListners() {
                         setTimeout(() => {
                             navigationService.navigate(navigateName, { chatId: remoteMessage?.data?.chatRoomId })
                         }, 2000)
+                    }
+                }
+                if (remoteMessage?.data?.type === "Review") {
+                    if (remoteMessage?.data) {
+                        navigateName = remoteMessage?.data?.redirectTo
+                        setTimeout(() => {
+                            navigationService.navigate(navigateName, { eventId: remoteMessage?.data?.eventId })
+                        }, 1000)
                     }
                 }
             }

@@ -181,6 +181,10 @@ export const styles = StyleSheet.create({
     borderRadius: sizes.screenHeight * 0.5,
     borderWidth: sizes.screenWidth * 0.007,
     borderColor: colors.appTextColor1,
+  },
+  loaderView:{
+    backgroundColor:colors.appTextColor1,
+    width:sizes.screenWidth * 0.5
   }
  
 });
