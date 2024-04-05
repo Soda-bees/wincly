@@ -21,6 +21,12 @@ import {ActivityIndicator} from 'react-native';
 import {format, isAfter, parse} from 'date-fns';
 import Modal from 'react-native-modal';
 import {
+  CopilotProvider,
+  CopilotStep,
+  useCopilot,
+  walkthroughable,
+} from 'react-native-copilot';
+import {
   handleAddData,
   handleRemoveData,
 } from '../../store/eventsJoiningRequest';
@@ -60,7 +66,6 @@ export default function Home({navigation, route}) {
     'Job',
     'Other',
   ]);
-
 
   useEffect(() => {
     setLoader(true);
@@ -164,7 +169,6 @@ export default function Home({navigation, route}) {
     return isAfter(currentDateTime, eventDateTime);
   };
 
-
   useEffect(() => {
     if (userDetalis) {
       socket.emit('set user', userData);
@@ -199,12 +203,30 @@ export default function Home({navigation, route}) {
     return interest.length > 0 ? interest1 : interest2;
   };
 
+  const CopilotText = walkthroughable(Text);
+
+  const {start} = useCopilot();
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Image source={images.DrawerBtn} style={styles.headerImgIOS} />
+          <CopilotStep
+            text="This is a hello world example!"
+            order={1}
+            name="hello"
+            active={true}
+            style={styles.copilotText}>
+            <CopilotText onPress={() => navigation.openDrawer()}>
+              <Image source={images.DrawerBtn} style={styles.headerImgIOS} />
+            </CopilotText>
+          </CopilotStep>
+
+          <TouchableOpacity onPress={() => start()}>
+            <Image
+              source={isMatch ? images.chatIcon : images.filterImg}
+              style={isMatch ? styles.chatBtn : styles.headerImgIOS}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -294,12 +316,11 @@ export default function Home({navigation, route}) {
               <TouchableOpacity
                 style={styles.modalBtn}
                 onPress={() => {
-                  selectedEvent && (
-                      navigation.navigate('UploadPost', { tag: selectedEvent }),
-                      setSelectedEvent(''),
-                      setModalVisible(false)
-                  );
-              }}>
+                  selectedEvent &&
+                    (navigation.navigate('UploadPost', {tag: selectedEvent}),
+                    setSelectedEvent(''),
+                    setModalVisible(false));
+                }}>
                 <Text style={styles.modalBtnText}>
                   Confirm - {selectedEvent}
                 </Text>
@@ -379,7 +400,6 @@ export default function Home({navigation, route}) {
           </View>
         )}
       </View>
-      
     </SafeAreaView>
   );
 }

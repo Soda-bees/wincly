@@ -41,24 +41,38 @@ export const styles = StyleSheet.create({
     height: sizes.screenHeight * 0.6,
     justifyContent: 'center',
   },
-  arrow:{
-    width:sizes.screenWidth* 0.18,
-    height:sizes.screenHeight*0.08,
-    resizeMode:'contain',
-    alignSelf:'center'
+  arrow: {
+    width: sizes.screenWidth * 0.24,
+    height: sizes.screenHeight * 0.12,
+    resizeMode: 'contain',
+    alignSelf: 'center',
   },
-  arrowContianer:{
-    bottom:sizes.screenHeight* 0.1
+
+  color: {
+    bottom: sizes.screenHeight * 0.08,
+    width: sizes.screenWidth * 0.25,
+    height: sizes.screenHeight * 0.12,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  skipContainer:{
-    bottom:sizes.screenHeight* 0.04,
-    alignSelf:'center',
-    alignItems:'center'
+
+  arrowContianer: {
+    width: sizes.screenWidth * 0.25,
+    height: sizes.screenHeight * 0.12,
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
-  skipText:{
-    color:colors.gray,
-    fontSize:fontSize.medium,
-    fontWeight:'600',
-    textAlign:'center'
-  }
+
+  skipContainer: {
+    bottom: sizes.screenHeight * 0.06,
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  skipText: {
+    color: colors.gray,
+    fontSize: fontSize.medium,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
 });

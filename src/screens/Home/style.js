@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     color: colors.black,
     fontWeight: '500',
     left: sizes.screenWidth * 0.02,
-    textTransform:'capitalize'
+    textTransform: 'capitalize',
   },
   between: {
     justifyContent: 'space-between',
@@ -576,11 +576,10 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
   },
-  eventOption: {marginTop: sizes.screenHeight * 0.025,
-  },
+  eventOption: {marginTop: sizes.screenHeight * 0.025},
   btnTextFilled: {
     fontSize: fontSize.medium,
-    fontWeight:'500',
+    fontWeight: '500',
     textAlign: 'center',
     color: colors.black,
     borderColor: colors.black,
@@ -589,7 +588,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: sizes.screenWidth * 0.04,
     borderWidth: 1,
     borderRadius: sizes.screenWidth * 0.06,
-    marginHorizontal:sizes.screenWidth* 0.01,
+    marginHorizontal: sizes.screenWidth * 0.01,
     // marginRight: sizes.screenHeight * 0.007,
     // marginLeft: sizes.screenHeight * 0.007,
     backgroundColor: colors.appTextColor1,
@@ -599,7 +598,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.black,
     borderColor: colors.black,
-    
+
     // width: sizes.screenWidth * 0.35,
   },
   btnTextIOS: {
@@ -611,14 +610,14 @@ export const styles = StyleSheet.create({
   eventBtnText: {
     fontSize: fontSize.medium,
     textAlign: 'center',
-    fontWeight:'500',
+    fontWeight: '500',
     color: colors.disabledBg2,
     borderColor: colors.black,
     paddingVertical: sizes.screenWidth * 0.01,
     paddingHorizontal: sizes.screenWidth * 0.04,
     borderWidth: 1,
     borderRadius: sizes.screenWidth * 0.06,
-    marginHorizontal:sizes.screenWidth* 0.01,
+    marginHorizontal: sizes.screenWidth * 0.01,
     // marginRight: sizes.screenHeight * 0.007,
     // marginLeft: sizes.screenHeight * 0.007,
   },
@@ -626,7 +625,7 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   modalHead: {
-    marginTop:sizes.screenHeight* 0.02,
+    marginTop: sizes.screenHeight * 0.02,
     textAlign: 'center',
     fontSize: fontSize.h4,
     fontWeight: '700',
@@ -634,8 +633,8 @@ export const styles = StyleSheet.create({
   },
   modalUserDetails: {
     alignItems: 'center',
-    marginTop:sizes.screenHeight* 0.04,
-    bottom:sizes.screenHeight* 0.02
+    marginTop: sizes.screenHeight * 0.04,
+    bottom: sizes.screenHeight * 0.02,
   },
   locationView: {
     flexDirection: 'row',
@@ -684,10 +683,13 @@ export const styles = StyleSheet.create({
     paddingVertical: sizes.screenHeight * 0.02,
     paddingHorizontal: sizes.screenWidth * 0.04,
   },
-  userNameModal:{
+  userNameModal: {
     color: colors.black,
     fontWeight: '500',
-    textAlign:'center'
-  }
- 
+    textAlign: 'center',
+  },
+
+  copilotText: {
+    backgroundColor: 'red',
+  },
 });

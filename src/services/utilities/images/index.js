@@ -91,12 +91,9 @@ import introImgOne from '../../../assets/introImgOne.png';
 import introImgTwo from '../../../assets/introImgTwo.png';
 import introImgThree from '../../../assets/introImgThree.png';
 import swipeArrow from '../../../assets/swipeArrow.png';
-
-
-
-
-
-
+import skipOne from '../../../assets/skipOne.png';
+import skipTwo from '../../../assets/skipTwo.png';
+import skipThree from '../../../assets/skipThree.png';
 
 const images = {
   landingBg,
@@ -104,6 +101,9 @@ const images = {
   google,
   backArrow,
   dropIcon,
+  skipOne,
+  skipTwo,
+  skipThree,
   plus,
   backgroundImg,
   thumbImg,
@@ -191,7 +191,7 @@ const images = {
   introImgOne,
   introImgTwo,
   introImgThree,
-  swipeArrow
+  swipeArrow,
 };
 
 export default images;

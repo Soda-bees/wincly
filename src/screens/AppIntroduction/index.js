@@ -1,3 +1,131 @@
+// import React, {useRef, useState, useEffect} from 'react';
+// import {
+//   View,
+//   Text,
+//   SafeAreaView,
+//   Image,
+//   ScrollView,
+//   TouchableOpacity,
+//   Platform,
+//   Dimensions,
+// } from 'react-native';
+// import {styles} from './style';
+// import images from '../../services/utilities/images';
+
+// const windowWidth = Dimensions?.get('window').width;
+
+// export default function AppIntroduction({navigation}) {
+//   const [imgActive, setImgActive] = useState(0);
+//   const scrollViewRef = useRef(null);
+//   const [slideWidth, setSlideWidth] = useState(windowWidth);
+
+//   // useEffect(() => {
+//   //   const updateSlideWidth = () => {
+//   //     const width = Dimensions?.get('window').width;
+//   //     setSlideWidth(width);
+//   //   };
+
+//   //   Dimensions?.addEventListener('change', updateSlideWidth);
+
+//   //   return () => {
+//   //     Dimensions?.removeEventListener('change', updateSlideWidth);
+//   //   };
+//   // }, []);
+
+//   // const onchange = nativeEvent => {
+//   //   if (nativeEvent) {
+//   //     const slide = Math.round(nativeEvent.contentOffset.x / slideWidth);
+//   //     if (slide !== imgActive) {
+//   //       setImgActive(slide);
+//   //     }
+//   //   }
+//   // };
+
+//   const handleNextSlide = () => {
+//     let nextSlide;
+//     if (imgActive + 1 < imagesArray.length) {
+//       nextSlide = imgActive + 1;
+//       setImgActive(nextSlide);
+//     } else {
+//       navigation.navigate('Introduction');
+//     }
+
+//     scrollViewRef.current.scrollTo({
+//       x: nextSlide * slideWidth,
+//       animated: true,
+//     });
+//   };
+
+//   const imagesArray = [
+//     {
+//       image: images.introImgOne,
+//       title: 'Swipe through profiles tailored to your interests.',
+//       subtitle: 'Find someone who shares your passions and hobbies.',
+//     },
+//     {
+//       image: images.introImgTwo,
+//       title: 'Join fun-filled events in your area.',
+//       subtitle: 'Meet new people and create unforgettable memories together.',
+//     },
+//     {
+//       image: images.introImgThree,
+//       title: 'Earn Winclies Coins by engaging with the app.',
+//       subtitle: 'Redeem them for exciting rewards and perks.',
+//     },
+//   ];
+
+//   return (
+//     <SafeAreaView>
+//       <View style={styles.container}>
+//         <ScrollView
+//           ref={scrollViewRef}
+//           style={{flex: 1}}
+//           horizontal={true}
+//           scrollEventThrottle={16}
+//           pagingEnabled={true}
+//           showsHorizontalScrollIndicator={false}
+//           // onScroll={({nativeEvent}) => onchange(nativeEvent)}
+//         >
+//           {imagesArray.map((item, index) => (
+//             <View
+//               key={index}
+//               style={[
+//                 Platform.OS == 'android' ? styles.body : styles.bodyIOS,
+//                 {width: slideWidth}, // Set the slide width dynamically
+//               ]}>
+//               <Image source={item.image} style={styles.imgContainer} />
+//               <Text style={styles.heading}>{item.title}</Text>
+//               <Text style={styles.subText}>{item.subtitle}</Text>
+//             </View>
+//           ))}
+//         </ScrollView>
+//         <View style={styles.color}>
+//           <TouchableOpacity
+//             style={styles.arrowContianer}
+//             onPress={handleNextSlide}>
+//             <Image
+//               source={
+//                 imgActive === 0
+//                   ? images.skipOne
+//                   : imgActive === 1
+//                   ? images.skipTwo
+//                   : imgActive === 2
+//                   ? images.skipThree
+//                   : null
+//               }
+//               style={styles.arrow}
+//             />
+//           </TouchableOpacity>
+//         </View>
+//         <TouchableOpacity style={styles.skipContainer}>
+//           <Text style={styles.skipText}>Skip</Text>
+//         </TouchableOpacity>
+//       </View>
+//     </SafeAreaView>
+//   );
+// }
+
+import React, {useRef, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -5,83 +133,117 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Platform,
+  Dimensions,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
 import {styles} from './style';
 import images from '../../services/utilities/images';
-import {colors, sizes} from '../../services';
-// import {Circle, G,Svg} from 'react-native-svg';
 
-export default function AppIntroduction() {
+const windowWidth = Dimensions?.get('window').width;
+
+export default function AppIntroduction({navigation}) {
   const [imgActive, setImgActive] = useState(0);
   const scrollViewRef = useRef(null);
+  const [slideWidth, setSlideWidth] = useState(windowWidth);
 
-  const onchange = nativeEvent => {
-    if (nativeEvent) {
-      const slide = Math.round(
-        nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width,
-      );
-      if (slide != imgActive) {
-        setImgActive(slide);
-      }
+  useEffect(() => {
+    const updateSlideWidth = () => {
+      const width = Dimensions?.get('window')?.width;
+      setSlideWidth(width);
+    };
+
+    Dimensions?.addEventListener('change', updateSlideWidth);
+
+    return () => {
+      Dimensions?.removeEventListener('change', updateSlideWidth);
+    };
+  }, []);
+
+  const handleScroll = event => {
+    const slide = Math.round(event.nativeEvent.contentOffset.x / slideWidth);
+    if (slide !== imgActive) {
+      setImgActive(slide);
     }
   };
 
-  // const cirleSize = 128;
-  // const strokeWidth = cirleSize.screenWidth * 0.02;
-  // const center = cirleSize / 2;
-  // const radius = cirleSize/2 -strokeWidth/2
+  const handleNextSlide = () => {
+    let nextSlide;
+    if (imgActive + 1 < imagesArray.length) {
+      nextSlide = imgActive + 1;
+      setImgActive(nextSlide);
+    } else {
+      navigation.navigate('Introduction');
+    }
+
+    scrollViewRef.current.scrollTo({
+      x: nextSlide * slideWidth,
+      animated: true,
+    });
+  };
+
+  const imagesArray = [
+    {
+      image: images.introImgOne,
+      title: 'Swipe through profiles tailored to your interests.',
+      subtitle: 'Find someone who shares your passions and hobbies.',
+    },
+    {
+      image: images.introImgTwo,
+      title: 'Join fun-filled events in your area.',
+      subtitle: 'Meet new people and create unforgettable memories together.',
+    },
+    {
+      image: images.introImgThree,
+      title: 'Earn Winclies Coins by engaging with the app.',
+      subtitle: 'Redeem them for exciting rewards and perks.',
+    },
+  ];
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <ScrollView
+          ref={scrollViewRef}
           style={{flex: 1}}
           horizontal={true}
           scrollEventThrottle={16}
           pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
-          onScroll={({nativeEvent}) => onchange(nativeEvent)}>
-          <View style={Platform.OS == 'android' ? styles.body : styles.bodyIOS}>
-            <Image source={images.introImgOne} style={styles.imgContainer} />
-            <Text style={styles.heading}>
-              Swipe through profiles tailored to your interests.
-            </Text>
-            <Text style={styles.subText}>
-              Find someone who shares your passions and hobbies.
-            </Text>
-          </View>
-          <View style={Platform.OS == 'android' ? styles.body : styles.bodyIOS}>
-            <Image source={images.introImgTwo} style={styles.imgContainer} />
-            <Text style={styles.heading}>
-              Join fun-filled events in your area.
-            </Text>
-            <Text style={styles.subText}>
-              Meet new people and create unforgettable memories together.
-            </Text>
-          </View>
-          <View style={Platform.OS == 'android' ? styles.body : styles.bodyIOS}>
-            <Image source={images.introImgThree} style={styles.imgContainer} />
-            <Text style={styles.heading}>
-              Earn Winclies Coins by engaging with the app.
-            </Text>
-            <Text style={styles.subText}>
-              Redeem them for exciting rewards and perks.
-            </Text>
-          </View>
+          onScroll={handleScroll}>
+          {imagesArray.map((item, index) => (
+            <View
+              key={index}
+              style={[
+                Platform.OS == 'android' ? styles.body : styles.bodyIOS,
+                {width: slideWidth},
+              ]}>
+              <Image source={item.image} style={styles.imgContainer} />
+              <Text style={styles.heading}>{item.title}</Text>
+              <Text style={styles.subText}>{item.subtitle}</Text>
+            </View>
+          ))}
         </ScrollView>
-        {/* <Svg width={sizes} height={sizes}>
-          <Circle
-            stroke={colors.lightGray}
-            cx={center}
-            cy={center}
-            r={radius}
-            strokeWidth={strokeWidth}
-          />
-        </Svg> */}
-        <TouchableOpacity style={styles.arrowContianer}>
-          <Image source={images.swipeArrow} style={styles.arrow} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.skipContainer}>
+        <View style={styles.color}>
+          <TouchableOpacity
+            style={styles.arrowContianer}
+            onPress={handleNextSlide}>
+            <Image
+              source={
+                imgActive === 0
+                  ? images.skipOne
+                  : imgActive === 1
+                  ? images.skipTwo
+                  : imgActive === 2
+                  ? images.skipThree
+                  : null
+              }
+              style={styles.arrow}
+            />
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.skipContainer}
+          onPress={() => navigation.navigate('Introduction')}>
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>
