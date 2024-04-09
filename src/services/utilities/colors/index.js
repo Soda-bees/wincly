@@ -38,4 +38,5 @@ export const colors = {
   grayBg2: '#E3E3E3',
   purple: '#B2BAFF',
   lightGreen: '#80FB05',
+  copilotBg: 'rgba(0, 0, 0, 0.7)'
 };

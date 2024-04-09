@@ -94,6 +94,19 @@ import swipeArrow from '../../../assets/swipeArrow.png';
 import skipOne from '../../../assets/skipOne.png';
 import skipTwo from '../../../assets/skipTwo.png';
 import skipThree from '../../../assets/skipThree.png';
+import arrowOne from '../../../assets/arrowOne.png';
+import hand from '../../../assets/hand.png';
+import arrowTwo from '../../../assets/arrowTwo.png';
+import guideLike from '../../../assets/guideLike.png';
+import arrowThree from '../../../assets/arrowThree.png';
+import arrowRight from '../../../assets/arrowRight.png';
+import arrowLeft from '../../../assets/arrowLeft.png';
+import arrowFour from '../../../assets/arrowFour.png';
+
+
+
+
+
 
 const images = {
   landingBg,
@@ -192,6 +205,14 @@ const images = {
   introImgTwo,
   introImgThree,
   swipeArrow,
+  arrowOne,
+  hand,
+  arrowTwo,
+  guideLike,
+  arrowThree,
+  arrowLeft,
+  arrowRight,
+  arrowFour
 };
 
 export default images;

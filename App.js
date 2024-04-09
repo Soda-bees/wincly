@@ -67,9 +67,7 @@ export default function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <SafeAreaProvider>
-          <CopilotProvider>
-            <MainNavigator />
-          </CopilotProvider>
+          <MainNavigator />
         </SafeAreaProvider>
       </PersistGate>
     </Provider>

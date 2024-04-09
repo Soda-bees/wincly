@@ -172,7 +172,7 @@ export default function AppIntroduction({navigation}) {
       nextSlide = imgActive + 1;
       setImgActive(nextSlide);
     } else {
-      navigation.navigate('Introduction');
+      navigation.navigate('GetStarted');
     }
 
     scrollViewRef.current.scrollTo({
@@ -243,7 +243,7 @@ export default function AppIntroduction({navigation}) {
         </View>
         <TouchableOpacity
           style={styles.skipContainer}
-          onPress={() => navigation.navigate('Introduction')}>
+          onPress={() => navigation.navigate('GetStarted')}>
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>
       </View>

@@ -9,6 +9,7 @@ import {
   ScrollView,
   Platform,
   AppState,
+  TouchableHighlight,
 } from 'react-native';
 import {styles} from './style';
 import {useSelector, useDispatch} from 'react-redux';
@@ -31,6 +32,7 @@ import {
   handleRemoveData,
 } from '../../store/eventsJoiningRequest';
 import formatToJSON from '../../services/utilities/JsonLog';
+import Tooltip from 'react-native-walkthrough-tooltip';
 
 export default function Home({navigation, route}) {
   const dispatch = useDispatch();
@@ -203,31 +205,101 @@ export default function Home({navigation, route}) {
     return interest.length > 0 ? interest1 : interest2;
   };
 
-  const CopilotText = walkthroughable(Text);
+  const [guideVisible, setGuideVisible] = useState(true);
+  const [secondeGuideVisible, setSecondGuideVisible] = useState(false);
+  const [ThirdGuideVisible, setThirdGuideVisible] = useState(false);
 
-  const {start} = useCopilot();
+  const handleFirstTooltipPress = () => {
+    setGuideVisible(false);
+    setSecondGuideVisible(true);
+  };
+  const handleSecondToolTipClose = () => {
+    setSecondGuideVisible(false);
+    setThirdGuideVisible(true);
+  };
+  const handleThirdToolTipClose = () => {
+    setThirdGuideVisible(false);
+  };
 
   return (
     <SafeAreaView>
+      <Tooltip
+        isVisible={guideVisible}
+        contentStyle={styles.tooltipStyle}
+        content={
+          <TouchableOpacity onPress={handleFirstTooltipPress}>
+            <Image source={images.DrawerBtn} style={styles.guideTopIcon} />
+            <Image source={images.arrowOne} style={styles.guideArrow} />
+            <Text style={styles.guideHeading}>Explore More</Text>
+            <Text style={styles.guideSubText}>
+              View and edit your profile details from the side drawer
+            </Text>
+            <Image source={images.hand} style={styles.guideHand} />
+          </TouchableOpacity>
+        }
+        placement="top"
+        onClose={handleFirstTooltipPress}
+      />
+      <Tooltip
+        isVisible={secondeGuideVisible}
+        contentStyle={styles.tooltipStyle}
+        content={
+          <TouchableOpacity onPress={handleSecondToolTipClose}>
+            <Image source={images.photos} style={styles.guideIcon2} />
+            <Image source={images.arrowTwo} style={styles.guideArrow2} />
+            <Text style={styles.guideHeading2}>Create Event</Text>
+            <Text style={styles.guideSubText2}>
+              Let's Get Started with Creating Your First Event
+            </Text>
+            <Image source={images.hand} style={styles.guideHand} />
+          </TouchableOpacity>
+        }
+        placement="top"
+        onClose={handleSecondToolTipClose}
+      />
+      <Tooltip
+        isVisible={ThirdGuideVisible}
+        contentStyle={styles.tooltipStyle}
+        content={
+          <TouchableOpacity onPress={handleThirdToolTipClose}>
+            <Image source={images.hand} style={styles.guideHand3} />
+            <Text style={styles.guideHeading3}>Explore People To Like</Text>
+            <Text style={styles.guideSubText3}>
+              Tap the 'Like’ tab to find your perfect match!
+            </Text>
+            <Image source={images.arrowThree} style={styles.guideArrow3} />
+          </TouchableOpacity>
+        }
+        placement="top"
+        onClose={handleThirdToolTipClose}
+      />
+
       <View style={styles.container}>
         <View style={styles.header}>
-          <CopilotStep
+          {/* <CopilotStep
             text="This is a hello world example!"
             order={1}
             name="hello"
             active={true}
-            style={styles.copilotText}>
+            style={styles.copilotBg}>
             <CopilotText onPress={() => navigation.openDrawer()}>
-              <Image source={images.DrawerBtn} style={styles.headerImgIOS} />
+              <Image source={images.DrawerBtn} 
+              style={styles.headerImgIOS} 
+              />
             </CopilotText>
-          </CopilotStep>
+          </CopilotStep> */}
 
-          <TouchableOpacity onPress={() => start()}>
+          {/* <TouchableOpacity onPress={() => start()}>
             <Image
               source={isMatch ? images.chatIcon : images.filterImg}
               style={isMatch ? styles.chatBtn : styles.headerImgIOS}
             />
+          </TouchableOpacity> */}
+
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Image source={images.DrawerBtn} style={styles.headerImgIOS} />
           </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Interests');
@@ -238,6 +310,7 @@ export default function Home({navigation, route}) {
             />
           </TouchableOpacity>
         </View>
+
         <View style={[styles.row, styles.between]}>
           <View style={[styles.padding, styles.row]}>
             <Image

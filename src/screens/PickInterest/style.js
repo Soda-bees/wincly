@@ -325,7 +325,7 @@ export const styles = StyleSheet.create({
     paddingRight: sizes.screenWidth * 0.05,
     paddingLeft: sizes.screenWidth * 0.05,
   },
-  
+
   btnText2: {
     textAlign: 'center',
     marginTop: sizes.screenHeight * 0.015,
@@ -349,5 +349,42 @@ export const styles = StyleSheet.create({
     resizeMode: 'cover',
     width: sizes.screenWidth,
     marginBottom: sizes.screenHeight * -0.04,
+  },
+  tooltipStyle: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    padding: 0,
+    margin: 0,
+    borderRadius: 0,
+  },
+  guideInterest: {
+    marginTop: sizes.screenHeight * 0.44,
+    fontSize: fontSize.h6,
+    textAlign: 'center',
+    color: colors.black,
+    borderColor: colors.black,
+    paddingVertical: sizes.screenWidth * 0.023,
+    borderWidth: 1,
+    borderRadius: sizes.screenWidth * 0.06,
+    right: sizes.screenHeight * 0.013,
+    backgroundColor: colors.appTextColor1,
+    width:sizes.screenWidth* 0.3
+  },
+
+  guideInterestText: {
+    fontSize: fontSize.h6,
+    textAlign: 'center',
+    color: colors.black,
+    borderColor: colors.black,
+  },
+  guideSubText: {
+    color: colors.white,
+    fontSize: fontSize.large,
+    marginTop: sizes.screenHeight * 0.21,
+    fontWeight: '400',
+    alignSelf:'center'
+  },
+  guideHand: {
+    alignSelf: 'center',
   },
 });

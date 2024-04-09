@@ -209,4 +209,84 @@ export const styles = StyleSheet.create({
     width: sizes.screenWidth * 0.75,
     marginBottom: sizes.screenHeight * 0.2
   },
+  tooltipStyle: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    padding: 0,
+    margin: 0,
+    borderRadius: 0,
+  },
+  guideTopIcon: {
+    marginTop: sizes.screenHeight * 0.011,
+    width: sizes.screenHeight * 0.05,
+    height: sizes.screenHeight * 0.035,
+    resizeMode: 'contain',
+    right: sizes.screenWidth * 0.1,
+  },
+  guideArrow: {
+    marginTop: sizes.screenHeight * 0.2,
+    right: sizes.screenWidth * 0.03,
+
+    // right:sizes.screenWidth*0.2
+  },
+  guideHeading: {
+    fontSize: fontSize.h3,
+    fontWeight: '700',
+    color: colors.appTextColor1,
+    lineHeight: sizes.screenHeight * 0.04,
+    marginTop: sizes.screenHeight * 0.03,
+    right: sizes.screenWidth * 0.03,
+  },
+  guideSubText: {
+    color: colors.white,
+    fontSize: fontSize.large,
+    marginTop: sizes.screenHeight * 0.02,
+    fontWeight: '400',
+    width: sizes.screenWidth * 0.7,
+    right: sizes.screenWidth * 0.03,
+
+  },
+  guideHand: {
+    marginTop: sizes.screenHeight * 0.01,
+    alignSelf: 'center',
+  },
+  swipeLeftContainer:{
+    backgroundColor:'red',
+    marginStart:sizes.screenWidth* 0.35
+  },
+  guideIcon2:{
+    width: sizes.screenHeight * 0.055,
+    height: sizes.screenHeight * 0.045,
+    left: sizes.screenWidth * 0.69,
+    marginTop:sizes.screenHeight* 0.015
+  },
+  guideHeading2: {
+    fontSize: fontSize.h3,
+    fontWeight: '700',
+    color: colors.appTextColor1,
+    lineHeight: sizes.screenHeight * 0.04,
+    marginTop: sizes.screenHeight * 0.03,
+    right: sizes.screenWidth * 0.03,
+  },
+  guideSubText2: {
+    color: colors.white,
+    fontSize: fontSize.large,
+    marginTop: sizes.screenHeight * 0.02,
+    fontWeight: '400',
+    width: sizes.screenWidth * 0.7,
+    right: sizes.screenWidth * 0.03,
+
+  },
+  guideHand2: {
+    marginTop: sizes.screenHeight * 0.01,
+    right: sizes.screenWidth * 0.06,
+
+    // alignSelf: 'center',
+  },
+  guideArrow2: {
+    marginTop: sizes.screenHeight * 0.01,
+    left: sizes.screenWidth * 0.35,
+
+    // right:sizes.screenWidth*0.2
+  },
 });

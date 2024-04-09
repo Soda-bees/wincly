@@ -504,6 +504,7 @@ export const styles = StyleSheet.create({
   headerImgIOS: {
     width: sizes.screenHeight * 0.05,
     height: sizes.screenHeight * 0.035,
+    resizeMode: 'contain',
   },
   chatBtn: {
     width: sizes.screenHeight * 0.055,
@@ -513,7 +514,7 @@ export const styles = StyleSheet.create({
     // top: sizes.screenHeight * 0.33,
   },
   modalContainer: {
-    width: sizes.screenWidth * 0.95,
+    width: sizes.screenWidth,
     backgroundColor: colors.white,
     alignSelf: 'center',
     shadowColor: '#000',
@@ -692,4 +693,108 @@ export const styles = StyleSheet.create({
   copilotText: {
     backgroundColor: 'red',
   },
+
+  tooltipStyle: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    padding: 0,
+    margin: 0,
+    borderRadius: 0,
+  },
+  guideTopIcon: {
+    marginTop: sizes.screenHeight * 0.011,
+    width: sizes.screenHeight * 0.05,
+    height: sizes.screenHeight * 0.035,
+    resizeMode: 'contain',
+    right: sizes.screenWidth * 0.1,
+  },
+  guideArrow: {
+    marginTop: sizes.screenHeight * 0.03,
+    right: sizes.screenWidth * 0.05,
+
+    // right:sizes.screenWidth*0.2
+  },
+  guideHeading: {
+    fontSize: fontSize.h3,
+    fontWeight: '700',
+    color: colors.appTextColor1,
+    lineHeight: sizes.screenHeight * 0.04,
+    marginTop: sizes.screenHeight * 0.03,
+    right: sizes.screenWidth * 0.1,
+  },
+  guideSubText: {
+    color: colors.white,
+    fontSize: fontSize.large,
+    marginTop: sizes.screenHeight * 0.02,
+    fontWeight: '400',
+    width: sizes.screenWidth * 0.7,
+    right: sizes.screenWidth * 0.1,
+  },
+  guideHand: {
+    marginTop: sizes.screenHeight * 0.03,
+    alignSelf: 'center',
+  },
+  guideIcon2: {
+    marginTop: sizes.screenHeight * 0.19,
+    height: sizes.screenHeight * 0.04,
+    width: sizes.screenHeight * 0.04,
+    marginStart: sizes.screenWidth * 0.71,
+  },
+  guideHeading2: {
+    fontSize: fontSize.h3,
+    fontWeight: '700',
+    color: colors.appTextColor1,
+    lineHeight: sizes.screenHeight * 0.04,
+    marginTop: sizes.screenHeight * 0.03,
+    right:sizes.screenWidth* 0.05
+  },
+  guideSubText2: {
+    color: colors.white,
+    fontSize: fontSize.large,
+    marginTop: sizes.screenHeight * 0.02,
+    fontWeight: '400',
+    width: sizes.screenWidth * 0.7,
+    right:sizes.screenWidth* 0.05
+
+  },
+  guideArrow2: {
+    // marginTop: sizes.screenHeight * 0.02,
+    left: sizes.screenWidth*0.4
+    // right:sizes.screenWidth*0.2
+  },
+  guideHand3: {
+    marginTop: sizes.screenHeight * 0.24,
+    alignSelf: 'center',
+  },
+  guideIcon3: {
+    // marginTop: sizes.screenHeight * 0.19,
+    height: sizes.screenHeight * 0.1,
+    width: sizes.screenHeight * 0.1,
+    marginStart: sizes.screenWidth * 0.1,
+  },
+  guideHeading3: {
+    fontSize: fontSize.h3,
+    fontWeight: '700',
+    color: colors.appTextColor1,
+    lineHeight: sizes.screenHeight * 0.04,
+    marginTop: sizes.screenHeight * 0.02,
+    right:sizes.screenWidth* 0.05,
+    width: sizes.screenWidth * 0.6,
+    lineHeight:sizes.screenHeight* 0.05
+
+  },
+  guideSubText3: {
+    color: colors.white,
+    fontSize: fontSize.large,
+    marginTop: sizes.screenHeight * 0.013,
+    fontWeight: '400',
+    width: sizes.screenWidth * 0.7,
+    right:sizes.screenWidth* 0.05
+
+  },
+  guideArrow3: {
+    marginTop: sizes.screenHeight * 0.015,
+    left: sizes.screenWidth*0.06
+  },
+  
 });

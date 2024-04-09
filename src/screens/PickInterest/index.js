@@ -10,12 +10,15 @@ import backendURL from '../../services/config/backendURL';
 import {handleAddUserDetails} from '../../store/userDetailsSlice';
 import Modal from 'react-native-modal';
 import images from '../../services/utilities/images';
+import Tooltip from 'react-native-walkthrough-tooltip';
 
 export default function PickInterest({route, navigation}) {
   const dispatch = useDispatch();
 
   const isSignedIn = useSelector(state => state.isSignedInSlice.isSignIn);
   const {userDetalis} = useSelector(state => state.userDetailsSlice);
+  const [guideVisible, setGuideVisible] = useState(true);
+
 
   const [interest, setInterest] = useState([
     'Travelling',
@@ -81,8 +84,34 @@ export default function PickInterest({route, navigation}) {
       setLoader(false);
     }
   };
+  const handleFirstTooltipPress = () => {
+    if (guideVisible) {
+      setGuideVisible(false);
+    }
+  };
+
   return (
     <SafeAreaView>
+      <Tooltip
+        isVisible={guideVisible}
+        contentStyle={styles.tooltipStyle}
+        content={
+          <TouchableOpacity 
+          onPress={handleFirstTooltipPress}
+          >
+            <View style={styles.guideInterest}>
+              <Text style={styles.guideInterestText}>Painting</Text>
+            </View>
+            <Image source={images.hand} style={styles.guideHand} />
+            <Text style={styles.guideSubText}>
+            Discover What Sparks Your Interest
+            </Text>
+            
+          </TouchableOpacity>
+        }
+        placement="top"
+        onClose={handleFirstTooltipPress}
+      />
       <View style={styles.container}>
       <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {
   Image,
   ImageBackground,
@@ -12,20 +12,21 @@ import {
   Animated,
   PanResponder,
 } from 'react-native';
-import { styles } from './style';
+import {styles} from './style';
 import images from '../../services/utilities/images';
-import { colors, sizes } from '../../services';
-import { useSelector } from 'react-redux';
+import {colors, sizes} from '../../services';
+import {useSelector} from 'react-redux';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import { ActivityIndicator } from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import socket from '../../services/config/io';
 import HomeCard from '../../components/HomeCard';
 import homeMain from '../../assets/homeMain.png';
 import homeMainBg from '../../assets/homeMainBg.png';
+import Tooltip from 'react-native-walkthrough-tooltip';
 
-export default function Like({ navigation }) {
-  const { userDetalis } = useSelector(state => state.userDetailsSlice);
+export default function Like({navigation}) {
+  const {userDetalis} = useSelector(state => state.userDetailsSlice);
   const [updatedUserDetails, setUpdatedUserDetails] = useState();
   const [isMatch, setIsMatch] = useState(false);
   const [array, setArray] = useState();
@@ -33,10 +34,36 @@ export default function Like({ navigation }) {
   const [matchedUser, setMatchUser] = useState([]);
   const [loader, setLoader] = useState(false);
   const [chatRoomId, setChatRoomId] = useState();
-  const [chatRoomData, setChatRoomData] = useState()
+  const [chatRoomData, setChatRoomData] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [likedCards, setLikedCards] = useState([]);
+  const [guideVisible, setGuideVisible] = useState(true);
+  const [secondguideVisible, setSecondGuideVisible] = useState(false);
+  const scrollViewRef = useRef(null);
+  const [imgActive, setImgActive] = useState(0);
 
+  useEffect(() => {
+    setGuideVisible(true);
+  }, []);
+
+  const handleFirstTooltipPress = () => {
+    setGuideVisible(false);
+    setSecondGuideVisible(true);
+  };
+
+  const handleSecondTooltipPress = () => {
+    setSecondGuideVisible(false);
+  };
+
+  const handleScroll = event => {
+    const slideWidth = Math.round(
+      event.nativeEvent.contentOffset.x / slideWidth,
+    );
+    const slide = Math.round(event.nativeEvent.contentOffset.x / slideWidth);
+    if (slide !== imgActive) {
+      setImgActive(slide);
+    }
+  };
   useEffect(() => {
     navigation.addListener('focus', () => {
       // console.log('working-------------->>>');
@@ -81,17 +108,17 @@ export default function Like({ navigation }) {
   useEffect(() => {
     const handleCustomEvent = data => {
       // console.log("socket data", data);
-      let newUsers = [...users]
+      let newUsers = [...users];
       const object = newUsers?.find(obj => obj?._id === data?.userId);
       if (object) {
         // console.log('object hai');
-        object.like?.push(data.likeId)
+        object.like?.push(data.likeId);
         // console.log("object m push krdya");
       } else {
         // console.log('object nh hai');
         if (updatedUserDetails._id === data?.userId) {
           // console.log("user data m push ho g " , updatedUserDetails.like);
-          let newUpdatedUserDetails = { ...updatedUserDetails };
+          let newUpdatedUserDetails = {...updatedUserDetails};
           newUpdatedUserDetails.like.push(data?.likeId);
           setUpdatedUserDetails(newUpdatedUserDetails);
           // console.log("user details m push krdya");
@@ -109,7 +136,7 @@ export default function Like({ navigation }) {
   const getUserDetails = async () => {
     setLoader(true);
     try {
-      const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
+      const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
         _id: userDetalis._id,
       });
       // console.log('SingleUserdata--------------------->>', data.data);
@@ -122,7 +149,7 @@ export default function Like({ navigation }) {
 
   const getAllUsers = async interest => {
     try {
-      const { data } = await axios.get(backendURL + 'api/wincly/allUser');
+      const {data} = await axios.get(backendURL + 'api/wincly/allUser');
       let updatedUser = data.data.filter(
         t => t.interest.filter(n => interest.includes(n)).length > 0,
       );
@@ -146,69 +173,75 @@ export default function Like({ navigation }) {
   };
 
   const handleMatch = async () => {
-    console.log("match work");
+    console.log('match work');
     const item = users[currentIndex];
-    const _id1 = updatedUserDetails._id
-    const _id2 = item._id
+    const _id1 = updatedUserDetails._id;
+    const _id2 = item._id;
     if (updatedUserDetails.like.includes(item._id)) {
-      console.log("us na mjh like krawa hai");
+      console.log('us na mjh like krawa hai');
       try {
-        const { data } = await axios.post(backendURL + "api/wincly/addLikeWithIncWallet", {
-          _id: item._id,
-          likeId: updatedUserDetails._id,
-          userId: userDetalis._id
-        })
-        console.log(data);        
+        const {data} = await axios.post(
+          backendURL + 'api/wincly/addLikeWithIncWallet',
+          {
+            _id: item._id,
+            likeId: updatedUserDetails._id,
+            userId: userDetalis._id,
+          },
+        );
+        console.log(data);
         if (data.message) {
           const obj = {
             userId: item._id,
             likeId: updatedUserDetails._id,
-            userData:updatedUserDetails
-          }
-          socket.emit('sendLikeData', obj)
-          console.log("done");
+            userData: updatedUserDetails,
+          };
+          socket.emit('sendLikeData', obj);
+          console.log('done');
           setMatchUser(item);
           setIsMatch(true);
           try {
-            const response = await axios.post(backendURL + "api/wincly/findExistingChatroom", {
-              _id1,
-              _id2
-            })
+            const response = await axios.post(
+              backendURL + 'api/wincly/findExistingChatroom',
+              {
+                _id1,
+                _id2,
+              },
+            );
             console.log(response.data);
             console.log(response.data.chatId);
             if (response.data.success) {
-              setChatRoomId(response.data.chatId)
-              const chatroomId = response.data.chatId
+              setChatRoomId(response.data.chatId);
+              const chatroomId = response.data.chatId;
               const obj2 = {
                 userId: item._id,
                 likeId: updatedUserDetails._id,
-                userData:updatedUserDetails,
-                chatroomId
-              }
-              socket.emit('sendLikeMatch', obj2)
+                userData: updatedUserDetails,
+                chatroomId,
+              };
+              socket.emit('sendLikeMatch', obj2);
             }
           } catch (error) {
-            console.log("-=-=", error.message);
+            console.log('-=-=', error.message);
           }
         }
       } catch (error) {
         console.log(error.message);
       }
     } else {
-      console.log("us na mjh like nh krawa");
+      console.log('us na mjh like nh krawa');
       try {
-        const { data } = await axios.post(backendURL + "api/wincly/addLike", {
+        const {data} = await axios.post(backendURL + 'api/wincly/addLike', {
           _id: item._id,
-          likeId: updatedUserDetails._id
-        })
+          likeId: updatedUserDetails._id,
+        });
         console.log(data);
         if (data.message) {
           const obj = {
             userId: item._id,
-            likeId: updatedUserDetails._id
-          }
-          socket.emit('sendLikeData', obj)
-          console.log("done");
+            likeId: updatedUserDetails._id,
+          };
+          socket.emit('sendLikeData', obj);
+          console.log('done');
         }
       } catch (error) {
         console.log(error.message);
@@ -235,11 +268,11 @@ export default function Like({ navigation }) {
   const rotate = useRef(new Animated.Value(0)).current;
   const panResponser = PanResponder.create({
     onMoveShouldSetPanResponder: () => true,
-    onPanResponderMove: (_, { dx, dy }) => {
+    onPanResponderMove: (_, {dx, dy}) => {
       // console.log('dx:' + dx + ' dy:' + dy);
-      swipe.setValue({ x: dx, y: dy });
+      swipe.setValue({x: dx, y: dy});
     },
-    onPanResponderRelease: (_, { dx, dy }) => {
+    onPanResponderRelease: (_, {dx, dy}) => {
       // console.log('released:' + 'dx:' + dx + ' dy:' + dy);
       // console.log('dx-------->', dx);
       // console.log('dy-------->', dy);
@@ -247,13 +280,13 @@ export default function Like({ navigation }) {
       let isActionActive = Math.abs(dx) > 200;
       if (isActionActive) {
         Animated.timing(swipe, {
-          toValue: { x: 500 * dx, y: dy },
+          toValue: {x: 500 * dx, y: dy},
           useNativeDriver: true,
           duration: 500,
         }).start(removeCard);
       } else {
         Animated.spring(swipe, {
-          toValue: { x: 0, y: 0 },
+          toValue: {x: 0, y: 0},
           useNativeDriver: true,
           friction: 5,
         }).start();
@@ -262,12 +295,12 @@ export default function Like({ navigation }) {
   });
   const removeCard = useCallback(() => {
     setUsers(prepState => prepState.slice(1));
-    swipe.setValue({ x: 0, y: 0 });
+    swipe.setValue({x: 0, y: 0});
   }, [swipe]);
   const handelSelection = useCallback(
     direction => {
       Animated.timing(swipe, {
-        toValue: { x: direction * 500, y: 0 },
+        toValue: {x: direction * 500, y: 0},
         useNativeDriver: true,
         duration: 500,
       }).start(removeCard);
@@ -275,16 +308,52 @@ export default function Like({ navigation }) {
     },
     [removeCard],
   );
-  // console.log("users-=-=-=-=>" , users);
-  // const handleSwipeLeft = () => {
-  //   console.log("working");
-  //   // handelSelection(-1)
-  //   if (currentIndex < users.length - 1) {
-  //     setCurrentIndex(currentIndex + 1);
-  //   }
-  // }
+
   return (
     <SafeAreaView>
+      <ScrollView
+        ref={scrollViewRef}
+        style={{flex: 1}}
+        horizontal={true}
+        scrollEventThrottle={16}
+        pagingEnabled={true}
+        showsHorizontalScrollIndicator={false}
+        onScroll={handleScroll}>
+        <Tooltip
+          isVisible={guideVisible}
+          contentStyle={styles.tooltipStyle}
+          content={
+            <View>
+              <Image source={images.arrowLeft} style={styles.guideArrow} />
+              <Text style={styles.guideHeading}>Swipe Left</Text>
+              <Text style={styles.guideSubText}>
+                Not feeling a connection? No problem. Swipe left to pass.
+              </Text>
+              <Image source={images.hand} style={styles.guideHand} />
+            </View>
+          }
+          placement="top"
+          onClose={handleFirstTooltipPress}
+        />
+        <Tooltip
+          isVisible={!guideVisible && secondguideVisible}
+          contentStyle={styles.tooltipStyle}
+          content={
+            <TouchableOpacity onPress={handleSecondTooltipPress}>
+              <Image source={images.arrowRight} style={styles.guideArrow} />
+              <Text style={styles.guideHeading}>Swipe Right</Text>
+              <Text style={styles.guideSubText}>
+                Exciting! You're interested in someone. Swipe right to let them
+                know.
+              </Text>
+              <Image source={images.hand} style={styles.guideHand} />
+            </TouchableOpacity>
+          }
+          placement="top"
+          onClose={handleSecondTooltipPress}
+        />
+      </ScrollView>
+
       <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -293,11 +362,10 @@ export default function Like({ navigation }) {
           <TouchableOpacity
             onPress={() => {
               if (isMatch) {
-                navigation.navigate('ChatRoom', { chatId: chatRoomId }
-                );
+                navigation.navigate('ChatRoom', {chatId: chatRoomId});
                 setIsMatch(false);
               } else {
-                navigation.navigate('Interests')
+                navigation.navigate('Interests');
               }
             }}>
             <Image
@@ -318,12 +386,47 @@ export default function Like({ navigation }) {
           <View>
             {isMatch ? (
               <View>
+                {isMatch && (
+                  <TouchableOpacity
+                    style={styles.fullScreen}
+                    onPress={() => setIsMatch(false)}>
+                    <View style={styles.fullScreen} />
+                  </TouchableOpacity>
+                )}
+                {isMatch && (
+                  <Tooltip
+                    isVisible={true}
+                    contentStyle={styles.tooltipStyle}
+                    content={
+                      <TouchableOpacity onPress={() => setIsMatch(false)}>
+                        <Image
+                          source={images.chatIcon}
+                          style={styles.guideIcon2}
+                        />
+                        <Image
+                          source={images.arrowFour}
+                          style={styles.guideArrow2}
+                        />
+                        <Text style={styles.guideHeading2}>
+                          Start Chatting!
+                        </Text>
+                        <Text style={styles.guideSubText2}>
+                          You're ready to start chatting and building
+                          connections.
+                        </Text>
+                        <Image source={images.hand} style={styles.guideHand2} />
+                      </TouchableOpacity>
+                    }
+                    placement="top"
+                  />
+                )}
+
                 <View
                   style={
                     Platform.OS == 'ios' ? styles.imgView2IOS : styles.imgView2
                   }>
                   <Image
-                    source={{ uri: updatedUserDetails?.profileImg }}
+                    source={{uri: updatedUserDetails?.profileImg}}
                     style={
                       Platform.OS == 'ios'
                         ? styles.backgroundImg2IOS
@@ -360,7 +463,7 @@ export default function Like({ navigation }) {
               </View>
             ) : users.length < 0 ? (
               <View>
-                <Text style={{ color: 'red' }}>empty</Text>
+                <Text style={{color: 'red'}}>empty</Text>
               </View>
             ) : (
               <View>
@@ -406,11 +509,11 @@ export default function Like({ navigation }) {
                     <TouchableOpacity
                       style={styles.swipeTpuchable}
                       onPress={() =>
-                      // handleMatch(item)
-                      {
-                        handelSelection(1);
-                        handleMatch();
-                      }
+                        // handleMatch(item)
+                        {
+                          handelSelection(1);
+                          handleMatch();
+                        }
                       }>
                       <Image
                         source={images.DoneBtn}
@@ -420,12 +523,16 @@ export default function Like({ navigation }) {
                       />
                     </TouchableOpacity>
                   </View>
-                ) : (<View>
-                  <View style={styles.noPostView}>
-                    <Text style={styles.noPostText}>No users found. Change your interests to discover more matches.</Text>
+                ) : (
+                  <View>
+                    <View style={styles.noPostView}>
+                      <Text style={styles.noPostText}>
+                        No users found. Change your interests to discover more
+                        matches.
+                      </Text>
+                    </View>
                   </View>
-                </View>)}
-
+                )}
               </View>
             )}
           </View>
@@ -434,7 +541,3 @@ export default function Like({ navigation }) {
     </SafeAreaView>
   );
 }
-
-
-
-
