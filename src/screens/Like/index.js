@@ -312,22 +312,24 @@ export default function Like({navigation}) {
   return (
     <SafeAreaView>
       <ScrollView
-        ref={scrollViewRef}
-        style={{flex: 1}}
+        // ref={scrollViewRef}
+        // style={{flex: 1}}
         horizontal={true}
-        scrollEventThrottle={16}
-        pagingEnabled={true}
-        showsHorizontalScrollIndicator={false}
-        onScroll={handleScroll}>
+        // scrollEventThrottle={16}
+        // pagingEnabled={true}
+        // showsHorizontalScrollIndicator={false}
+        // onScroll={handleScroll}
+      >
         <Tooltip
           isVisible={guideVisible}
           contentStyle={styles.tooltipStyle}
           content={
             <View>
-              <Image source={images.arrowLeft} style={styles.guideArrow} />
-              <Text style={styles.guideHeading}>Swipe Left</Text>
+              <Image source={images.arrowRight} style={styles.guideArrow} />
+              <Text style={styles.guideHeading}>Swipe Right</Text>
               <Text style={styles.guideSubText}>
-                Not feeling a connection? No problem. Swipe left to pass.
+                Exciting! You're interested in someone. Swipe right to let them
+                know.
               </Text>
               <Image source={images.hand} style={styles.guideHand} />
             </View>
@@ -340,11 +342,10 @@ export default function Like({navigation}) {
           contentStyle={styles.tooltipStyle}
           content={
             <TouchableOpacity onPress={handleSecondTooltipPress}>
-              <Image source={images.arrowRight} style={styles.guideArrow} />
-              <Text style={styles.guideHeading}>Swipe Right</Text>
+              <Image source={images.arrowLeft} style={styles.guideArrow} />
+              <Text style={styles.guideHeading}>Swipe Left</Text>
               <Text style={styles.guideSubText}>
-                Exciting! You're interested in someone. Swipe right to let them
-                know.
+                Not feeling a connection? No problem. Swipe left to pass.
               </Text>
               <Image source={images.hand} style={styles.guideHand} />
             </TouchableOpacity>
