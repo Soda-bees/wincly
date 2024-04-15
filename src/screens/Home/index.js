@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -11,15 +11,15 @@ import {
   AppState,
   TouchableHighlight,
 } from 'react-native';
-import {styles} from './style';
-import {useSelector, useDispatch} from 'react-redux';
+import { styles } from './style';
+import { useSelector, useDispatch } from 'react-redux';
 import images from '../../services/utilities/images';
-import {colors} from '../../services';
+import { colors } from '../../services';
 import socket from '../../services/config/io';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import {ActivityIndicator} from 'react-native';
-import {format, isAfter, parse} from 'date-fns';
+import { ActivityIndicator } from 'react-native';
+import { format, isAfter, parse } from 'date-fns';
 import Modal from 'react-native-modal';
 import {
   CopilotProvider,
@@ -33,12 +33,16 @@ import {
 } from '../../store/eventsJoiningRequest';
 import formatToJSON from '../../services/utilities/JsonLog';
 import Tooltip from 'react-native-walkthrough-tooltip';
+import { selectShowTutorial, setShowTutorialFalse, setShowTutorialTrue } from '../../store/showTutorial';
 
-export default function Home({navigation, route}) {
+export default function Home({ navigation, route }) {
   const dispatch = useDispatch();
-  const {userDetalis} = useSelector(state => state.userDetailsSlice);
+  const { userDetalis } = useSelector(state => state.userDetailsSlice);
   const test = useSelector(state => state.userDetailsSlice);
-  const {isSignIn} = useSelector(state => state.isSignedInSlice);
+  const { isSignIn } = useSelector(state => state.isSignedInSlice);
+  const showTutorial = useSelector(selectShowTutorial)
+  console.log("data=--==-=>", showTutorial);
+
   const [userData, setUserData] = useState({
     username: userDetalis?.username,
     _id: userDetalis?._id,
@@ -57,7 +61,6 @@ export default function Home({navigation, route}) {
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const [isMatch, setIsMatch] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState('');
-
   const [event, setEvent] = useState([
     'Food',
     'Coffee',
@@ -89,7 +92,7 @@ export default function Home({navigation, route}) {
   const handleGetUserDetails = async _id => {
     if (test.userDetalis._id) {
       try {
-        const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
+        const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
           _id: _id,
         });
         if (data.message === 'User Data') {
@@ -105,7 +108,7 @@ export default function Home({navigation, route}) {
 
   const handleGetAllEvents = async interest => {
     try {
-      const {data} = await axios.get(backendURL + 'api/wincly/allEvent');
+      const { data } = await axios.get(backendURL + 'api/wincly/allEvent');
 
       const eventData = data.data;
       if (interest) {
@@ -136,7 +139,7 @@ export default function Home({navigation, route}) {
   };
 
   const isEventTimePassed = event => {
-    const {endDate, endTime} = event;
+    const { endDate, endTime } = event;
 
     if (!endDate || !endTime) {
       console.error('Missing endDate or endTime in event:', event);
@@ -314,12 +317,19 @@ export default function Home({navigation, route}) {
         <View style={[styles.row, styles.between]}>
           <View style={[styles.padding, styles.row]}>
             <Image
-              source={{uri: userDetalis?.profileImg}}
+              source={{ uri: userDetalis?.profileImg }}
               style={styles.profile}
             />
             <Text style={styles.username}>{userDetalis?.username}</Text>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity
+          // onPress={() => {
+          //   dispatch(setShowTutorialFalse())
+          // }}
+          // onPress={() => {
+          //   dispatch(setShowTutorialTrue())
+          // }}
+          >
             <View style={[styles.padding, styles.row]}>
               <Image
                 source={images.share}
@@ -390,9 +400,9 @@ export default function Home({navigation, route}) {
                 style={styles.modalBtn}
                 onPress={() => {
                   selectedEvent &&
-                    (navigation.navigate('UploadPost', {tag: selectedEvent}),
-                    setSelectedEvent(''),
-                    setModalVisible(false));
+                    (navigation.navigate('UploadPost', { tag: selectedEvent }),
+                      setSelectedEvent(''),
+                      setModalVisible(false));
                 }}>
                 <Text style={styles.modalBtnText}>
                   Confirm - {selectedEvent}
@@ -440,7 +450,7 @@ export default function Home({navigation, route}) {
                     }}>
                     <View style={styles.eventCardImgView}>
                       <Image
-                        source={{uri: item.eventOrganizerData.profileImg}}
+                        source={{ uri: item.eventOrganizerData.profileImg }}
                         style={styles.eventCardProfileImg}
                       />
                       <View>
@@ -458,7 +468,7 @@ export default function Home({navigation, route}) {
                       {item.eventDis}
                     </Text>
                     <Image
-                      source={{uri: item.imageUri}}
+                      source={{ uri: item.imageUri }}
                       style={styles.eventCardImg}
                     />
                   </TouchableOpacity>
