@@ -27,6 +27,7 @@ import {handleAddUserDetails} from '../../store/userDetailsSlice';
 import Feather from 'react-native-vector-icons/Feather';
 import socket from '../../services/config/io';
 import formatToJSON from '../../services/utilities/JsonLog';
+import { setShowTutorialFalse } from '../../store/showTutorial';
 
 export default function Signin({navigation, route}) {
   const dispatch = useDispatch();
@@ -104,6 +105,7 @@ export default function Signin({navigation, route}) {
           socket.connect();
           console.log('username===>', data.data[0]._id);
           handleSendDataForServer(data);
+          dispatch(setShowTutorialFalse())
           // navigation.navigate('MyDrawer' , {
           //   _id:data.data[0]._id
           // });

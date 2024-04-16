@@ -9,6 +9,7 @@ import {handleRemoveUserDetails} from '../../store/userDetailsSlice';
 import socket from '../../services/config/io';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
+import { setShowTutorialTrue } from '../../store/showTutorial';
 
 export default function Setting({navigation}) {
   const userData = useSelector((state) => state.userDetailsSlice.userDetalis)
@@ -27,10 +28,11 @@ export default function Setting({navigation}) {
   }
 
   const handleSignOut = () => {
+    dispatch(setShowTutorialTrue())
     dispatch(handleFalse());
     dispatch(handleRemoveUserDetails());
     socket.disconnect();
-    handleUpdateDevicToken()
+    handleUpdateDevicToken() 
   };
   return (
     <SafeAreaView>
