@@ -15,7 +15,7 @@ import {
 import {styles} from './style';
 import images from '../../services/utilities/images';
 import {colors, sizes} from '../../services';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
 import {ActivityIndicator} from 'react-native';
@@ -24,8 +24,15 @@ import HomeCard from '../../components/HomeCard';
 import homeMain from '../../assets/homeMain.png';
 import homeMainBg from '../../assets/homeMainBg.png';
 import Tooltip from 'react-native-walkthrough-tooltip';
+import {
+  selectShowTutorial,
+  setShowTutorialFalse,
+} from '../../store/showTutorial';
 
 export default function Like({navigation}) {
+  const dispatch = useDispatch();
+  const showTutorial = useSelector(selectShowTutorial);
+  console.log('data=--==-=>', showTutorial);
   const {userDetalis} = useSelector(state => state.userDetailsSlice);
   const [updatedUserDetails, setUpdatedUserDetails] = useState();
   const [isMatch, setIsMatch] = useState(false);
@@ -41,7 +48,6 @@ export default function Like({navigation}) {
   const [secondguideVisible, setSecondGuideVisible] = useState(false);
   const scrollViewRef = useRef(null);
   const [imgActive, setImgActive] = useState(0);
-
   useEffect(() => {
     setGuideVisible(true);
   }, []);
@@ -311,49 +317,51 @@ export default function Like({navigation}) {
 
   return (
     <SafeAreaView>
-      <ScrollView
-        // ref={scrollViewRef}
-        // style={{flex: 1}}
-        horizontal={true}
-        // scrollEventThrottle={16}
-        // pagingEnabled={true}
-        // showsHorizontalScrollIndicator={false}
-        // onScroll={handleScroll}
-      >
-        <Tooltip
-          isVisible={guideVisible}
-          contentStyle={styles.tooltipStyle}
-          content={
-            <View>
-              <Image source={images.arrowRight} style={styles.guideArrow} />
-              <Text style={styles.guideHeading}>Swipe Right</Text>
-              <Text style={styles.guideSubText}>
-                Exciting! You're interested in someone. Swipe right to let them
-                know.
-              </Text>
-              <Image source={images.hand} style={styles.guideHand} />
-            </View>
-          }
-          placement="top"
-          onClose={handleFirstTooltipPress}
-        />
-        <Tooltip
-          isVisible={!guideVisible && secondguideVisible}
-          contentStyle={styles.tooltipStyle}
-          content={
-            <TouchableOpacity onPress={handleSecondTooltipPress}>
-              <Image source={images.arrowLeft} style={styles.guideArrow} />
-              <Text style={styles.guideHeading}>Swipe Left</Text>
-              <Text style={styles.guideSubText}>
-                Not feeling a connection? No problem. Swipe left to pass.
-              </Text>
-              <Image source={images.hand} style={styles.guideHand} />
-            </TouchableOpacity>
-          }
-          placement="top"
-          onClose={handleSecondTooltipPress}
-        />
-      </ScrollView>
+        <ScrollView
+          // ref={scrollViewRef}
+          // style={{flex: 1}}
+          horizontal={true}
+          // scrollEventThrottle={16}
+          // pagingEnabled={true}
+          // showsHorizontalScrollIndicator={false}
+          // onScroll={handleScroll}
+        >
+          <Tooltip
+            isVisible={guideVisible}
+            contentStyle={styles.tooltipStyle}
+            content={
+              <View>
+                <Image source={images.arrowRight} style={styles.guideArrow} />
+                <Text style={styles.guideHeading}>Swipe Right</Text>
+                <Text style={styles.guideSubText}>
+                  Exciting! You're interested in someone. Swipe right to let
+                  them know.
+                </Text>
+                <Image source={images.hand} style={styles.guideHand} />
+              </View>
+            }
+            placement="top"
+            onClose={handleFirstTooltipPress}
+          />
+
+          <Tooltip
+            isVisible={!guideVisible && secondguideVisible}
+            contentStyle={styles.tooltipStyle}
+            content={
+              <TouchableOpacity onPress={handleSecondTooltipPress}>
+                <Image source={images.arrowLeft} style={styles.guideArrow} />
+                <Text style={styles.guideHeading}>Swipe Left</Text>
+                <Text style={styles.guideSubText}>
+                  Not feeling a connection? No problem. Swipe left to pass.
+                </Text>
+                <Image source={images.hand} style={styles.guideHand} />
+              </TouchableOpacity>
+            }
+            placement="top"
+            onClose={handleSecondTooltipPress}
+          />
+        </ScrollView>
+   
 
       <View style={styles.container}>
         <View style={styles.header}>

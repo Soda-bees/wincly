@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Image,
   SafeAreaView,
@@ -11,15 +11,15 @@ import {
   AppState,
   TouchableHighlight,
 } from 'react-native';
-import { styles } from './style';
-import { useSelector, useDispatch } from 'react-redux';
+import {styles} from './style';
+import {useSelector, useDispatch} from 'react-redux';
 import images from '../../services/utilities/images';
-import { colors } from '../../services';
+import {colors} from '../../services';
 import socket from '../../services/config/io';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import { ActivityIndicator } from 'react-native';
-import { format, isAfter, parse } from 'date-fns';
+import {ActivityIndicator} from 'react-native';
+import {format, isAfter, parse} from 'date-fns';
 import Modal from 'react-native-modal';
 import {
   CopilotProvider,
@@ -33,15 +33,27 @@ import {
 } from '../../store/eventsJoiningRequest';
 import formatToJSON from '../../services/utilities/JsonLog';
 import Tooltip from 'react-native-walkthrough-tooltip';
-import { selectShowTutorial, setShowTutorialFalse, setShowTutorialTrue } from '../../store/showTutorial';
+import {
+  selectShowTutorial,
+  setShowTutorialFalse,
+  setShowTutorialTrue,
+} from '../../store/showTutorial';
 
-export default function Home({ navigation, route }) {
+export default function Home({navigation, route}) {
   const dispatch = useDispatch();
-  const { userDetalis } = useSelector(state => state.userDetailsSlice);
+  const {userDetalis} = useSelector(state => state.userDetailsSlice);
   const test = useSelector(state => state.userDetailsSlice);
-  const { isSignIn } = useSelector(state => state.isSignedInSlice);
-  const showTutorial = useSelector(selectShowTutorial)
-  console.log("data=--==-=>", showTutorial);
+  const {isSignIn} = useSelector(state => state.isSignedInSlice);
+  const showTutorial = useSelector(selectShowTutorial);
+  console.log('data=--==-=>', showTutorial);
+
+  // useEffect(() => {
+  //   if (!isSignIn) {
+  //     dispatch(setShowTutorialTrue());
+  //   } else {
+  //     dispatch(setShowTutorialFalse());
+  //   }
+  // }, [isSignIn, dispatch]);
 
   const [userData, setUserData] = useState({
     username: userDetalis?.username,
@@ -92,7 +104,7 @@ export default function Home({ navigation, route }) {
   const handleGetUserDetails = async _id => {
     if (test.userDetalis._id) {
       try {
-        const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
+        const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
           _id: _id,
         });
         if (data.message === 'User Data') {
@@ -108,7 +120,7 @@ export default function Home({ navigation, route }) {
 
   const handleGetAllEvents = async interest => {
     try {
-      const { data } = await axios.get(backendURL + 'api/wincly/allEvent');
+      const {data} = await axios.get(backendURL + 'api/wincly/allEvent');
 
       const eventData = data.data;
       if (interest) {
@@ -139,7 +151,7 @@ export default function Home({ navigation, route }) {
   };
 
   const isEventTimePassed = event => {
-    const { endDate, endTime } = event;
+    const {endDate, endTime} = event;
 
     if (!endDate || !endTime) {
       console.error('Missing endDate or endTime in event:', event);
@@ -215,90 +227,80 @@ export default function Home({ navigation, route }) {
   const handleFirstTooltipPress = () => {
     setGuideVisible(false);
     setSecondGuideVisible(true);
+    // dispatch(setShowTutorialTrue());
   };
   const handleSecondToolTipClose = () => {
     setSecondGuideVisible(false);
     setThirdGuideVisible(true);
+    // dispatch(setShowTutorialTrue());
   };
   const handleThirdToolTipClose = () => {
     setThirdGuideVisible(false);
+    // dispatch(setShowTutorialTrue());
   };
 
   return (
     <SafeAreaView>
-      <Tooltip
-        isVisible={guideVisible}
-        contentStyle={styles.tooltipStyle}
-        content={
-          <TouchableOpacity onPress={handleFirstTooltipPress}>
-            <Image source={images.DrawerBtn} style={styles.guideTopIcon} />
-            <Image source={images.arrowOne} style={styles.guideArrow} />
-            <Text style={styles.guideHeading}>Explore More</Text>
-            <Text style={styles.guideSubText}>
-              View and edit your profile details from the side drawer
-            </Text>
-            <Image source={images.hand} style={styles.guideHand} />
-          </TouchableOpacity>
-        }
-        placement="top"
-        onClose={handleFirstTooltipPress}
-      />
-      <Tooltip
-        isVisible={secondeGuideVisible}
-        contentStyle={styles.tooltipStyle}
-        content={
-          <TouchableOpacity onPress={handleSecondToolTipClose}>
-            <Image source={images.photos} style={styles.guideIcon2} />
-            <Image source={images.arrowTwo} style={styles.guideArrow2} />
-            <Text style={styles.guideHeading2}>Create Event</Text>
-            <Text style={styles.guideSubText2}>
-              Let's Get Started with Creating Your First Event
-            </Text>
-            <Image source={images.hand} style={styles.guideHand} />
-          </TouchableOpacity>
-        }
-        placement="top"
-        onClose={handleSecondToolTipClose}
-      />
-      <Tooltip
-        isVisible={ThirdGuideVisible}
-        contentStyle={styles.tooltipStyle}
-        content={
-          <TouchableOpacity onPress={handleThirdToolTipClose}>
-            <Image source={images.hand} style={styles.guideHand3} />
-            <Text style={styles.guideHeading3}>Explore People To Like</Text>
-            <Text style={styles.guideSubText3}>
-              Tap the 'Like’ tab to find your perfect match!
-            </Text>
-            <Image source={images.arrowThree} style={styles.guideArrow3} />
-          </TouchableOpacity>
-        }
-        placement="top"
-        onClose={handleThirdToolTipClose}
-      />
+      {/* {showTutorial && ( */}
+
+          <Tooltip
+            isVisible={guideVisible}
+            contentStyle={styles.tooltipStyle}
+            content={
+              <TouchableOpacity onPress={
+                handleFirstTooltipPress
+                }>
+                <Image source={images.DrawerBtn} style={styles.guideTopIcon} />
+                <Image source={images.arrowOne} style={styles.guideArrow} />
+                <Text style={styles.guideHeading}>Explore More</Text>
+                <Text style={styles.guideSubText}>
+                  View and edit your profile details from the side drawer
+                </Text>
+                <Image source={images.hand} style={styles.guideHand} />
+              </TouchableOpacity>
+            }
+            placement="top"
+            onClose={handleFirstTooltipPress}
+          />
+
+          <Tooltip
+            isVisible={secondeGuideVisible}
+            contentStyle={styles.tooltipStyle}
+            content={
+              <TouchableOpacity onPress={handleSecondToolTipClose}>
+                <Image source={images.photos} style={styles.guideIcon2} />
+                <Image source={images.arrowTwo} style={styles.guideArrow2} />
+                <Text style={styles.guideHeading2}>Create Event</Text>
+                <Text style={styles.guideSubText2}>
+                  Let's Get Started with Creating Your First Event
+                </Text>
+                <Image source={images.hand} style={styles.guideHand} />
+              </TouchableOpacity>
+            }
+            placement="top"
+            onClose={handleSecondToolTipClose}
+          />
+          <Tooltip
+            isVisible={ThirdGuideVisible}
+            contentStyle={styles.tooltipStyle}
+            content={
+              <TouchableOpacity onPress={handleThirdToolTipClose}>
+                <Image source={images.hand} style={styles.guideHand3}/>
+                <Text style={styles.guideHeading3}>Explore People To Like</Text>
+                <Text style={styles.guideSubText3}>
+                  Tap the 'Like' tab to find your perfect match!
+                </Text>
+                <Image source={images.arrowThree} style={styles.guideArrow3} />
+              </TouchableOpacity>
+            }
+            placement="top"
+            onClose={handleThirdToolTipClose}
+          />
+
+      {/*  )} */}
 
       <View style={styles.container}>
         <View style={styles.header}>
-          {/* <CopilotStep
-            text="This is a hello world example!"
-            order={1}
-            name="hello"
-            active={true}
-            style={styles.copilotBg}>
-            <CopilotText onPress={() => navigation.openDrawer()}>
-              <Image source={images.DrawerBtn} 
-              style={styles.headerImgIOS} 
-              />
-            </CopilotText>
-          </CopilotStep> */}
-
-          {/* <TouchableOpacity onPress={() => start()}>
-            <Image
-              source={isMatch ? images.chatIcon : images.filterImg}
-              style={isMatch ? styles.chatBtn : styles.headerImgIOS}
-            />
-          </TouchableOpacity> */}
-
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Image source={images.DrawerBtn} style={styles.headerImgIOS} />
           </TouchableOpacity>
@@ -317,7 +319,7 @@ export default function Home({ navigation, route }) {
         <View style={[styles.row, styles.between]}>
           <View style={[styles.padding, styles.row]}>
             <Image
-              source={{ uri: userDetalis?.profileImg }}
+              source={{uri: userDetalis?.profileImg}}
               style={styles.profile}
             />
             <Text style={styles.username}>{userDetalis?.username}</Text>
@@ -400,9 +402,9 @@ export default function Home({ navigation, route }) {
                 style={styles.modalBtn}
                 onPress={() => {
                   selectedEvent &&
-                    (navigation.navigate('UploadPost', { tag: selectedEvent }),
-                      setSelectedEvent(''),
-                      setModalVisible(false));
+                    (navigation.navigate('UploadPost', {tag: selectedEvent}),
+                    setSelectedEvent(''),
+                    setModalVisible(false));
                 }}>
                 <Text style={styles.modalBtnText}>
                   Confirm - {selectedEvent}
@@ -450,7 +452,7 @@ export default function Home({ navigation, route }) {
                     }}>
                     <View style={styles.eventCardImgView}>
                       <Image
-                        source={{ uri: item.eventOrganizerData.profileImg }}
+                        source={{uri: item.eventOrganizerData.profileImg}}
                         style={styles.eventCardProfileImg}
                       />
                       <View>
@@ -468,7 +470,7 @@ export default function Home({ navigation, route }) {
                       {item.eventDis}
                     </Text>
                     <Image
-                      source={{ uri: item.imageUri }}
+                      source={{uri: item.imageUri}}
                       style={styles.eventCardImg}
                     />
                   </TouchableOpacity>
