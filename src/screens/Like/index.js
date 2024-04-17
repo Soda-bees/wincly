@@ -27,6 +27,7 @@ import Tooltip from 'react-native-walkthrough-tooltip';
 import {
   selectShowTutorial,
   setShowTutorialFalse,
+  setShowTutorialTrue,
 } from '../../store/showTutorial';
 
 export default function Like({navigation}) {
@@ -317,6 +318,7 @@ export default function Like({navigation}) {
 
   return (
     <SafeAreaView>
+      {showTutorial && (
         <ScrollView
           // ref={scrollViewRef}
           // style={{flex: 1}}
@@ -361,11 +363,17 @@ export default function Like({navigation}) {
             onClose={handleSecondTooltipPress}
           />
         </ScrollView>
-   
+      )}
 
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          {/* <TouchableOpacity onPress={()=> {dispatch(setShowTutorialTrue)}}>
+          </TouchableOpacity> */}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.openDrawer();
+              dispatch(setShowTutorialTrue);
+            }}>
             <Image source={images.DrawerBtn} style={styles.headerImgIOS} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -402,12 +410,16 @@ export default function Like({navigation}) {
                     <View style={styles.fullScreen} />
                   </TouchableOpacity>
                 )}
-                {isMatch && (
+                {isMatch && showTutorial && 
                   <Tooltip
                     isVisible={true}
                     contentStyle={styles.tooltipStyle}
                     content={
-                      <TouchableOpacity onPress={() => setIsMatch(false)}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setIsMatch(false);
+                          dispatch(setShowTutorialTrue);
+                        }}>
                         <Image
                           source={images.chatIcon}
                           style={styles.guideIcon2}
@@ -428,7 +440,7 @@ export default function Like({navigation}) {
                     }
                     placement="top"
                   />
-                )}
+                }
 
                 <View
                   style={

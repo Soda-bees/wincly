@@ -11,14 +11,15 @@ import {handleAddUserDetails} from '../../store/userDetailsSlice';
 import Modal from 'react-native-modal';
 import images from '../../services/utilities/images';
 import Tooltip from 'react-native-walkthrough-tooltip';
+import { selectShowTutorial, setShowTutorialTrue } from '../../store/showTutorial';
 
 export default function PickInterest({route, navigation}) {
   const dispatch = useDispatch();
-
+  const showTutorial = useSelector(selectShowTutorial);
+  console.log('showTutorial=--==-=>', showTutorial);
   const isSignedIn = useSelector(state => state.isSignedInSlice.isSignIn);
   const {userDetalis} = useSelector(state => state.userDetailsSlice);
   const [guideVisible, setGuideVisible] = useState(true);
-
 
   const [interest, setInterest] = useState([
     'Travelling',
@@ -41,7 +42,6 @@ export default function PickInterest({route, navigation}) {
   const [loader, setLoader] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
 
- 
   useEffect(() => {
     if (isSignedIn) {
       setSelectedInterest(userDetalis.interest);
@@ -49,7 +49,6 @@ export default function PickInterest({route, navigation}) {
       setSelectedInterest([]);
     }
   }, []);
-
 
   const handleConfirm = async () => {
     setLoader(true);
@@ -92,30 +91,30 @@ export default function PickInterest({route, navigation}) {
 
   return (
     <SafeAreaView>
-      <Tooltip
-        isVisible={guideVisible}
-        contentStyle={styles.tooltipStyle}
-        content={
-          <TouchableOpacity 
-          onPress={handleFirstTooltipPress}
-          >
-            <View style={styles.guideInterest}>
-              <Text style={styles.guideInterestText}>Painting</Text>
-            </View>
-            <Image source={images.hand} style={styles.guideHand} />
-            <Text style={styles.guideSubText}>
-            Discover What Sparks Your Interest
-            </Text>
-            
-          </TouchableOpacity>
-        }
-        placement="top"
-        onClose={handleFirstTooltipPress}
-      />
+      {showTutorial && 
+        <Tooltip
+          isVisible={guideVisible}
+          contentStyle={styles.tooltipStyle}
+          content={
+            <TouchableOpacity onPress={handleFirstTooltipPress}>
+              <View style={styles.guideInterest}>
+                <Text style={styles.guideInterestText}>Painting</Text>
+              </View>
+              <Image source={images.hand} style={styles.guideHand} />
+              <Text style={styles.guideSubText}>
+                Discover What Sparks Your Interest
+              </Text>
+            </TouchableOpacity>
+          }
+          placement="top"
+          onClose={handleFirstTooltipPress}
+        />
+      }
+
       <View style={styles.container}>
-      <Image source={images.profileInfobg} style={styles.bgImage} />
+        <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>
-          <BackButton />
+          <BackButton/>
         </View>
         <View>
           <Text style={styles.head}>Pick Your Interests</Text>
@@ -126,6 +125,7 @@ export default function PickInterest({route, navigation}) {
               <View key={index} style={styles.interestOption}>
                 <TouchableOpacity
                   onPress={() => {
+                    dispatch(setShowTutorialTrue())
                     // console.log(selectedInterest);
                     if (selectedInterest.includes(item)) {
                       const array = selectedInterest.filter(function (letter) {
