@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -9,23 +9,28 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {styles} from './style';
+import { styles } from './style';
 import images from '../../services/utilities/images';
-import {colors, sizes} from '../../services';
+import { colors, sizes } from '../../services';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Button from '../../components/Button';
 import auth from '@react-native-firebase/auth';
-import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import AnimatedLoader from '../AnimatedLoader';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import {ActivityIndicator, Checkbox} from 'react-native-paper';
+import { ActivityIndicator, Checkbox } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
+import { useDispatch } from 'react-redux';
+import { handleTrue } from '../../store/isSignedInSlice';
+import { handleAddUserDetails } from '../../store/userDetailsSlice';
+import socket from "../../services/config/io"
+import { setShowTutorialFalse } from '../../store/showTutorial';
 
-export default function Signup({navigation, route}) {
+export default function Signup({ navigation, route }) {
+  const dispatch = useDispatch()
   const deviceToken = route.params;
-  // console.log('device token signup' , deviceToken);
 
   const [checked, setChecked] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -36,6 +41,7 @@ export default function Signup({navigation, route}) {
   const [error, setError] = useState('');
   const [hidePass, setHidePass] = useState(true);
   const [hideConfirmPass, setHideConfirmPass] = useState(true);
+  const [googleLoader, setGoogleLoader] = useState(false)
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -47,7 +53,6 @@ export default function Signup({navigation, route}) {
   }, []);
   const handleSignup = async () => {
     setLoader(true);
-
     if (username === '') {
       setLoader(false);
       setError('*Please enter username');
@@ -66,7 +71,7 @@ export default function Signup({navigation, route}) {
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (emailRegex.test(email)) {
         try {
-          const {data} = await axios.post(
+          const { data } = await axios.post(
             backendURL + 'api/wincly/checkEmail',
             {
               email: updatedEmail,
@@ -90,6 +95,7 @@ export default function Signup({navigation, route}) {
                   like: [],
                   userStatus: 'Online',
                   deviceToken,
+                  loginWith: 'none'
                 },
               });
               setLoader(false);
@@ -100,7 +106,6 @@ export default function Signup({navigation, route}) {
           setLoader(false);
         }
       } else {
-        // console.log("Invalid email address");
         setError('*Invalid email address');
         setLoader(false);
       }
@@ -154,39 +159,87 @@ export default function Signup({navigation, route}) {
         await GoogleSignin.hasPlayServices({
           showPlayServicesUpdateDialog: true,
         });
-        const {idToken} = await GoogleSignin.signIn();
+        const { idToken } = await GoogleSignin.signIn();
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
         await auth().signInWithCredential(googleCredential);
       } else {
         // IOS
-        const {idToken} = await GoogleSignin.signIn();
+        const { idToken } = await GoogleSignin.signIn();
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
         await auth().signInWithCredential(googleCredential);
       }
 
       let user = auth().currentUser;
-      console.log(user.displayName, '----->>');
-      console.log('User Detail', user);
-      alert(`Welcome ${user.displayName}`);
+      // console.log(user.displayName, '----->>');
+      // console.log('User Detail', user);
+      handleGoogleSignup(user)
+      // alert(`Welcome ${user.displayName}`);
     } catch (error) {
       console.error('Error signing in with Google:', error);
     }
   };
 
+  const handleGoogleSignup = async (user) => {
+    try {
+      setGoogleLoader(true)
+      const { data } = await axios.post(
+        backendURL + 'api/wincly/checkEmailGoogle',
+        {
+          email: user?.email,
+        },
+      )
+      console.log(data);
+      if (data?.status == 200) {
+        setGoogleLoader(false)
+        navigation.navigate('PhoneVerification', {
+          userData: {
+            username: user?.displayName,
+            email: user?.email,
+            password: '',
+            like: [],
+            userStatus: 'Online',
+            deviceToken,
+            loginWith: 'google',
+            profile: user?.photoURL
+          },
+        });
+      } else {
+        setGoogleLoader(false)
+        dispatch(setShowTutorialFalse())
+        console.log("already use need to move home");
+        dispatch(handleTrue());
+        dispatch(handleAddUserDetails(data?.existingEmail));
+        handleSendDataForServer(data?.existingEmail);
+      }
+
+    } catch (error) {
+      setGoogleLoader(false)
+      console.log(error);
+    }
+  }
+
+  const handleSendDataForServer = data => {
+    // console.log(data.username);
+    // console.log(data._id);
+    const userData = { username: data?.username, _id: data?._id, userStatus: "Online" };
+    socket.emit('set user', userData);
+    socket.connect();
+  };
+
   ////////// GOOGLE ACCOUNT LOG OUT //////////
 
-  // const revokeGoogleAccess = async () => {
-  //   try {
-  //     await GoogleSignin.revokeAccess();
-  //     console.log('Google access revoked successfully');
-  //     // Additional logic if needed after revoking access
-  //   } catch (error) {
-  //     console.error('Error revoking Google access:', error);
-  //     // Handle error
-  //   }
-  // };
+  const revokeGoogleAccess = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      console.log('Google access revoked successfully');
+      // Additional logic if needed after revoking access
+    } catch (error) {
+      console.error('Error revoking Google access:', error);
+      // Handle error
+    }
+  };
 
   ////////// GOOGLE ACCOUNT (DELETE) REMOVE FROM FIREBASE AND LOG OUT //////////
 
@@ -355,17 +408,25 @@ export default function Signup({navigation, route}) {
             styles.row,
           ]}>
           <TouchableOpacity
-            onPress={handleFacebook}
-            // onPress={revokeGoogleAccess}
+            // onPress={handleFacebook}
+            onPress={revokeGoogleAccess}
           >
             <View style={[styles.darkBtn, styles.row2]}>
               <Image source={images.fb} style={styles.fb} />
               <Text style={styles.darkBtnText}>Facebook</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleGoogle}>
+          <TouchableOpacity
+            onPress={handleGoogle}
+          // onPress={revokeGoogleAccess}
+          >
             <View style={[styles.greenBtn, styles.row2]}>
-              <Image source={images.google} style={styles.google} />
+              {
+                googleLoader ?
+                  <ActivityIndicator size={20} color='black' style={{ right: sizes.screenWidth * 0.01, }} />
+                  :
+                  <Image source={images.google} style={styles.google} />
+              }
               <Text style={[styles.googleRight]}>Google</Text>
             </View>
           </TouchableOpacity>

@@ -33,7 +33,7 @@ import {
 export default function Like({navigation}) {
   const dispatch = useDispatch();
   const showTutorial = useSelector(selectShowTutorial);
-  console.log('data=--==-=>', showTutorial);
+
   const {userDetalis} = useSelector(state => state.userDetailsSlice);
   const [updatedUserDetails, setUpdatedUserDetails] = useState();
   const [isMatch, setIsMatch] = useState(false);
@@ -60,6 +60,7 @@ export default function Like({navigation}) {
 
   const handleSecondTooltipPress = () => {
     setSecondGuideVisible(false);
+    dispatch(setShowTutorialFalse())
   };
 
   const handleScroll = event => {

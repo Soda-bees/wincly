@@ -227,6 +227,8 @@ export default function Home({ navigation, route }) {
   };
   const handleThirdToolTipClose = () => {
     setThirdGuideVisible(false);
+    navigation.navigate('Like')
+    // console.log("work");
   };
 
   return (
@@ -315,12 +317,6 @@ export default function Home({ navigation, route }) {
             <Text style={styles.username}>{userDetalis?.username}</Text>
           </View>
           <TouchableOpacity
-          // onPress={() => {
-          //   dispatch(setShowTutorialFalse())
-          // }}
-          onPress={() => {
-            dispatch(setShowTutorialTrue())
-          }}
           >
             <View style={[styles.padding, styles.row]}>
               <Image

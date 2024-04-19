@@ -21,7 +21,6 @@ import socket from '../../services/config/io';
 
 export default function ConfirmProfile({route, navigation}) {
   const {userData} = route.params;
-  // console.log(userData);
 
   const dispatch = useDispatch();
   const [age, setAge] = useState('');

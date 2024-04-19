@@ -9,6 +9,7 @@ const showTutorialSlice = createSlice({
             state.showTutorial = true;
         },
         setShowTutorialFalse: state => {
+            console.log("show tutorial redux");
             state.showTutorial = false;
         },
     },

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -9,27 +9,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {styles} from './style';
+import { styles } from './style';
 import images from '../../services/utilities/images';
-import {colors, sizes} from '../../services';
+import { colors, sizes } from '../../services';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {ActivityIndicator, Checkbox} from 'react-native-paper';
+import { ActivityIndicator, Checkbox } from 'react-native-paper';
 import Button from '../../components/Button';
-import {useSelector, useDispatch} from 'react-redux';
-import {handleTrue} from '../../store/isSignedInSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { handleTrue } from '../../store/isSignedInSlice';
 import auth from '@react-native-firebase/auth';
-import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import AnimatedLoader from '../AnimatedLoader';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import {handleAddUserDetails} from '../../store/userDetailsSlice';
+import { handleAddUserDetails } from '../../store/userDetailsSlice';
 import Feather from 'react-native-vector-icons/Feather';
 import socket from '../../services/config/io';
 import formatToJSON from '../../services/utilities/JsonLog';
 import { setShowTutorialFalse } from '../../store/showTutorial';
 
-export default function Signin({navigation, route}) {
+export default function Signin({ navigation, route }) {
   const dispatch = useDispatch();
   const deviceToken = route.params;
 
@@ -39,6 +39,7 @@ export default function Signin({navigation, route}) {
   const [checked, setChecked] = useState(false);
   const [error, setError] = useState('');
   const [hidePass, setHidePass] = useState(true);
+  const [googleLoader, setGoogleLoader] = useState(false)
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -49,25 +50,21 @@ export default function Signin({navigation, route}) {
     });
   }, []);
   const handleSendDataForServer = data => {
-    const userData = {
-      username: data.data[0].username,
-      _id: data.data[0]._id,
-      userStatus: 'Online',
-    };
+    const userData = { username: data?.username, _id: data?._id, userStatus: "Online" };
     socket.emit('set user', userData);
     socket.connect();
   };
 
   const handleUpdateDevicToken = async user => {
     try {
-      const {data} = await axios.post(
+      const { data } = await axios.post(
         backendURL + 'api/wincly/updateDeviceToken',
         {
           _id: user._id,
           deviceToken,
         },
       );
-      console.log("update device  --=-==-=--==->",data.message);
+      console.log("update device  --=-==-=--==->", data.message);
     } catch (error) {
       console.log('error in device token update');
     }
@@ -75,7 +72,6 @@ export default function Signin({navigation, route}) {
 
   const handleConfirm = async () => {
     setLoader(true);
-
     if (email == '') {
       setLoader(false);
       setError('*Please enter email');
@@ -84,31 +80,28 @@ export default function Signin({navigation, route}) {
       setError('*Please enter password');
     } else if (email && password) {
       setError('');
-      const updatedEmail = email.toLowerCase();
+      const updatedEmail = email?.toLowerCase();
       try {
-        const {data} = await axios.post(backendURL + 'api/wincly/login', {
+        const { data } = await axios.post(backendURL + 'api/wincly/login', {
           email: updatedEmail,
           password,
+          deviceToken,
+          loginWith: 'none'
         });
-        // console.log(data, '---data');
         if (data.message == 'Login successfully!') {
           setTimeout(() => {
             setError('');
             setLoader(false);
           }, 700);
-          const user = data.data[0];
-          delete user.password;
-          // console.log('userLogin===>', user);
+          const user = data?.data;
+          delete user?.password;
           dispatch(handleTrue());
           dispatch(handleAddUserDetails(user));
           handleUpdateDevicToken(user);
-          socket.connect();
-          console.log('username===>', data.data[0]._id);
+          socket?.connect();
+          console.log('username===>', data?.data[0]?._id);
           handleSendDataForServer(data);
           dispatch(setShowTutorialFalse())
-          // navigation.navigate('MyDrawer' , {
-          //   _id:data.data[0]._id
-          // });
         } else {
           setTimeout(() => {
             setError(data.message);
@@ -150,47 +143,75 @@ export default function Signin({navigation, route}) {
     return auth().signInWithCredential(facebookCredential);
   };
   const handleGoogle = async () => {
-    if (Platform.OS == 'android') {
-      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-      const {idToken} = await GoogleSignin.signIn();
-
-      return auth()
-        .signInWithCredential(googleCredential)
-        .then(() => {
-          let user = auth().currentUser;
-          console.log(user.displayName, '----->>');
-          alert(`Welcome ${user.displayName}`);
+    try {
+      if (Platform.OS === 'android') {
+        await GoogleSignin.hasPlayServices({
+          showPlayServicesUpdateDialog: true,
         });
-    }
+        const { idToken } = await GoogleSignin.signIn();
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    // IOS
-    else {
-      const {idToken} = await GoogleSignin.signIn();
-      console.log(idToken, '------->obj');
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        await auth().signInWithCredential(googleCredential);
+      } else {
+        // IOS
+        const { idToken } = await GoogleSignin.signIn();
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-      const userSignIn = auth()
-        .signInWithCredential(googleCredential)
-        .then(() => {
-          let user = auth().currentUser;
-          console.log(user.displayName, '----->>');
-          alert(`Welcome ${user.displayName}`);
-        });
+        await auth().signInWithCredential(googleCredential);
+      }
+
+      let user = auth().currentUser;
+      // console.log(user.displayName, '----->>');
+      console.log('User Detail', user);
+      handleGoogleSignup(user)
+      // alert(`Welcome ${user.displayName}`);
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
     }
   };
+
+  const handleGoogleSignup = async (user) => {
+    try {
+      setGoogleLoader(true)
+      const { data } = await axios.post(
+        backendURL + 'api/wincly/checkEmailGoogle',
+        {
+          email: user?.email,
+        },
+      )
+      if (data?.status == 200) {
+        setGoogleLoader(false)
+        navigation.navigate('PhoneVerification', {
+          userData: {
+            username: user?.displayName,
+            email: user?.email,
+            password: '',
+            like: [],
+            userStatus: 'Online',
+            deviceToken,
+            loginWith: 'google',
+            profile: user?.photoURL
+          },
+        });
+      } else {
+        setGoogleLoader(false)
+        dispatch(setShowTutorialFalse())
+        dispatch(handleTrue());
+        dispatch(handleAddUserDetails(data?.existingEmail));
+        handleSendDataForServer(data?.existingEmail);
+      }
+
+    } catch (error) {
+      setGoogleLoader(false)
+      console.log(error);
+    }
+  }
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <View>   
+        <View>
           <Image source={images.signInbg} style={styles.bgImage} />
-
-          {/* <View style={styles.logoView}>
-            <Image
-              resizeMode="center"
-              style={styles.logoImg}
-              source={images.signinLogo}
-            />
-          </View> */}
 
           <View
             style={
@@ -242,8 +263,7 @@ export default function Signin({navigation, route}) {
 
             <View
               style={[
-                styles.errorView,
-                // {top: Platform.OS == 'ios' && sizes.screenHeight * 0.01},
+                styles.errorView
               ]}>
               <Text style={styles.errorText}>{error}</Text>
             </View>
@@ -309,10 +329,16 @@ export default function Signin({navigation, route}) {
             </View>
           </TouchableOpacity>
           <TouchableOpacity
-          // onPress={handleGoogle}
+            onPress={handleGoogle}
           >
             <View style={[styles.greenBtn, styles.row2]}>
-              <Image source={images.google} style={styles.google} />
+              {
+                googleLoader ?
+                  <ActivityIndicator size={20} color='black'
+                  />
+                  :
+                  <Image source={images.google} style={styles.google} />
+              }
               <Text style={styles.greenBtnText}>Google</Text>
             </View>
           </TouchableOpacity>

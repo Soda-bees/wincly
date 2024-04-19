@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -9,16 +9,16 @@ import {
   Platform,
   KeyboardAvoidingView,
 } from 'react-native';
-import {styles} from './style';
+import { styles } from './style';
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 import images from '../../services/utilities/images';
-import {colors} from '../../services';
-import {ActivityIndicator, Checkbox} from 'react-native-paper';
+import { colors } from '../../services';
+import { ActivityIndicator, Checkbox } from 'react-native-paper';
 
-export default function ProfileInfo({route, navigation}) {
-  const {userData} = route.params;
+export default function ProfileInfo({ route, navigation }) {
+  const { userData } = route.params;
   console.log('profileinfoUserData===>', userData);
 
   const [imageUri, setImageUri] = useState('');
@@ -26,6 +26,15 @@ export default function ProfileInfo({route, navigation}) {
   const [lastname, setLastname] = useState('');
   const [error, setError] = useState('');
   const [loader, setLoader] = useState(false);
+
+  useEffect(() => {
+    const profile = userData?.profile
+    if (profile) {
+      setImageUri(userData?.profile)
+    } 
+  }, [userData])
+
+
 
   const imageGalleryLaunch = () => {
     let options = {
@@ -49,7 +58,7 @@ export default function ProfileInfo({route, navigation}) {
         const uri = res.assets[0].uri;
         const type = 'image/jpg';
         const name = userData.username;
-        const source = {uri, type, name};
+        const source = { uri, type, name };
         // console.log('source====>', source);
         handleCloudinaryUpload(source);
       }
@@ -105,22 +114,22 @@ export default function ProfileInfo({route, navigation}) {
 
   const userData2 = {
     ...userData,
-    profileImg: '',
-    firstname: '',
-    lastname: '',
+    profileImg: imageUri,
+    firstname,
+    lastname,
   };
 
   return (
     <SafeAreaView>
       <View style={styles.container}>
-      <Image source={images.profileInfobg} style={styles.bgImage} />
+        <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>
           <BackButton skip={true} path="UploadPictures" userData={userData2} />
         </View>
         <View style={styles.top}>
           <TouchableOpacity onPress={imageGalleryLaunch}>
             {imageUri ? (
-              <Image source={{uri: imageUri}} style={styles.firstPic} />
+              <Image source={{ uri: imageUri }} style={styles.firstPic} />
             ) : (
               <View style={styles.firstPic}>
                 <Image source={images.upload} style={styles.plusImg} />

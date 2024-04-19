@@ -16,9 +16,20 @@ import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { sha256 } from 'react-native-sha256';
 import { getFcmToken } from '../../services/config/notificationServices';
+import { useDispatch } from 'react-redux';
+import { ActivityIndicator } from 'react-native-paper';
+import { sizes } from '../../services';
+import { setShowTutorialFalse } from '../../store/showTutorial';
+import { handleTrue } from '../../store/isSignedInSlice';
+import { handleAddUserDetails } from '../../store/userDetailsSlice';
+import socket from "../../services/config/io"
+import axios from 'axios';
+import backendURL from '../../services/config/backendURL';
 
 export default function LandingPage({ navigation }) {
+  const dispatch = useDispatch()
   const [deviceToken, setDeviceToken] = useState()
+  const [googleLoader, setGoogleLoader] = useState(false)
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -114,34 +125,79 @@ export default function LandingPage({ navigation }) {
   };
 
   const handleGoogle = async () => {
-    if (Platform.OS == 'android') {
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      const { idToken } = await GoogleSignin.signIn();
-
-      return auth()
-        .signInWithCredential(googleCredential)
-        .then(() => {
-          let user = auth().currentUser;
-          console.log(user.displayName, '----->>');
-          alert(`Welcome ${user.displayName}`);
+    try {
+      if (Platform.OS === 'android') {
+        await GoogleSignin.hasPlayServices({
+          showPlayServicesUpdateDialog: true,
         });
-    }
+        const { idToken } = await GoogleSignin.signIn();
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    // IOS
-    else {
-      const { idToken } = await GoogleSignin.signIn();
-      console.log(idToken, '------->obj');
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        await auth().signInWithCredential(googleCredential);
+      } else {
+        // IOS
+        const { idToken } = await GoogleSignin.signIn();
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-      const userSignIn = auth()
-        .signInWithCredential(googleCredential)
-        .then(() => {
-          let user = auth().currentUser;
-          console.log(user.displayName, '----->>');
-          alert(`Welcome ${user.displayName}`);
-        });
+        await auth().signInWithCredential(googleCredential);
+      }
+
+      let user = auth().currentUser;
+      // console.log(user.displayName, '----->>');
+      console.log('User Detail', user);
+      handleGoogleSignup(user)
+      // alert(`Welcome ${user.displayName}`);
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
     }
   };
+
+  const handleGoogleSignup = async (user) => {
+    try {
+      setGoogleLoader(true)
+      const { data } = await axios.post(
+        backendURL + 'api/wincly/checkEmailGoogle',
+        {
+          email: user?.email,
+        },
+      )
+      if (data?.status == 200) {
+        setGoogleLoader(false)
+        navigation.navigate('PhoneVerification', {
+          userData: {
+            username: user?.displayName,
+            email: user?.email,
+            password: '',
+            like: [],
+            userStatus: 'Online',
+            deviceToken,
+            loginWith: 'google',
+            profile: user?.photoURL
+          },
+        });
+      } else {
+        setGoogleLoader(false)
+        dispatch(setShowTutorialFalse())
+        console.log("already use need to move home");
+        dispatch(handleTrue());
+        dispatch(handleAddUserDetails(data?.existingEmail));
+        handleSendDataForServer(data?.existingEmail);
+      }
+
+    } catch (error) {
+      setGoogleLoader(false)
+      console.log(error);
+    }
+  }
+
+  const handleSendDataForServer = data => {
+    // console.log(data.username);
+    // console.log(data._id);
+    const userData = { username: data?.username, _id: data?._id, userStatus: "Online" };
+    socket.emit('set user', userData);
+    socket.connect();
+  };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -161,7 +217,7 @@ export default function LandingPage({ navigation }) {
                 Platform.OS == 'ios' ? styles.btnTopIOS : styles.btnTop,
                 styles.row,
               ]}>
-              <TouchableOpacity 
+              <TouchableOpacity
               // onPress={handleFacebook}
               >
                 <View style={[styles.darkBtn, styles.row2]}>
@@ -169,11 +225,18 @@ export default function LandingPage({ navigation }) {
                   <Text style={styles.darkBtnText}>Facebook</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity 
-              // onPress={handleGoogle}
+              <TouchableOpacity
+                onPress={handleGoogle}
               >
                 <View style={[styles.greenBtn, styles.row2]}>
-                  <Image source={images.google} style={styles.google} />
+                  {
+                    googleLoader ?
+                      <ActivityIndicator size={21} color='black'
+                      // style={{ right: sizes.screenWidth * 0.01, }} 
+                      />
+                      :
+                      <Image source={images.google} style={styles.google} />
+                  }
                   <Text style={styles.greenBtnText}>Google</Text>
                 </View>
               </TouchableOpacity>
