@@ -78,12 +78,16 @@ export default function Setting({ navigation }) {
               <Text style={styles.text}>Edit Avatar</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.top}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ChangePassword')}>
-              <Text style={styles.text}>Change Password</Text>
-            </TouchableOpacity>
-          </View>
+          {
+            userData?.loginWith === 'none' &&
+            <View style={styles.top}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ChangePassword')}>
+                <Text style={styles.text}>Change Password</Text>
+              </TouchableOpacity>
+            </View>
+          }
+
           <View style={styles.top}>
             <TouchableOpacity>
               <Text style={styles.text}>Privacy Policy</Text>

@@ -125,8 +125,6 @@ export default function PickInterest({route, navigation}) {
               <View key={index} style={styles.interestOption}>
                 <TouchableOpacity
                   onPress={() => {
-                    dispatch(setShowTutorialTrue())
-                    // console.log(selectedInterest);
                     if (selectedInterest.includes(item)) {
                       const array = selectedInterest.filter(function (letter) {
                         return letter !== item;
