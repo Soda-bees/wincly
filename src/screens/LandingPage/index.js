@@ -158,10 +158,12 @@ export default function LandingPage({ navigation }) {
       const { data } = await axios.post(
         backendURL + 'api/wincly/checkEmailGoogle',
         {
+          deviceToken,
           email: user?.email,
         },
       )
       if (data?.status == 200) {
+        await revokeGoogleAccess()
         setGoogleLoader(false)
         navigation.navigate('PhoneVerification', {
           userData: {
@@ -191,11 +193,20 @@ export default function LandingPage({ navigation }) {
   }
 
   const handleSendDataForServer = data => {
-    // console.log(data.username);
-    // console.log(data._id);
     const userData = { username: data?.username, _id: data?._id, userStatus: "Online" };
     socket.emit('set user', userData);
     socket.connect();
+  };
+
+  const revokeGoogleAccess = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      console.log('Google access revoked successfully');
+      // Additional logic if needed after revoking access
+    } catch (error) {
+      console.error('Error revoking Google access:', error);
+      // Handle error
+    }
   };
 
   return (
@@ -232,7 +243,6 @@ export default function LandingPage({ navigation }) {
                   {
                     googleLoader ?
                       <ActivityIndicator size={21} color='black'
-                      // style={{ right: sizes.screenWidth * 0.01, }} 
                       />
                       :
                       <Image source={images.google} style={styles.google} />

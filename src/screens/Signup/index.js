@@ -4,6 +4,7 @@ import {
   ImageBackground,
   Platform,
   SafeAreaView,
+  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
@@ -187,11 +188,12 @@ export default function Signup({ navigation, route }) {
       const { data } = await axios.post(
         backendURL + 'api/wincly/checkEmailGoogle',
         {
+          deviceToken,
           email: user?.email,
         },
       )
-      console.log(data);
       if (data?.status == 200) {
+        await revokeGoogleAccess()
         setGoogleLoader(false)
         navigation.navigate('PhoneVerification', {
           userData: {
@@ -271,16 +273,10 @@ export default function Signup({ navigation, route }) {
 
   return (
     <SafeAreaView>
+      <ScrollView>
       <View style={styles.container}>
         <View>
           <Image source={images.signUpbg} style={styles.bgImage} />
-          {/* <View style={styles.logoView}>
-            <Image
-              resizeMode="center"
-              style={styles.logoImg}
-              source={images.signinLogo}
-            />
-          </View> */}
 
           <View
             style={
@@ -409,7 +405,6 @@ export default function Signup({ navigation, route }) {
           ]}>
           <TouchableOpacity
             // onPress={handleFacebook}
-            onPress={revokeGoogleAccess}
           >
             <View style={[styles.darkBtn, styles.row2]}>
               <Image source={images.fb} style={styles.fb} />
@@ -418,7 +413,6 @@ export default function Signup({ navigation, route }) {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleGoogle}
-          // onPress={revokeGoogleAccess}
           >
             <View style={[styles.greenBtn, styles.row2]}>
               {
@@ -432,6 +426,7 @@ export default function Signup({ navigation, route }) {
           </TouchableOpacity>
         </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

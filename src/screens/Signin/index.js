@@ -176,10 +176,12 @@ export default function Signin({ navigation, route }) {
       const { data } = await axios.post(
         backendURL + 'api/wincly/checkEmailGoogle',
         {
+          deviceToken,
           email: user?.email,
         },
       )
       if (data?.status == 200) {
+        await revokeGoogleAccess()
         setGoogleLoader(false)
         navigation.navigate('PhoneVerification', {
           userData: {
@@ -206,6 +208,17 @@ export default function Signin({ navigation, route }) {
       console.log(error);
     }
   }
+
+  const revokeGoogleAccess = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      console.log('Google access revoked successfully');
+      // Additional logic if needed after revoking access
+    } catch (error) {
+      console.error('Error revoking Google access:', error);
+      // Handle error
+    }
+  };
 
   return (
     <SafeAreaView>
