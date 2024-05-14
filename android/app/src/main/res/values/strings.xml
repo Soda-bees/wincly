@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Wincly</string>
     <string name="default_notification_channel_id">channel-id-1</string>
+    <string name="facebook_app_id">1303672933923061</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">7465a6a90f664257b5701a43c0cc8519</string>
 </resources>
