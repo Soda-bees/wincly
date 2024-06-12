@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { Linking, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from './style';
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
@@ -65,6 +65,10 @@ export default function Setting({ navigation }) {
       // Handle error
     }
   };
+
+  const openWebLinkPrivacyPolicy = (url) => {
+    Linking.openURL(url).catch((err) => console.error('An error occurred', err));
+  };
   return (
     <SafeAreaView>
       <View style={styles.container}>
@@ -89,8 +93,13 @@ export default function Setting({ navigation }) {
           }
 
           <View style={styles.top}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => openWebLinkPrivacyPolicy('https://simationstudio.com/privacy-policy/')}>
               <Text style={styles.text}>Privacy Policy</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.top}>
+            <TouchableOpacity onPress={() => openWebLinkPrivacyPolicy('https://simationstudio.com/terms-conditions/')}>
+              <Text style={styles.text}>Terms and Conditions</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.top}>
