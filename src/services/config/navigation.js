@@ -56,6 +56,7 @@ import SuccessfulEvent from '../../screens/SuccessfulEvent';
 import RequestFriendReview from '../../screens/RequestFriendReview';
 import AppIntroduction from '../../screens/AppIntroduction';
 import GetStarted from '../../screens/GetStarted';
+import DeleteAccount from '../../screens/DeleteAccount';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -496,6 +497,7 @@ const AppStackNavigator = () => {
       <Stack.Screen name="Review" component={Review} />
       <Stack.Screen name="SuccessfulEvent" component={SuccessfulEvent} />
       <Stack.Screen name="RequestFriendReview" component={RequestFriendReview} />
+      <Stack.Screen name="DeleteAccount" component={DeleteAccount} />
     </Stack.Navigator>
   );
 };

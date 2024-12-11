@@ -118,8 +118,8 @@ export const styles = StyleSheet.create({
   },
   bgImage: {
     height: sizes.screenHeight * 0.18,
-    resizeMode:'cover',
+    resizeMode: 'cover',
     width: sizes.screenWidth,
-    marginBottom:sizes.screenHeight * 0.02
+    marginBottom: sizes.screenHeight * 0.02,
   },
 });

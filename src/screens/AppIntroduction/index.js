@@ -147,15 +147,17 @@ export default function AppIntroduction({navigation}) {
   const [slideWidth, setSlideWidth] = useState(windowWidth);
 
   useEffect(() => {
-    const updateSlideWidth = () => {
-      const width = Dimensions?.get('window')?.width;
-      setSlideWidth(width);
+    const updateSlideWidth = ({window}) => {
+      setSlideWidth(window.width);
     };
 
-    Dimensions?.addEventListener('change', updateSlideWidth);
+    const subscription = Dimensions.addEventListener(
+      'change',
+      updateSlideWidth,
+    );
 
     return () => {
-      Dimensions?.removeEventListener('change', updateSlideWidth);
+      subscription?.remove(); // Safely remove the listener
     };
   }, []);
 
@@ -223,7 +225,7 @@ export default function AppIntroduction({navigation}) {
             </View>
           ))}
         </ScrollView>
-        <View style={styles.color}>
+        <View style={Platform.OS == 'android' ? styles.color : styles.colorIOS}>
           <TouchableOpacity
             style={styles.arrowContianer}
             onPress={handleNextSlide}>
@@ -242,7 +244,7 @@ export default function AppIntroduction({navigation}) {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
-          style={styles.skipContainer}
+          style={Platform.OS == 'android' ? styles.skipContainer : styles.skipContainerIOS}
           onPress={() => navigation.navigate('GetStarted')}>
           <Text style={styles.skipText}>Skip</Text>
         </TouchableOpacity>

@@ -173,6 +173,7 @@ export const styles = StyleSheet.create({
   },
   btnViewIOS: {
     marginBottom: sizes.screenHeight * 0.09,
+    marginTop:10
   },
   btnView: {
     marginBottom: sizes.screenHeight * 0.02,

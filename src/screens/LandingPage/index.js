@@ -31,6 +31,7 @@ import {handleAddUserDetails} from '../../store/userDetailsSlice';
 import socket from '../../services/config/io';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
+import messaging from '@react-native-firebase/messaging';
 
 export default function LandingPage({navigation}) {
   const dispatch = useDispatch();
@@ -46,14 +47,55 @@ export default function LandingPage({navigation}) {
     });
   }, []);
 
-  const getTokanForDB = async () => {
-    const token = await getFcmToken();
-    // console.log('token=--==->', token);
-    setDeviceToken(token);
+  // const getTokanForDB = async () => {
+  //   const token = await getFcmToken();
+  //   // console.log('token=--==->', token);
+  //   setDeviceToken(token);
+  // };
+
+  // useEffect(() => {
+  //   getTokanForDB();
+  // }, []);
+
+
+  const getDeviceToken = async () => {
+    try {
+      // Register the device for remote messages (required for both platforms)
+      await messaging().registerDeviceForRemoteMessages();
+
+      // Request permissions for notifications on iOS (no-op on Android)
+      if (Platform.OS === 'ios') {
+        const authStatus = await messaging().requestPermission();
+        const enabled =
+          authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+          authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+        if (!enabled) {
+          console.warn('Notification permissions not granted on iOS.');
+          return null;
+        }
+      }
+
+      // Retrieve the FCM token
+      const token = await messaging().getToken();
+      console.log('FCM Token:', token);
+      return token; // Return token to the caller for further use
+    } catch (error) {
+      console.error('Error fetching FCM token:', error);
+      return null;
+    }
   };
 
+
   useEffect(() => {
-    getTokanForDB();
+    const fetchToken = async () => {
+      const token = await getDeviceToken();
+      if (token) {
+        setDeviceToken(token);
+      }
+    };
+
+    fetchToken();
   }, []);
 
   const handleSignUp = () => {
@@ -142,7 +184,7 @@ export default function LandingPage({navigation}) {
                 console.log(error);
                 alert('Error fetching data: ' + error.toString());
               } else {
-                console.log('hellllllllllo',result);
+                console.log('hellllllllllo', result);
                 alert('Welcome: ' + result.name);
               }
             };

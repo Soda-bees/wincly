@@ -45,6 +45,9 @@ target 'Wincly' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+
   target 'WinclyTests' do
     inherit! :complete
     # Pods for testing

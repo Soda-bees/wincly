@@ -76,9 +76,11 @@ export default function ConfirmProfile({route, navigation}) {
             setLoader(false);
           }, 700);
         }else{
+          setLoader(false);
           console.log(data.message);
         }
     } catch (error) {
+      setLoader(false);
       console.log(error.message);
     }
   };

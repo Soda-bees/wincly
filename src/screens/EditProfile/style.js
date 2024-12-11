@@ -2,7 +2,10 @@ import {Dimensions, StyleSheet} from 'react-native';
 import {colors, fontFamily, fontSize, sizes} from '../../services';
 
 export const styles = StyleSheet.create({
-  container: {backgroundColor: colors.white},
+  container: {
+    backgroundColor: colors.white, 
+    height: sizes.screenHeight
+  },
   backgrouondImg: {
     width: sizes.screenWidth,
     height: sizes.screenHeight * 0.3,

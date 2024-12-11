@@ -27,15 +27,15 @@ export default function PhoneVerification({route, navigation}) {
   const [loader, setLoader] = useState(false);
 
   const phoneInput = useRef(null);
-  
+
   const handleContinue = async () => {
-    setLoader(true)
+    setLoader(true);
     setTimeout(() => {
       userData.phoneNumber = formattedValue;
       navigation.navigate('OTP', {
         userData,
       });
-      setLoader(false)
+      setLoader(false);
     }, 700);
 
     // setLoader(true)
@@ -58,65 +58,58 @@ export default function PhoneVerification({route, navigation}) {
   };
   return (
     <SafeAreaView>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-        }}>
-        <View>
-          <View style={styles.container}>
-          <Image source={images.forgotPassbg} style={styles.bgImage} />
-            <View style={styles.content}>
-              <Text style={styles.loginHead}>Verify your number</Text>
-              <View style={styles.textView}>
-                <Text style={styles.text}>
-                  Please enter your phone number to receive a verification code
-                </Text>
-              </View>
-              <View style={styles.marginBottom}>
-                <PhoneInput
-                  ref={phoneInput}
-                  defaultValue={value}
-                  defaultCode="US"
-                  layout="second"
-                  containerStyle={{
-                    borderColor: colors.appTextColor1,
-                    height: sizes.screenHeight * 0.08,
-                  }}
-                  textInputStyle={{
-                    height: sizes.screenHeight * 0.08,
-                    color: colors.black,
-                  }}
-                  textInputProps={{
-                    placeholderTextColor: colors.disabledBg2,
-                  }}
-                  flagButtonStyle={{
-                    backgroundColor: colors.appTextColor1,
-                  }}
-                  onChangeText={text => {
-                    setValue(text);
-                  }}
-                  onChangeFormattedText={text => {
-                    setFormattedValue(text);
-                  }}
-                  withShadow
-                  // autoFocus
-                />
-              </View>
+      <View style={styles.container}>
+        <Image source={images.forgotPassbg} style={styles.bgImage} />
+        <View style={styles.content}>
+          <Text style={styles.loginHead}>Verify your number</Text>
+          <View style={styles.textView}>
+            <Text style={styles.text}>
+              Please enter your phone number to receive a verification code
+            </Text>
+          </View>
+          <View style={styles.marginBottom}>
+            <PhoneInput
+              ref={phoneInput}
+              defaultValue={value}
+              defaultCode="US"
+              layout="second"
+              containerStyle={{
+                borderColor: colors.appTextColor1,
+                height: sizes.screenHeight * 0.08,
+              }}
+              textInputStyle={{
+                height: sizes.screenHeight * 0.08,
+                color: colors.black,
+              }}
+              textInputProps={{
+                placeholderTextColor: colors.disabledBg2,
+              }}
+              flagButtonStyle={{
+                backgroundColor: colors.appTextColor1,
+              }}
+              onChangeText={text => {
+                setValue(text);
+              }}
+              onChangeFormattedText={text => {
+                setFormattedValue(text);
+              }}
+              withShadow
+              // autoFocus
+            />
+          </View>
 
-              <View style={styles.btnTop}>
-                {/* <Button title={'Continue'} onPress={handleContinue} /> */}
-                {loader ? (
-                  <View style={styles.loader}>
-                    <ActivityIndicator size="small" color="#000" />
-                  </View>
-                ) : (
-                  <Button title={'Continue'} onPress={handleContinue} />
-                )}
+          <View style={styles.btnTop}>
+            {/* <Button title={'Continue'} onPress={handleContinue} /> */}
+            {loader ? (
+              <View style={styles.loader}>
+                <ActivityIndicator size="small" color="#000" />
               </View>
-            </View>
+            ) : (
+              <Button title={'Continue'} onPress={handleContinue} />
+            )}
           </View>
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }

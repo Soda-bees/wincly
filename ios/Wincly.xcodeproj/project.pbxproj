@@ -12,7 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4CD2EA6BE5960E9621EB9B2F /* Pods_Wincly_WinclyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5D05F27A576939C9AE55E3 /* Pods_Wincly_WinclyTests.framework */; };
-		50EEB59C2ABABDBB00090500 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 50EEB59B2ABABDBB00090500 /* GoogleService-Info.plist */; };
+		5017B8A42D01C48400B5C40F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5017B8A32D01C48400B5C40F /* GoogleService-Info.plist */; };
 		50EEB59F2ABB0ACB00090500 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EEB59E2ABB0ACB00090500 /* File.swift */; };
 		51C35D82D1C20C5FEF67C2E6 /* Pods_Wincly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACC2C5447F3273AA9C58D71 /* Pods_Wincly.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -40,7 +40,8 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Wincly/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Wincly/main.m; sourceTree = "<group>"; };
 		3943C2573E1C0670BD5F4B3C /* Pods-Wincly-WinclyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wincly-WinclyTests.release.xcconfig"; path = "Target Support Files/Pods-Wincly-WinclyTests/Pods-Wincly-WinclyTests.release.xcconfig"; sourceTree = "<group>"; };
-		50EEB59B2ABABDBB00090500 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5017B8A32D01C48400B5C40F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5017B8A52D02C87D00B5C40F /* Wincly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Wincly.entitlements; path = Wincly/Wincly.entitlements; sourceTree = "<group>"; };
 		50EEB59D2ABB0ACA00090500 /* Wincly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Wincly-Bridging-Header.h"; sourceTree = "<group>"; };
 		50EEB59E2ABB0ACB00090500 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		6C59440798D1C9AC0788BF0C /* Pods-Wincly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wincly.release.xcconfig"; path = "Target Support Files/Pods-Wincly/Pods-Wincly.release.xcconfig"; sourceTree = "<group>"; };
@@ -91,10 +92,10 @@
 		13B07FAE1A68108700A75B9A /* Wincly */ = {
 			isa = PBXGroup;
 			children = (
+				5017B8A52D02C87D00B5C40F /* Wincly.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
-				50EEB59B2ABABDBB00090500 /* GoogleService-Info.plist */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -122,6 +123,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				5017B8A32D01C48400B5C40F /* GoogleService-Info.plist */,
 				50EEB59E2ABB0ACB00090500 /* File.swift */,
 				13B07FAE1A68108700A75B9A /* Wincly */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -253,7 +255,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				50EEB59C2ABABDBB00090500 /* GoogleService-Info.plist in Resources */,
+				5017B8A42D01C48400B5C40F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +461,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				DEVELOPMENT_TEAM = 5947YLGBNJ;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -489,6 +492,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 5947YLGBNJ;
 				INFOPLIST_FILE = WinclyTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -514,8 +518,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Wincly/Wincly.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8XX83H9XR6;
+				DEVELOPMENT_TEAM = 5947YLGBNJ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Wincly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -544,8 +549,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Wincly/Wincly.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8XX83H9XR6;
+				DEVELOPMENT_TEAM = 5947YLGBNJ;
 				INFOPLIST_FILE = Wincly/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -634,10 +640,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -710,10 +713,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",

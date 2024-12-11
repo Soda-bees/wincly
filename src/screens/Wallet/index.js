@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Image,
   ImageBackground,
+  Platform,
   Text,
   TouchableOpacity,
   View,
@@ -51,7 +52,7 @@ export default function Wallet({navigation}) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerView}>
+      <View style={Platform.OS == 'android' ? styles.headerView : styles.headerViewIOS}>
         <BackButton title={'Wallet'} />
         <Image
           source={{uri: updatedUserData?.profileImg}}
@@ -75,7 +76,7 @@ export default function Wallet({navigation}) {
           </View>
           <View style={styles.containerTwo}>
             <ImageBackground
-              style={styles.myWincliesImg}
+              style={Platform.OS == 'android' ? styles.myWincliesImg : styles.myWincliesImgIOS}
               source={images.myWincliesbg}>
               <View style={styles.imgRowOne}>
                 <Text style={styles.myWincliesTxt}>My Winclies</Text>
@@ -88,7 +89,7 @@ export default function Wallet({navigation}) {
             </ImageBackground>
             <TouchableOpacity>
               <ImageBackground
-                style={styles.shopWIncliesImg}
+                style={Platform.OS == 'android' ? styles.shopWIncliesImg : styles.shopWIncliesImgIOS}
                 source={images.shopWinclybg}>
                 <View style={styles.imgRowOne}>
                   <Text style={styles.myWincliesTxt}>SHOP WINCLY</Text>

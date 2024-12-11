@@ -11,6 +11,14 @@ export const styles = StyleSheet.create({
     width: sizes.screenWidth,
     height: sizes.screenHeight * 0.14,
   },
+
+  headerViewIOS: {
+    backgroundColor: colors.appTextColor1,
+    width: sizes.screenWidth,
+    height: sizes.screenHeight * 0.14,
+    paddingTop:sizes.screenHeight * 0.024
+  },
+
   profileImg: {
     height: sizes.screenHeight * 0.07,
     width: sizes.screenHeight * 0.07,
@@ -36,7 +44,7 @@ export const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: colors.disabledBg,
-    marginTop: sizes.screenHeight * 0.02,
+    marginTop: sizes.screenHeight * 0.02, 
     alignSelf: 'center',
     borderRadius: sizes.screenWidth * 0.03,
     flexDirection: 'row',
@@ -92,38 +100,50 @@ export const styles = StyleSheet.create({
     height: sizes.screenHeight * 0.17,
     width: sizes.screenWidth * 0.7,
   },
+  myWincliesImgIOS: {
+    paddingHorizontal: sizes.screenWidth * 0.05,
+    height: sizes.screenHeight * 0.17,
+    width: sizes.screenWidth * 0.74,
+  },
   shopWIncliesImg: {
-    marginTop:sizes.screenHeight*0.04,
+    marginTop: sizes.screenHeight * 0.04,
     resizeMode: 'center',
     paddingHorizontal: sizes.screenWidth * 0.05,
     height: sizes.screenHeight * 0.235,
     width: sizes.screenWidth * 0.9,
-    justifyContent:'space-around',
-    
+    justifyContent: 'space-around',
+  },
+
+  shopWIncliesImgIOS: {
+    marginTop: sizes.screenHeight * 0.04,
+    resizeMode: 'center',
+    paddingHorizontal: sizes.screenWidth * 0.05,
+    height: sizes.screenHeight * 0.22,
+    width: sizes.screenWidth * 0.9,
+    justifyContent: 'space-around',
   },
   imgRowOne: {
     flexDirection: 'row',
-    alignItems:'center',
-    justifyContent:'space-between'
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   imgRowTwo: {
     flexDirection: 'row',
-    alignItems:'center',
-    alignSelf:'flex-end'
-
+    alignItems: 'center',
+    alignSelf: 'flex-end',
   },
   shopWinclyRowTwo: {
     flexDirection: 'row',
-    alignItems:'center',
-    alignSelf:'flex-end',
-    justifyContent:'space-around',
-    width:sizes.screenWidth*0.4,
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    justifyContent: 'space-around',
+    width: sizes.screenWidth * 0.4,
   },
   myWincliesTxt: {
     fontSize: fontSize.large,
     fontWeight: '600',
     color: colors.black,
-    marginBottom:sizes.screenHeight*0.04
+    marginBottom: sizes.screenHeight * 0.04,
   },
   myWincliesAmount: {
     fontSize: fontSize.h6,

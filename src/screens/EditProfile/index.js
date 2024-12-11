@@ -27,8 +27,8 @@ import backendURL from '../../services/config/backendURL';
 import {handleAddUserDetails} from '../../store/userDetailsSlice';
 import Modal from 'react-native-modal';
 
-export default function EditProfile({navigation , route}) {
-  console.log('route.params' , route.params);
+export default function EditProfile({navigation, route}) {
+  console.log('route.params', route.params);
   const dispatch = useDispatch();
 
   const {userDetalis} = useSelector(state => state.userDetailsSlice);
@@ -42,12 +42,11 @@ export default function EditProfile({navigation , route}) {
   const [formatedDate, setFormatedDate] = useState(userDetalis.DOB);
   const [date, setDate] = useState(new Date());
   const [imageUri, setImageUri] = useState(userDetalis.profileImg);
-  const [about , setAbout] = useState(userDetalis.about)
+  const [about, setAbout] = useState(userDetalis.about);
   const [loader, setLoader] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
 
   const phoneInput = useRef(null);
-
 
   const handleDate = selectedDate => {
     setOpen(false);
@@ -119,7 +118,7 @@ export default function EditProfile({navigation , route}) {
         profileImg: imageUri,
         username,
         DOB: formatedDate,
-        about
+        about,
       });
       if (data.message == 'Update succesfully!') {
         setTimeout(() => {
@@ -136,139 +135,133 @@ export default function EditProfile({navigation , route}) {
   };
   return (
     <SafeAreaView>
-      <ScrollView>
-        <KeyboardAvoidingView
-          style={{flex: 1 , backgroundColor:colors.white}}>
-          <View style={styles.container}>
-            <ImageBackground
-              source={images.MyProfileBackground}
-              style={styles.backgrouondImg}>
-              <BackButton title={'Edit Profile'} />
-              <View style={styles.imgView}>
-                {imageUri ? (
-                  <Image source={{uri: imageUri}} style={styles.profileImg} />
-                ) : (
-                  <Image source={images.profileImg} style={styles.profileImg} />
-                )}
-                <TouchableOpacity
-                  style={styles.uploadImgTouchable}
-                  onPress={imageGalleryLaunch}>
-                  <Image
-                    source={images.uploadImgBtn}
-                    style={styles.uploadImgBtn}
-                  />
-                </TouchableOpacity>
-              </View>
-            </ImageBackground>
-
-            <Text style={styles.text1}>User Name</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="username"
-              placeholderTextColor={colors.disabledBg2}
-              value={username}
-              onChangeText={text => setUsername(text)}
-            />
-            <Text style={styles.text2}>Phone Number</Text>
-            <TextInput
-              editable={false}
-              style={styles.inputDisable}
-              placeholder="Phone Number"
-              placeholderTextColor={colors.disabledBg2}
-              value={phoneNum}
-              onChangeText={text => setPhoneNum(text)}
-            />
-            <Text style={styles.text2}>Email</Text>
-            <TextInput
-              editable={false}
-              style={styles.inputDisable}
-              placeholder="Email"
-              placeholderTextColor={colors.disabledBg2}
-              value={email}
-              onChangeText={text => setEmail(text)}
-            />
-
-            <Text style={styles.text2}>Date of Birth</Text>
-            <TouchableOpacity
-              //   style={styles.margin}
-              onPress={() => setOpen(true)}>
-              <View style={styles.dropDown}>
-                <Text style={styles.dropItem}>{formatedDate}</Text>
-              </View>
-            </TouchableOpacity>
-
-            <DatePicker
-              modal
-              open={open}
-              date={date}
-              mode="date"
-              onConfirm={date => {
-                handleDate(date);
-              }}
-              onCancel={() => {
-                setOpen(false);
-              }}
-            />
-            <Text style={styles.text2}>About</Text>
-            <TextInput
-              multiline={true}
-              numberOfLines={4}
-              placeholder="Bio..."
-              placeholderTextColor={colors.disabledBg2}
-              style={
-                Platform.OS == 'ios'
-                  ? styles.ratingInput
-                  : styles.ratingInput
-              }
-                value={about}
-                onChangeText={text => setAbout(text)}
-            />
-              
-            <Modal isVisible={isModalVisible}>
-              <View style={styles.modalView}>
-                <Image source={images.checkmark} style={styles.checkmark} />
-
-                <Text style={styles.modelText}>
-                  {' '}
-                  <Text style={styles.blueText}> Profile info updated! </Text>your
-                  profile info has been updated succesfully
-                </Text>
-              </View>
-              <View style={styles.submitTopModal}>
-                <TouchableOpacity
-                  style={styles.signInBtnModal}
-                  onPress={() => {
-                    setModalVisible(false);
-                    navigation.navigate('Home');
-                  }}>
-                  <View style={styles.signInBtnModal}>
-                    <View style={styles.signUpContent}>
-                      <Text
-                        style={
-                          Platform.OS == 'ios'
-                            ? styles.btnTextIOS
-                            : styles.btnText
-                        }>
-                        Done
-                      </Text>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </Modal>
-            
-          </View>
-          <View style={styles.btn}>
-              {loader ? (
-                <View style={styles.loader}>
-                  <ActivityIndicator size="small" color="#000" />
-                </View>
+      <View style={styles.container}>
+        <ScrollView>
+          <ImageBackground
+            source={images.MyProfileBackground}
+            style={styles.backgrouondImg}>
+            <BackButton title={'Edit Profile'} />
+            <View style={styles.imgView}>
+              {imageUri ? (
+                <Image source={{uri: imageUri}} style={styles.profileImg} />
               ) : (
-                <Button title={'Update'} onPress={handleUpdate} />
+                <Image source={images.profileImg} style={styles.profileImg} />
               )}
+              <TouchableOpacity
+                style={styles.uploadImgTouchable}
+                onPress={imageGalleryLaunch}>
+                <Image
+                  source={images.uploadImgBtn}
+                  style={styles.uploadImgBtn}
+                />
+              </TouchableOpacity>
             </View>
-        </KeyboardAvoidingView>
-      </ScrollView>
+          </ImageBackground>
+
+          <Text style={styles.text1}>User Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="username"
+            placeholderTextColor={colors.disabledBg2}
+            value={username}
+            onChangeText={text => setUsername(text)}
+          />
+          <Text style={styles.text2}>Phone Number</Text>
+          <TextInput
+            editable={false}
+            style={styles.inputDisable}
+            placeholder="Phone Number"
+            placeholderTextColor={colors.disabledBg2}
+            value={phoneNum}
+            onChangeText={text => setPhoneNum(text)}
+          />
+          <Text style={styles.text2}>Email</Text>
+          <TextInput
+            editable={false}
+            style={styles.inputDisable}
+            placeholder="Email"
+            placeholderTextColor={colors.disabledBg2}
+            value={email}
+            onChangeText={text => setEmail(text)}
+          />
+
+          <Text style={styles.text2}>Date of Birth</Text>
+          <TouchableOpacity
+            //   style={styles.margin}
+            onPress={() => setOpen(true)}>
+            <View style={styles.dropDown}>
+              <Text style={styles.dropItem}>{formatedDate}</Text>
+            </View>
+          </TouchableOpacity>
+
+          <DatePicker
+            modal
+            open={open}
+            date={date}
+            mode="date"
+            onConfirm={date => {
+              handleDate(date);
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+          />
+          <Text style={styles.text2}>About</Text>
+          <TextInput
+            multiline={true}
+            numberOfLines={4}
+            placeholder="Bio..."
+            placeholderTextColor={colors.disabledBg2}
+            style={
+              Platform.OS == 'ios' ? styles.ratingInput : styles.ratingInput
+            }
+            value={about}
+            onChangeText={text => setAbout(text)}
+          />
+          <View style={styles.btn}>
+            {loader ? (
+              <View style={styles.loader}>
+                <ActivityIndicator size="small" color="#000" />
+              </View>
+            ) : (
+              <Button title={'Update'} onPress={handleUpdate} />
+            )}
+          </View>
+          <View style={{marginBottom:80}}/>
+        </ScrollView>
+        <Modal isVisible={isModalVisible}>
+            <View style={styles.modalView}>
+              <Image source={images.checkmark} style={styles.checkmark} />
+
+              <Text style={styles.modelText}>
+                {' '}
+                <Text style={styles.blueText}> Profile info updated! </Text>
+                your profile info has been updated succesfully
+              </Text>
+            </View>
+            <View style={styles.submitTopModal}>
+              <TouchableOpacity
+                style={styles.signInBtnModal}
+                onPress={() => {
+                  setModalVisible(false);
+                  navigation.navigate('Home');
+                }}>
+                <View style={styles.signInBtnModal}>
+                  <View style={styles.signUpContent}>
+                    <Text
+                      style={
+                        Platform.OS == 'ios'
+                          ? styles.btnTextIOS
+                          : styles.btnText
+                      }>
+                      Done
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+      </View>
     </SafeAreaView>
   );
 }

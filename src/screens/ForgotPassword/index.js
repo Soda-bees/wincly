@@ -64,10 +64,10 @@ export default function ForgotPassword({navigation}) {
   };
   return (
     <SafeAreaView>
-      <ScrollView
+      {/* <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-        }}>
+        }}> */}
         <View>
           <View style={styles.container}>
           <Image source={images.forgotPassbg} style={styles.bgImage} />
@@ -108,7 +108,7 @@ export default function ForgotPassword({navigation}) {
             </View>
           </View>
         </View>
-      </ScrollView>
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 }

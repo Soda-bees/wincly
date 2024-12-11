@@ -93,12 +93,14 @@ export default function Setting({ navigation }) {
           }
 
           <View style={styles.top}>
-            <TouchableOpacity onPress={() => openWebLinkPrivacyPolicy('https://simationstudio.com/privacy-policy/')}>
+            <TouchableOpacity onPress={() => openWebLinkPrivacyPolicy('https://wincly.simationstudio.com/privacy-policy/')}>
               <Text style={styles.text}>Privacy Policy</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.top}>
-            <TouchableOpacity onPress={() => openWebLinkPrivacyPolicy('https://simationstudio.com/terms-conditions/')}>
+            <TouchableOpacity 
+            // onPress={() => openWebLinkPrivacyPolicy('https://simationstudio.com/terms-conditions/')}
+            >
               <Text style={styles.text}>Terms and Conditions</Text>
             </TouchableOpacity>
           </View>
@@ -108,8 +110,13 @@ export default function Setting({ navigation }) {
             </TouchableOpacity>
           </View>
           <View style={styles.top}>
-            <TouchableOpacity>
-              <Text style={styles.text}>About</Text>
+          <TouchableOpacity onPress={() => openWebLinkPrivacyPolicy('https://wincly.simationstudio.com/about/')}>
+          <Text style={styles.text}>About</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.top}>
+            <TouchableOpacity onPress={() => navigation.navigate('DeleteAccount')}>
+              <Text style={styles.textRed}>Delete Account</Text>
             </TouchableOpacity>
           </View>
         </View>

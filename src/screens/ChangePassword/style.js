@@ -4,7 +4,7 @@ import {colors, fontFamily, fontSize, sizes} from '../../services';
 export const styles = StyleSheet.create({
   content: {
     alignItems: 'center',
-    marginTop: sizes.screenHeight * 0.2,
+    // marginTop: sizes.screenHeight * 0.2,
   },
   loginHead: {
     textAlign: 'center',
@@ -106,9 +106,10 @@ export const styles = StyleSheet.create({
     paddingLeft: sizes.screenWidth * 0.05,
   },
   btnTop: {
+    position:'absolute',
     // bottom: sizes.screenHeight * 0.05,
     // marginBottom: 0,
-    top: sizes.screenHeight * 0.07,
+    top: sizes.screenHeight * 0.7,
   },
   label: {
     color: colors.black,

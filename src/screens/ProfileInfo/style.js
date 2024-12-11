@@ -67,7 +67,7 @@ export const styles = StyleSheet.create({
     padding: sizes.screenHeight * 0.02,
   },
   btnTop: {
-    marginTop: sizes.screenHeight * 0.04,
+    marginTop: sizes.screenHeight * 0.01,
   },
   errorText: {
     color: colors.error,

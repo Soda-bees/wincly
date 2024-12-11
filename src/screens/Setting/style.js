@@ -22,10 +22,15 @@ export const styles = StyleSheet.create({
     color: colors.black,
     fontWeight: 'bold',
   },
+  textRed: {
+    fontSize: fontSize.h6,
+    color: 'red',
+    fontWeight: 'bold',
+  },
   top: {
     marginTop: sizes.screenHeight * 0.02,
   },
   btnTop: {
-    marginTop: sizes.screenHeight * 0.3,
+    marginTop: sizes.screenHeight * 0.28,
   },
 });

@@ -45,7 +45,7 @@ export default function OTP({route, navigation}) {
       navigation.navigate('SelectLocation', {
         userData,
       });
-      setLoader(false)
+      setLoader(false);
     }, 700);
 
     // if (value == otp) {
@@ -79,7 +79,7 @@ export default function OTP({route, navigation}) {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-      <Image source={images.forgotPassbg} style={styles.bgImage} />
+        <Image source={images.forgotPassbg} style={styles.bgImage} />
         <View style={styles.content}>
           <Text style={styles.otpHead}>Verification Code</Text>
           <View style={styles.textView}>
@@ -122,13 +122,6 @@ export default function OTP({route, navigation}) {
             <Text style={styles.forgetText}>0:0{seconds}</Text>
           )}
         </View>
-        {/* <View style={[styles.row, styles.bottom]}>
-          <Text style={styles.forgetText}>Didn’t receive the OTP? </Text>
-          <TouchableOpacity>
-            <Text style={styles.resendText}>Resend</Text>
-          </TouchableOpacity>
-        </View> */}
-
         <View style={[styles.row, styles.footerbottom]}>
           {loader ? (
             <View style={styles.loader}>

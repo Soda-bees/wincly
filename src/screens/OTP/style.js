@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
     borderColor: colors.disabledBg,
     textAlign: 'center',
     color: colors.black,
-    borderRadius: sizes.screenWidth * 0.06,
+    borderRadius: sizes.screenWidth * 0.05,
   },
   focusCell: {
     borderColor: '#000',

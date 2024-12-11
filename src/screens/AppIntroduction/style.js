@@ -56,6 +56,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  
+  colorIOS: {
+    bottom: sizes.screenHeight * 0.13,
+    width: sizes.screenWidth * 0.25,
+    height: sizes.screenHeight * 0.12,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
   arrowContianer: {
     width: sizes.screenWidth * 0.25,
@@ -69,6 +78,13 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
   },
+
+  skipContainerIOS: {
+    bottom: sizes.screenHeight * 0.1,
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+
   skipText: {
     color: colors.gray,
     fontSize: fontSize.medium,

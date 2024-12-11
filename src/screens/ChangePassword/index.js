@@ -19,6 +19,7 @@ import {useSelector} from 'react-redux';
 import Modal from 'react-native-modal';
 import images from '../../services/utilities/images';
 import {ActivityIndicator, Checkbox} from 'react-native-paper';
+import BackButton from '../../components/BackButton';
 
 export default function ChangePassword({navigation}) {
   const {userDetalis} = useSelector(state => state.userDetailsSlice);
@@ -66,14 +67,15 @@ export default function ChangePassword({navigation}) {
   };
   return (
     <SafeAreaView>
-      <ScrollView
+      {/* <ScrollView
         contentContainerStyle={{
           flexGrow: 1,
-        }}>
+        }}> */}
         <View>
           <View style={styles.container}>
+            <BackButton title={'Change Password'} />
             <View style={styles.content}>
-              <Text style={styles.loginHead}>Change Password</Text>
+              {/* <Text style={styles.loginHead}>Change Password</Text> */}
               <View style={styles.textView}></View>
               <View style={styles.marginBottom}>
                 <View style={styles.top2}>
@@ -191,7 +193,7 @@ export default function ChangePassword({navigation}) {
             </View>
           </Modal>
         </View>
-      </ScrollView>
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 }
