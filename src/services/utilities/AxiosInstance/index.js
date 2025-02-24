@@ -1,7 +1,7 @@
 import axios from 'axios';
-// import backendURL from '../../config/backendURL';
+import backendURL from '../../config/backendURL';
 
-const backendURL = "http://192.168.100.59:5000/"
+// const backendURL = "http://192.168.100.59:5000/"
 
 const timeout = 10000
 

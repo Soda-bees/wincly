@@ -1,8 +1,8 @@
-import { Dimensions, StyleSheet } from 'react-native';
-import { colors, fontFamily, fontSize, sizes } from '../../services';
+import {Dimensions, StyleSheet} from 'react-native';
+import {colors, fontFamily, fontSize, sizes} from '../../services';
 
 export const styles = StyleSheet.create({
-  container: { height: sizes.screenHeight, backgroundColor: colors.white },
+  container: {height: sizes.screenHeight, backgroundColor: colors.white},
   header: {
     width: sizes.screenWidth,
     height: sizes.screenWidth * 0.2,
@@ -111,7 +111,7 @@ export const styles = StyleSheet.create({
     width: sizes.screenHeight * 0.08,
     borderRadius: sizes.screenWidth * 0.12,
     borderColor: colors.appTextColor1,
-    borderWidth: 2
+    borderWidth: 2,
   },
   mapImageIOS: {
     width: sizes.screenHeight * 0.09,
@@ -159,9 +159,9 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     width: sizes.screenWidth * 0.75,
-    marginBottom:sizes.screenHeight * 0.07
+    marginBottom: sizes.screenHeight * 0.07,
   },
-  noChatView: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+  noChatView: {flex: 1, alignItems: 'center', justifyContent: 'center'},
   noChatViewIOS: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -182,6 +182,6 @@ export const styles = StyleSheet.create({
   seenViewText: {
     color: colors.black,
     fontSize: fontSize.smallM,
-    fontWeight: '600'
-  }
+    fontWeight: '600',
+  },
 });

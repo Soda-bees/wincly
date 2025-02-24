@@ -124,7 +124,7 @@ export default function ProfileInfo({ route, navigation }) {
       <View style={styles.container}>
         <Image source={images.profileInfobg} style={styles.bgImage} />
         <View>
-          <BackButton skip={true} path="UploadPictures" userData={userData2} />
+          <BackButton skip={false} path="UploadPictures" userData={userData2} />
         </View>
         <View style={styles.top}>
           <TouchableOpacity onPress={imageGalleryLaunch}>

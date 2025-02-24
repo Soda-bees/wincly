@@ -62,11 +62,11 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>LaunchScreen</string>
+	<string>This app requires access to your camera to allow you to take and upload photos directly.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Your location is used to display nearby people and events while using the app.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>YOUR TEXT</string>
+	<string>This app requires access to your photo library to upload and select photos for your profile or booking needs.</string>
 	<key>NSPushNotificationsUsageDescription</key>
 	<string>Notifications are used to keep you updated on upcoming events.</string>
 	<key>UIAppFonts</key>
@@ -102,8 +102,12 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

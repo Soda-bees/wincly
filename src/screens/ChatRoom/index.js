@@ -1,4 +1,4 @@
-import React, { useState, scrollViewRef, scrollToEnd, useEffect } from 'react';
+import React, {useState, scrollViewRef, scrollToEnd, useEffect} from 'react';
 import {
   Image,
   ScrollView,
@@ -8,22 +8,24 @@ import {
   View,
   Platform,
   BackHandler,
+  KeyboardAvoidingView,
 } from 'react-native';
-import { styles } from './style';
+import {styles} from './style';
 import images from '../../services/utilities/images';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import socket from '../../services/config/io';
-import { ActivityIndicator } from 'react-native';
-import { colors, sizes } from '../../services';
+import {ActivityIndicator} from 'react-native';
+import {colors, sizes} from '../../services';
 import formatToJSON from '../../services/utilities/JsonLog';
 
-export default function ChatRoom({ route, navigation }) {
-  const { userDetalis } = useSelector(state => state.userDetailsSlice);
+export default function ChatRoom({route, navigation}) {
+  const {userDetalis} = useSelector(state => state.userDetailsSlice);
 
-  const { chatId } = route.params
+  const {chatId, isDeleted} = route.params;
 
+  console.log('mere bhaaaai', isDeleted);
 
   const [message, setMessage] = useState('');
   const [userStatus, setUserStatus] = useState();
@@ -39,7 +41,7 @@ export default function ChatRoom({ route, navigation }) {
     const handleCustomEvent = data => {
       if (chatId === data.chatroomId) {
         setOldMessages(oldMessage => [...oldMessage, data.data]);
-        console.log("chatRoom done");
+        console.log('chatRoom done');
       }
     };
 
@@ -52,7 +54,7 @@ export default function ChatRoom({ route, navigation }) {
 
   useEffect(() => {
     navigation.addListener('focus', () => {
-      getUserDetails()
+      getUserDetails();
     });
   }, [navigation]);
 
@@ -74,7 +76,7 @@ export default function ChatRoom({ route, navigation }) {
   };
   const handleSetSeenTrue = async () => {
     try {
-      const { data } = await axios.post(backendURL + 'api/wincly/updateSeenKey', {
+      const {data} = await axios.post(backendURL + 'api/wincly/updateSeenKey', {
         _id: chatId,
         uid: userDetalis._id,
       });
@@ -86,12 +88,14 @@ export default function ChatRoom({ route, navigation }) {
   const getUserDetails = async () => {
     try {
       console.log('works------------->>>>>>>>');
-      const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
+      const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
         _id: userDetalis._id,
       });
-      if (data.message === "User Data") {
-        const currChatData = data.data.allChats.filter(obj => obj._id === chatId)
-        handleSetName(data.data, currChatData[0])
+      if (data.message === 'User Data') {
+        const currChatData = data.data.allChats.filter(
+          obj => obj._id === chatId,
+        );
+        handleSetName(data.data, currChatData[0]);
       } else {
         console.log(data.message);
       }
@@ -127,14 +131,15 @@ export default function ChatRoom({ route, navigation }) {
     const currentHour = currentTime.getHours();
     const currentMinute = currentTime.getMinutes();
 
-    const period = currentHour >= 12 ? "PM" : "AM";
-    const formattedHour = currentHour % 12 || 12
-    const formattedTime = `${String(formattedHour).padStart(2, '0')}:${String(currentMinute).padStart(2, '0')} ${period}`;
-
+    const period = currentHour >= 12 ? 'PM' : 'AM';
+    const formattedHour = currentHour % 12 || 12;
+    const formattedTime = `${String(formattedHour).padStart(2, '0')}:${String(
+      currentMinute,
+    ).padStart(2, '0')} ${period}`;
 
     const time = `${todayDate} ${formattedTime}`;
     try {
-      const { data } = await axios.post(backendURL + 'api/wincly/sendMessage', {
+      const {data} = await axios.post(backendURL + 'api/wincly/sendMessage', {
         _id: chatId,
         obj: {
           uid: updatedUserDetails._id,
@@ -149,9 +154,9 @@ export default function ChatRoom({ route, navigation }) {
           data: data.data,
           chatroomId: data.chatroomId,
           receiverId: updatedUser2Details,
-          name: updatedUserDetails.username
-        }
-        socket.emit('sendMessage', obj)
+          name: updatedUserDetails.username,
+        };
+        socket.emit('sendMessage', obj);
       } else {
         console.log(data.message);
       }
@@ -189,10 +194,10 @@ export default function ChatRoom({ route, navigation }) {
   const handleGetUser2UserStatus = async _id => {
     console.log(_id);
     try {
-      const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
+      const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
         _id,
       });
-      if (data.message === "User Data") {
+      if (data.message === 'User Data') {
         const status = data.data.userStatus;
         setUserStatus(status);
       } else {
@@ -219,7 +224,7 @@ export default function ChatRoom({ route, navigation }) {
             <Image source={images.backArrow} style={styles.backIcon} />
           </TouchableOpacity>
           <View>
-            <Image source={{ uri: profile }} style={styles.profile2} />
+            <Image source={{uri: profile}} style={styles.profile2} />
           </View>
           <View>
             <Text style={styles.username}>{name}</Text>
@@ -229,9 +234,9 @@ export default function ChatRoom({ route, navigation }) {
       </View>
 
       <View style={styles.chatContainer}>
-        <View style={{ flex: 1 }}>
+        <View style={{flex: 1}}>
           {loader ? (
-            <View style={{ flex: 1, marginTop: sizes.screenHeight * 0.05 }}>
+            <View style={{flex: 1, marginTop: sizes.screenHeight * 0.05}}>
               <ActivityIndicator size={45} color={colors.appTextColor1} />
             </View>
           ) : (
@@ -240,7 +245,7 @@ export default function ChatRoom({ route, navigation }) {
               ref={scrollViewRef}
               nestedScrollEnabled={true}
               onContentSizeChange={(contentWidth, contentHeight) => {
-                scrollViewRef.current?.scrollTo({ y: contentHeight });
+                scrollViewRef.current?.scrollTo({y: contentHeight});
               }}>
               {oldMessage &&
                 oldMessage.map((item, index) => {
@@ -259,8 +264,7 @@ export default function ChatRoom({ route, navigation }) {
                           item.uid === updatedUserDetails?._id
                             ? styles.msgViewWithUid
                             : styles.msgViewWithoutUid
-                        }
-                      >
+                        }>
                         <Text style={styles.msgText}>{item.message}</Text>
                       </View>
                     </View>
@@ -268,28 +272,47 @@ export default function ChatRoom({ route, navigation }) {
                 })}
             </ScrollView>
           )}
-          <View style={styles.center}>
-            <View style={styles.searchView}>
-              <TextInput
-                placeholder="Write a message..."
-                style={styles.searchInput}
-                placeholderTextColor={'#656565'}
-                onChangeText={text => setMessage(text)}
-                multiline={true}
-                numberOfLines={4}
-                value={message}
-                onFocus={handleSetTyping}
-                onBlur={handleSetOnline}
-              />
-              <TouchableOpacity
-                style={styles.sendBtn}
-                onPress={() => {
-                  message && handleSendMessage();
-                }}>
-                <Image source={images.sendMsgImg} style={styles.sendImg} />
-              </TouchableOpacity>
-            </View>
-          </View>
+          {isDeleted ? (
+            <Text style={styles.textDelete}>This account is no longer available.</Text>
+          ) : (
+            <KeyboardAvoidingView
+              behavior="padding"
+              keyboardVerticalOffset={sizes.screenWidth * 0.5}>
+              <View
+                style={
+                  Platform.OS == 'android' ? styles.center : styles.centerIOS
+                }>
+                <View style={styles.searchView}>
+                  <TextInput
+                    placeholder="Write a message..."
+                    style={
+                      Platform.OS == 'android'
+                        ? styles.searchInput
+                        : styles.searchInputIOS
+                    }
+                    placeholderTextColor={'#656565'}
+                    onChangeText={text => setMessage(text)}
+                    multiline={true}
+                    numberOfLines={4}
+                    value={message}
+                    onFocus={handleSetTyping}
+                    onBlur={handleSetOnline}
+                  />
+                  <TouchableOpacity
+                    style={
+                      Platform.OS == 'android'
+                        ? styles.sendBtn
+                        : styles.sendBtnIOS
+                    }
+                    onPress={() => {
+                      message && handleSendMessage();
+                    }}>
+                    <Image source={images.sendMsgImg} style={styles.sendImg} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </KeyboardAvoidingView>
+          )}
         </View>
       </View>
     </View>

@@ -47,6 +47,7 @@ export default function Signin({ navigation, route }) {
         Platform.OS == 'ios'
           ? '113613496032-2tc275245o3143vv2253uipfh7352618.apps.googleusercontent.com'
           : '113613496032-mmto040pdamugpp2b0d91mkq10shov64.apps.googleusercontent.com',
+          scopes: ['email', 'profile'],
     });
   }, []);
   const handleSendDataForServer = data => {
@@ -183,7 +184,7 @@ export default function Signin({ navigation, route }) {
       if (data?.status == 200) {
         await revokeGoogleAccess()
         setGoogleLoader(false)
-        navigation.navigate('PhoneVerification', {
+        navigation.navigate('SelectLocation', {
           userData: {
             username: user?.displayName,
             email: user?.email,
@@ -333,14 +334,14 @@ export default function Signin({ navigation, route }) {
             Platform.OS == 'ios' ? styles.btnTopIOS : styles.btnTop,
             styles.row,
           ]}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
           // onPress={handleFacebook}
           >
             <View style={[styles.darkBtn, styles.row2]}>
               <Image source={images.fb} style={styles.fb} />
               <Text style={styles.darkBtnText}>Facebook</Text>
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={handleGoogle}
           >

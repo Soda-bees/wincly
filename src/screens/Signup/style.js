@@ -134,6 +134,7 @@ export const styles = StyleSheet.create({
   btnTopIOS: {
     marginTop: sizes.screenHeight * 0.05,
     marginBottom: sizes.screenHeight * 0.1,
+    alignSelf:'center'
   },
   row: {
     flexDirection: 'row',
@@ -238,9 +239,9 @@ export const styles = StyleSheet.create({
     padding: sizes.screenWidth * 0.01,
   },
   bgImage: {
-    height: sizes.screenHeight * 0.18,
+    height: sizes.screenHeight * 0.16,
     resizeMode:'cover',
     width: sizes.screenWidth,
-    marginBottom:sizes.screenHeight * 0.02
+    marginBottom:sizes.screenHeight * 0.04
   },
 });

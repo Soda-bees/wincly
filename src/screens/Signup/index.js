@@ -51,6 +51,7 @@ export default function Signup({navigation, route}) {
         Platform.OS == 'ios'
           ? '113613496032-2tc275245o3143vv2253uipfh7352618.apps.googleusercontent.com'
           : '113613496032-mmto040pdamugpp2b0d91mkq10shov64.apps.googleusercontent.com',
+      scopes: ['email', 'profile'],
     });
   }, []);
   const handleSignup = async () => {
@@ -89,7 +90,8 @@ export default function Signup({navigation, route}) {
           } else {
             setTimeout(() => {
               setError('');
-              navigation.navigate('PhoneVerification', {
+              // navigation.navigate('PhoneVerification', {
+              navigation.navigate('SelectLocation', {
                 userData: {
                   username,
                   email: updatedEmail,
@@ -279,8 +281,11 @@ export default function Signup({navigation, route}) {
     <SafeAreaView>
       <View style={styles.container}>
         <Image source={images.signUpbg} style={styles.bgImage} />
-        <KeyboardAwareScrollView scrollEnabled={false}  enableOnAndroid extraHeight={400}>
-          <View style={{marginTop:10}}>
+        <KeyboardAwareScrollView
+          scrollEnabled={false}
+          enableOnAndroid
+          extraHeight={400}>
+          <View style={{marginTop: 10}}>
             <View>
               <View
                 style={
@@ -429,14 +434,14 @@ export default function Signup({navigation, route}) {
                 Platform.OS == 'ios' ? styles.btnTopIOS : styles.btnTop,
                 styles.row,
               ]}>
-              <TouchableOpacity
+              {/* <TouchableOpacity
               // onPress={handleFacebook}
               >
                 <View style={[styles.darkBtn, styles.row2]}>
                   <Image source={images.fb} style={styles.fb} />
                   <Text style={styles.darkBtnText}>Facebook</Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity onPress={handleGoogle}>
                 <View style={[styles.greenBtn, styles.row2]}>
                   {googleLoader ? (

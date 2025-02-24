@@ -96,7 +96,7 @@ const MyTabs = () => {
     const keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
       () => {
-        console.log('Keyboard is open');
+        // console.log('Keyboard is open');
         setKeyboardOpen(true);
       },
     );
@@ -104,7 +104,7 @@ const MyTabs = () => {
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
       () => {
-        console.log('Keyboard is closed');
+        // console.log('Keyboard is closed');
         setKeyboardOpen(false);
       },
     );

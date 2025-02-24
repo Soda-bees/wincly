@@ -7,6 +7,7 @@ import {
   Platform,
   ScrollView,
   Image,
+  Alert,
 } from 'react-native';
 import {styles} from './style';
 import {colors, sizes} from '../../services';
@@ -29,32 +30,35 @@ export default function PhoneVerification({route, navigation}) {
   const phoneInput = useRef(null);
 
   const handleContinue = async () => {
+    // setLoader(true);
+    // setTimeout(() => {
+    //   userData.phoneNumber = formattedValue;
+    //   navigation.navigate('OTP', {
+    //     userData,
+    //   });
+    //   setLoader(false);
+    // }, 700);
+    if (!formattedValue) {
+      setLoader(false);
+      return Alert.alert('Please enter Phone Number');
+    }
     setLoader(true);
-    setTimeout(() => {
-      userData.phoneNumber = formattedValue;
+    const {data} = await axios.post(backendURL + 'api/wincly/otp', {
+      phone: formattedValue,
+    });
+    console.log('log1', data);
+    console.log('log2', data.data);
+
+    if (data.message === 'Send OTP successfully!') {
       navigation.navigate('OTP', {
+        otp: data.data,
         userData,
       });
       setLoader(false);
-    }, 700);
-
-    // setLoader(true)
-    // const{data} = await axios.post(backendURL + "api/wincly/otp" , {
-    //   phone:formattedValue
-    // })
-    // console.log("log1", data);
-    // console.log("log2", data.data);
-
-    // if(data.message === "Send OTP successfully!"){
-    // navigation.navigate('OTP' , {
-    //   otp:data.data,
-    //   userData
-    // });
-    // setLoader(false)
-    // }else{
-    //   setLoader(false)
-    //   alert(data.message)
-    // }
+    } else {
+      setLoader(false);
+      Alert.alert(data.message);
+    }
   };
   return (
     <SafeAreaView>

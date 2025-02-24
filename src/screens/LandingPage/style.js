@@ -7,11 +7,11 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   bg: {
-    height: sizes.screenHeight * 0.53,
+    height: sizes.screenHeight * 0.49,
     width: sizes.screenWidth,
   },
   padding: {
-    padding: sizes.screenHeight * 0.05,
+    padding: sizes.screenHeight * 0.03,
   },
   text: {
     textAlign: 'center',
@@ -19,11 +19,12 @@ export const styles = StyleSheet.create({
     fontSize: fontSize.medium,
   },
   btnTop: {
-    marginTop: sizes.screenHeight * 0.05,
-    marginBottom: sizes.screenHeight * 0.02,
+    marginTop: sizes.screenHeight * 0.04,
+    marginBottom: sizes.screenHeight * 0.01,
   },
   btnTopIOS: {
     marginTop: sizes.screenHeight * 0.03,
+    alignItems:'center'
   },
   row: {
     flexDirection: 'row',
@@ -70,6 +71,7 @@ export const styles = StyleSheet.create({
     left: sizes.screenWidth * 0.01,
   },
   btnView: {
-    right: sizes.screenWidth * 0.11,
+    // right: sizes.screenWidth * 0.11,
+    alignSelf: 'center',
   },
 });

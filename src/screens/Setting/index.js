@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Linking, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { styles } from './style';
+import React, {useEffect, useState} from 'react';
+import {
+  Linking,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {styles} from './style';
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
-import { useSelector, useDispatch } from 'react-redux';
-import { handleFalse } from '../../store/isSignedInSlice';
-import { handleRemoveUserDetails } from '../../store/userDetailsSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {handleFalse} from '../../store/isSignedInSlice';
+import {handleRemoveUserDetails} from '../../store/userDetailsSlice';
 import socket from '../../services/config/io';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import { setShowTutorialTrue } from '../../store/showTutorial';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import {setShowTutorialTrue} from '../../store/showTutorial';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-export default function Setting({ navigation }) {
-  const userData = useSelector((state) => state.userDetailsSlice.userDetalis)
+export default function Setting({navigation}) {
+  const userData = useSelector(state => state.userDetailsSlice.userDetalis);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,36 +28,40 @@ export default function Setting({ navigation }) {
         Platform.OS == 'ios'
           ? '113613496032-2tc275245o3143vv2253uipfh7352618.apps.googleusercontent.com'
           : '113613496032-mmto040pdamugpp2b0d91mkq10shov64.apps.googleusercontent.com',
+          scopes: ['email', 'profile'],
     });
   }, []);
 
-  const handleUpdateDevicToken = async (user) => {
+  const handleUpdateDevicToken = async user => {
     try {
-      const { data } = await axios.post(backendURL + "api/wincly/updateDeviceToken", {
-        _id: userData._id,
-        deviceToken: null
-      })
+      const {data} = await axios.post(
+        backendURL + 'api/wincly/updateDeviceToken',
+        {
+          _id: userData._id,
+          deviceToken: null,
+        },
+      );
       console.log(data.message);
     } catch (error) {
-      console.log("error in device token update");
+      console.log('error in device token update');
     }
-  }
+  };
 
   const handleSignOut = async () => {
     console.log(userData?.loginWith);
     if (userData?.loginWith === 'google') {
-      await revokeGoogleAccess()
-      dispatch(setShowTutorialTrue())
+      await revokeGoogleAccess();
+      dispatch(setShowTutorialTrue());
       dispatch(handleFalse());
       dispatch(handleRemoveUserDetails());
       socket.disconnect();
-      handleUpdateDevicToken()
+      handleUpdateDevicToken();
     } else {
-      dispatch(setShowTutorialTrue())
+      dispatch(setShowTutorialTrue());
       dispatch(handleFalse());
       dispatch(handleRemoveUserDetails());
       socket.disconnect();
-      handleUpdateDevicToken()
+      handleUpdateDevicToken();
     }
   };
 
@@ -66,8 +76,8 @@ export default function Setting({ navigation }) {
     }
   };
 
-  const openWebLinkPrivacyPolicy = (url) => {
-    Linking.openURL(url).catch((err) => console.error('An error occurred', err));
+  const openWebLinkPrivacyPolicy = url => {
+    Linking.openURL(url).catch(err => console.error('An error occurred', err));
   };
   return (
     <SafeAreaView>
@@ -82,23 +92,27 @@ export default function Setting({ navigation }) {
               <Text style={styles.text}>Edit Avatar</Text>
             </TouchableOpacity>
           </View>
-          {
-            userData?.loginWith === 'none' &&
+          {userData?.loginWith === 'none' && (
             <View style={styles.top}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('ChangePassword')}>
                 <Text style={styles.text}>Change Password</Text>
               </TouchableOpacity>
             </View>
-          }
+          )}
 
           <View style={styles.top}>
-            <TouchableOpacity onPress={() => openWebLinkPrivacyPolicy('https://wincly.simationstudio.com/privacy-policy/')}>
+            <TouchableOpacity
+              onPress={() =>
+                openWebLinkPrivacyPolicy(
+                  'https://wincly.simationstudio.com/privacy-policy/',
+                )
+              }>
               <Text style={styles.text}>Privacy Policy</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.top}>
-            <TouchableOpacity 
+            <TouchableOpacity
             // onPress={() => openWebLinkPrivacyPolicy('https://simationstudio.com/terms-conditions/')}
             >
               <Text style={styles.text}>Terms and Conditions</Text>
@@ -110,12 +124,23 @@ export default function Setting({ navigation }) {
             </TouchableOpacity>
           </View>
           <View style={styles.top}>
-          <TouchableOpacity onPress={() => openWebLinkPrivacyPolicy('https://wincly.simationstudio.com/about/')}>
-          <Text style={styles.text}>About</Text>
+            <TouchableOpacity
+              onPress={() =>
+                openWebLinkPrivacyPolicy(
+                  'https://wincly.simationstudio.com/about/',
+                )
+              }>
+              <Text style={styles.text}>About</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.top}>
-            <TouchableOpacity onPress={() => navigation.navigate('DeleteAccount')}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('DeleteAccount')}> */}
+            <TouchableOpacity
+              onPress={() =>
+                openWebLinkPrivacyPolicy(
+                  'https://wincluy-delete-user.netlify.app/',
+                )
+              }>
               <Text style={styles.textRed}>Delete Account</Text>
             </TouchableOpacity>
           </View>

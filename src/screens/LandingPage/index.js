@@ -24,7 +24,7 @@ import {sha256} from 'react-native-sha256';
 import {getFcmToken} from '../../services/config/notificationServices';
 import {useDispatch} from 'react-redux';
 import {ActivityIndicator} from 'react-native-paper';
-import {sizes} from '../../services';
+import {fontSize, sizes} from '../../services';
 import {setShowTutorialFalse} from '../../store/showTutorial';
 import {handleTrue} from '../../store/isSignedInSlice';
 import {handleAddUserDetails} from '../../store/userDetailsSlice';
@@ -44,6 +44,7 @@ export default function LandingPage({navigation}) {
         Platform.OS == 'ios'
           ? '113613496032-2tc275245o3143vv2253uipfh7352618.apps.googleusercontent.com'
           : '113613496032-mmto040pdamugpp2b0d91mkq10shov64.apps.googleusercontent.com',
+      scopes: ['email', 'profile'],
     });
   }, []);
 
@@ -56,7 +57,6 @@ export default function LandingPage({navigation}) {
   // useEffect(() => {
   //   getTokanForDB();
   // }, []);
-
 
   const getDeviceToken = async () => {
     try {
@@ -85,7 +85,6 @@ export default function LandingPage({navigation}) {
       return null;
     }
   };
-
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -259,7 +258,7 @@ export default function LandingPage({navigation}) {
       if (data?.status == 200) {
         await revokeGoogleAccess();
         setGoogleLoader(false);
-        navigation.navigate('PhoneVerification', {
+        navigation.navigate('SelectLocation', {
           userData: {
             username: user?.displayName,
             email: user?.email,
@@ -306,14 +305,28 @@ export default function LandingPage({navigation}) {
     }
   };
 
+  // const appleLogin = async () => {
+  //   try {
+  //     const authRes = await appleAuth.performRequest({
+  //       requestedOperation: appleAuth.Operation.LOGIN,
+  //       requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
+  //     });
+  //     console.log('Auth response:', authRes);
+  //   } catch (error) {
+  //     console.error('Apple login failed:', error);
+  //   }
+  // };
+
   return (
     <SafeAreaView>
       <View style={styles.container}>
         <Image source={images.landingBg} style={styles.bg} />
         <View style={styles.padding}>
           <Text style={styles.text}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor.
+            Wincly – Connect with friends who share your passions! Whether you
+            love movies, food, fitness, or tech, simply like or dislike topics
+            to find like-minded users. Send friend requests, chat, and bond over
+            shared interests.
           </Text>
           <View style={styles.btnTop}>
             <Button title={'Sign Up'} onPress={handleSignUp} />
@@ -325,12 +338,20 @@ export default function LandingPage({navigation}) {
                 Platform.OS == 'ios' ? styles.btnTopIOS : styles.btnTop,
                 styles.row,
               ]}>
-              <TouchableOpacity onPress={handleFacebook}>
+              {/* <Text
+                style={{
+                  marginRight: 15,
+                  fontSize: fontSize.large,
+                  fontWeight: '600',
+                }}>
+                Connect with:
+              </Text> */}
+              {/* <TouchableOpacity onPress={handleFacebook}>
                 <View style={[styles.darkBtn, styles.row2]}>
                   <Image source={images.fb} style={styles.fb} />
                   <Text style={styles.darkBtnText}>Facebook</Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               {/* <LoginButton
                 onLoginFinished={(error, result) => {
                   if (error) {

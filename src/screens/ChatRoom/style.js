@@ -1,5 +1,5 @@
-import { Dimensions, StyleSheet } from 'react-native';
-import { colors, fontFamily, fontSize, sizes } from '../../services';
+import {Dimensions, StyleSheet} from 'react-native';
+import {colors, fontFamily, fontSize, sizes} from '../../services';
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,6 +12,12 @@ export const styles = StyleSheet.create({
   center: {
     alignSelf: 'center',
     top: sizes.screenHeight * 0.01,
+  },
+
+  centerIOS: {
+    alignSelf: 'center',
+    // top: sizes.screenHeight * 0.02,
+    bottom: 10,
   },
   profile2: {
     height: sizes.screenHeight * 0.075,
@@ -48,8 +54,7 @@ export const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     backgroundColor: colors.appTextColor1,
     flexDirection: 'row',
-    marginBottom:sizes.screenHeight * 0.01,
-
+    marginBottom: sizes.screenHeight * 0.01,
     shadowColor: 'black',
     shadowOffset: {
       width: 0,
@@ -77,14 +82,19 @@ export const styles = StyleSheet.create({
     elevation: 9,
   },
   sendBtn: {
-    // right: sizes.screenWidth * 0.25, 
-    padding: sizes.screenWidth * 0.02
+    // right: sizes.screenWidth * 0.25,
+    padding: sizes.screenWidth * 0.02,
+  },
+  sendBtnIOS: {
+    paddingRight: sizes.screenWidth * 0.03,
+    paddingLeft: sizes.screenWidth * 0.01,
   },
   sendImg: {
     height: sizes.screenHeight * 0.03,
     width: sizes.screenHeight * 0.03,
     // backgroundColor:'pink'
   },
+
   searchInput: {
     height: sizes.screenHeight * 0.06,
     width: sizes.screenWidth * 0.75,
@@ -92,6 +102,15 @@ export const styles = StyleSheet.create({
     fontSize: fontSize.input,
     color: colors.black,
     // backgroundColor:'red'
+  },
+
+  searchInputIOS: {
+    // height: sizes.screenHeight * 0.06,
+    width: sizes.screenWidth * 0.75,
+    paddingLeft: sizes.screenWidth * 0.05,
+    fontSize: fontSize.input,
+    color: colors.black,
+    alignItems: 'center',
   },
   row: {
     flexDirection: 'row',
@@ -199,5 +218,13 @@ export const styles = StyleSheet.create({
   msgText: {
     fontSize: fontSize.medium,
     color: '#000',
+  },
+
+  textDelete: {
+    marginBottom: sizes.screenWidth * 0.07,
+    color: 'red',
+    fontWeight: '600',
+    fontSize: fontSize.h6,
+    alignSelf:'center',
   },
 });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   ImageBackground,
@@ -10,22 +10,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { styles } from './style';
+import {styles} from './style';
 import images from '../../services/utilities/images';
 import Button from '../../components/Button';
 import Feather from 'react-native-vector-icons/Feather';
-import { colors, fontSize, sizes } from '../../services';
+import {colors, fontSize, sizes} from '../../services';
 import axios from 'axios';
 import backendURL from '../../services/config/backendURL';
-import { useSelector } from 'react-redux';
-import { ActivityIndicator } from 'react-native';
+import {useSelector} from 'react-redux';
+import {ActivityIndicator} from 'react-native';
 import socket from '../../services/config/io';
 import formatToJSON from '../../services/utilities/JsonLog';
-import { useIsFocused, useRoute } from '@react-navigation/native';
-import { parse, format, isDate, isValid, isToday } from 'date-fns';
+import {useIsFocused, useRoute} from '@react-navigation/native';
+import {parse, format, isDate, isValid, isToday} from 'date-fns';
 
-export default function Chat({ navigation }) {
-  const { userDetalis } = useSelector(state => state.userDetailsSlice);
+export default function Chat({navigation}) {
+  const {userDetalis} = useSelector(state => state.userDetailsSlice);
   const route = useRoute();
   const [message, setMessage] = useState([
     {
@@ -77,20 +77,18 @@ export default function Chat({ navigation }) {
   const [unreadMsg, setUnreadMsg] = useState('');
   const [currUserDetails, setCurrUserDetails] = useState();
   const [searchQuery, setSearchQuery] = useState('');
-  const handleSearch = () => { };
+  const handleSearch = () => {};
 
   useEffect(() => {
-
     navigation.addListener('focus', () => {
       getSingleUserDetails();
     });
   }, [navigation]);
 
-
   useEffect(() => {
     const handleCustomEvent = data => {
       // console.log("socket data chat", data);
-      const newAllChat = [...allChatData]
+      const newAllChat = [...allChatData];
       // // console.log(formatToJSON(newAllChat));
       const object = newAllChat.find(obj => obj._id === data.chatroomId);
       if (object) {
@@ -111,7 +109,7 @@ export default function Chat({ navigation }) {
 
   const getSingleUserDetails = async () => {
     try {
-      const { data } = await axios.post(backendURL + 'api/wincly/singleUser', {
+      const {data} = await axios.post(backendURL + 'api/wincly/singleUser', {
         _id: userDetalis._id,
       });
       setCurrUserDetails(data.data);
@@ -123,7 +121,7 @@ export default function Chat({ navigation }) {
     }
   };
 
-  const parseTime = (timeString) => {
+  const parseTime = timeString => {
     try {
       const parsedTime = parse(timeString, 'MM-dd-yyyy hh:mm a', new Date());
       return isValid(parsedTime) ? parsedTime.getTime() : null;
@@ -132,6 +130,8 @@ export default function Chat({ navigation }) {
       return null;
     }
   };
+
+  console.log('data is data', formatToJSON(allChatData));
 
   return (
     <SafeAreaView>
@@ -154,7 +154,7 @@ export default function Chat({ navigation }) {
               style={Platform.OS == 'ios' ? styles.inputIOS : styles.input}
               placeholderTextColor={colors.disabledBg2}
               value={searchQuery}
-              onChangeText={(text) => setSearchQuery(text)}
+              onChangeText={text => setSearchQuery(text)}
             />
             <TouchableOpacity
               style={{
@@ -182,7 +182,10 @@ export default function Chat({ navigation }) {
         )}
 
         {loader ? (
-          <View style={Platform.OS == 'ios' ? styles.loaderViewIOS : styles.loaderView}>
+          <View
+            style={
+              Platform.OS == 'ios' ? styles.loaderViewIOS : styles.loaderView
+            }>
             <ActivityIndicator size={'large'} color={colors.appTextColor1} />
           </View>
         ) : allChatData.length > 0 ? (
@@ -492,25 +495,41 @@ export default function Chat({ navigation }) {
                   </TouchableOpacity>
                 ))}
             </View> */}
-            <View style={{ alignSelf: 'center' }}>
+            <View style={{alignSelf: 'center'}}>
               {allChatData
                 .map(item => {
                   const messages = item.messages || [];
-                  const oppositeMessage = messages.filter(obj => obj.uid !== userDetalis._id);
-                  const unseenMessages = oppositeMessage.filter(obj => obj.seen === false);
+                  const oppositeMessage = messages.filter(
+                    obj => obj.uid !== userDetalis._id,
+                  );
+                  const unseenMessages = oppositeMessage.filter(
+                    obj => obj.seen === false,
+                  );
+                  const isDeleted = item?.userDetails
+                    ? item?.userDetails2?.isDeleted
+                    : item?.userDetails?.isDeleted;
+                  console.log('isDeleted Chahiye', isDeleted);
                   return {
                     chatItem: item,
                     unseenMessagesLength: unseenMessages.length,
-                    lastMessage: messages.length > 0 ? messages[messages.length - 1].message : '',
-                    lastMessageTime: messages.length > 0 ? messages[messages.length - 1].time : '',
+                    lastMessage:
+                      messages.length > 0
+                        ? messages[messages.length - 1].message
+                        : '',
+                    lastMessageTime:
+                      messages.length > 0
+                        ? messages[messages.length - 1].time
+                        : '',
+                    isDeleted,
                   };
                 })
-                .filter(({ chatItem }) => {
+                .filter(({chatItem}) => {
                   // Filter based on search query
                   const searchString = searchQuery.toLowerCase();
-                  const username = chatItem.userDetails._id === userDetalis._id
-                    ? chatItem.userDetails2.username.toLowerCase()
-                    : chatItem.userDetails.username.toLowerCase();
+                  const username =
+                    chatItem.userDetails._id === userDetalis._id
+                      ? chatItem.userDetails2.username.toLowerCase()
+                      : chatItem.userDetails.username.toLowerCase();
                   return username.includes(searchString);
                 })
                 .sort((a, b) => {
@@ -532,56 +551,85 @@ export default function Chat({ navigation }) {
                   // If one or both times are not valid, don't change their order
                   return 0;
                 })
-                .map(({ chatItem, unseenMessagesLength, lastMessage, lastMessageTime }, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => navigation.navigate('ChatRoom', { chatId: chatItem._id })}>
-                    <View style={styles.mapView}>
-                      <View style={styles.mapInnerView}>
-                        <View
-                          style={
-                            Platform.OS == 'ios'
-                              ? styles.mapImageViewIOS
-                              : styles.mapImageView
-                          }>
-                          <Image
-                            source={
-                              chatItem.userDetails._id === userDetalis._id
-                                ? { uri: chatItem.userDetails2.profileImg }
-                                : { uri: chatItem.userDetails.profileImg }
-                            }
+                .map(
+                  (
+                    {
+                      chatItem,
+                      unseenMessagesLength,
+                      lastMessage,
+                      lastMessageTime,
+                      isDeleted,
+                    },
+                    index,
+                  ) => (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate('ChatRoom', {
+                          chatId: chatItem._id,
+                          isDeleted,
+                        })
+                      }>
+                      <View style={styles.mapView}>
+                        <View style={styles.mapInnerView}>
+                          <View
                             style={
                               Platform.OS == 'ios'
-                                ? styles.mapImageIOS
-                                : styles.mapImage
-                            }
-                          />
+                                ? styles.mapImageViewIOS
+                                : styles.mapImageView
+                            }>
+                            <Image
+                              source={
+                                chatItem.userDetails._id === userDetalis._id
+                                  ? {uri: chatItem.userDetails2.profileImg}
+                                  : {uri: chatItem.userDetails.profileImg}
+                              }
+                              style={
+                                Platform.OS == 'ios'
+                                  ? styles.mapImageIOS
+                                  : styles.mapImage
+                              }
+                            />
+                          </View>
+                          <View>
+                            {isDeleted ? (
+                              <Text style={styles.text1}>Wincly User</Text>
+                            ) : (
+                              <Text style={styles.text1}>
+                                {chatItem.userDetails._id === userDetalis._id
+                                  ? chatItem.userDetails2.username
+                                  : chatItem.userDetails.username}
+                              </Text>
+                            )}
+
+                            <Text style={styles.text2} numberOfLines={2}>
+                              {lastMessage}
+                            </Text>
+                          </View>
                         </View>
                         <View>
-                          <Text style={styles.text1}>
-                            {chatItem.userDetails._id === userDetalis._id
-                              ? chatItem.userDetails2.username
-                              : chatItem.userDetails.username}
+                          <Text style={styles.time}>
+                            {isValid(parseTime(lastMessageTime))
+                              ? format(parseTime(lastMessageTime), 'hh:mm a')
+                              : ''}
                           </Text>
-                          <Text style={styles.text2} numberOfLines={2}>
-                            {lastMessage}
-                          </Text>
+                          {unseenMessagesLength > 0 &&
+                            lastMessage &&
+                            chatItem.messages &&
+                            chatItem.messages.length > 0 &&
+                            chatItem.messages[chatItem.messages.length - 1]
+                              .seen === false && (
+                              <View style={styles.seenView}>
+                                <Text style={styles.seenViewText}>
+                                  {unseenMessagesLength}
+                                </Text>
+                              </View>
+                            )}
                         </View>
                       </View>
-                      <View>
-                        <Text style={styles.time}>
-                          {isValid(parseTime(lastMessageTime)) ? format(parseTime(lastMessageTime), 'hh:mm a') : ''}
-                        </Text>
-                        {unseenMessagesLength > 0 && lastMessage && chatItem.messages && chatItem.messages.length > 0 &&
-                          chatItem.messages[chatItem.messages.length - 1].seen === false && (
-                            <View style={styles.seenView}>
-                              <Text style={styles.seenViewText}>{unseenMessagesLength}</Text>
-                            </View>
-                          )}
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                ))}
+                    </TouchableOpacity>
+                  ),
+                )}
             </View>
             <View
               style={
@@ -592,11 +640,10 @@ export default function Chat({ navigation }) {
           </ScrollView>
         ) : (
           <View
-            style={Platform.OS == 'ios' ? styles.noChatViewIOS : styles.noChatView}
-          >
-            <Text
-              style={styles.noChatText}
-            >
+            style={
+              Platform.OS == 'ios' ? styles.noChatViewIOS : styles.noChatView
+            }>
+            <Text style={styles.noChatText}>
               Your inbox is currently empty. There are no messages to display at
               this time.
             </Text>

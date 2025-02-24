@@ -168,6 +168,7 @@ export const styles = StyleSheet.create({
   btnTopIOS: {
     marginTop: sizes.screenHeight * 0.05,
     marginBottom: sizes.screenHeight * 0.1,
+    alignSelf:'center'
   },
   row: {
     flexDirection: 'row',
@@ -233,7 +234,7 @@ export const styles = StyleSheet.create({
     borderRadius: sizes.screenWidth * 0.03,
   },
   bgImage: {
-    height: sizes.screenHeight * 0.26,
+    height: sizes.screenHeight * 0.24,
     resizeMode:'cover',
     width: sizes.screenWidth,
     marginBottom:sizes.screenHeight * 0.06
